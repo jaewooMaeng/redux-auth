@@ -50,7 +50,7 @@
   "devDependencies": {
     "babel-cli": "6.3.13",
     "babel-core": "6.3.13",
-    "babel-loader": "6.1.0",
+    "babel-loader": "^7.1.1",
     "babel-polyfill": "6.3.13",
     "babel-preset-es2015": "6.3.13",
     "babel-preset-react": "6.3.13",
@@ -112,7 +112,7 @@
     "thunk": "^0.0.1",
     "url-loader": "^0.5.6",
     "warning": "^2.1.0",
-    "webpack": "1.12.9",
+    "webpack": "^3.0.0",
     "webpack-dev-server": "1.14.0"
   },
   "peerDependencies": {
