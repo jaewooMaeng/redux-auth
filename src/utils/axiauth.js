@@ -79,7 +79,7 @@ export default function (options={}) {
   if (!options.headers) {
     options.headers = {}
   }
-  extend(options.headers, getAuthHeaders(url));
+  extend(options.headers, getAuthHeaders(options.url));
   return axios(options)
   .then(resp => updateAuthCredentials(resp));
 }
