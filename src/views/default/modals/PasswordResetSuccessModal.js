@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { Modal, Button, Glyphicon } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import ButtonLoader from "../ButtonLoader";
 import Input from "../Input";
 import { connect } from "react-redux";
@@ -93,7 +93,7 @@ class PasswordResetSuccessModal extends React.Component {
               loading={loading}
               type="submit"
               className="password-reset-success-modal-submit"
-              icon={<Glyphicon glyph="lock" />}
+              icon={null}
               onClick={this.handleSubmit.bind(this)}
               {...this.props.inputProps.submit} />
           </Modal.Footer>
