@@ -4490,7 +4490,7 @@ react-addons-transition-group@^15.2.0:
   dependencies:
     react-transition-group "^1.2.0"
 
-react-bootstrap@1.0.0:
+react-bootstrap@^0.31.0:
   version "0.31.0"
   resolved "https://registry.yarnpkg.com/react-bootstrap/-/react-bootstrap-0.31.0.tgz#bbca804c0404d9c640102b2b656ae4cd5bea35c8"
   dependencies:
