@@ -70,3 +70,4 @@ export {
 
 /* utils */
 export {default as fetch} from "./utils/fetch";
+export {default as axiauth} from "./utils/axiauth";
