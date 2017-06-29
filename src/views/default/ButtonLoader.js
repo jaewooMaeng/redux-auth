@@ -81,7 +81,9 @@ class ButtonLoader extends React.Component {
     return (
       <button
         disabled={this.props.disabled || this.props.loading}
+        className={this.props.className}
         style={style}
+        type={this.props.type}
         onClick={this.handleClick.bind(this)}>
         {this.renderIcon()} {this.props.children}
       </button>
