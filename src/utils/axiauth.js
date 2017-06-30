@@ -21,10 +21,9 @@ const isApiRequest = function(url) {
  * @returns {object} New extended headers object, with Authorization property
  */
 export function addAuthorizationHeader(accessToken, headers) {
-  return {
-    ...headers,
+  return Object.assign({}, headers, {
     Authorization: `Bearer ${accessToken}`
-  }
+  });
 }
 
 function getAuthHeaders(url) {
