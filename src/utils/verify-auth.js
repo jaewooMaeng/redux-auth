@@ -58,10 +58,7 @@ export function fetchToken({rawEndpoints, cookies, currentLocation}) {
         currentEndpointKey = JSON.parse(rawCookies[C.SAVED_CONFIG_KEY] || "null");
         mustResetPassword  = JSON.parse(parsedCookies.mustResetPassword || "false");
         firstTimeLogin     = JSON.parse(parsedCookies.firstTimeLogin || "false");
-        console.log('cookie', headers);
       }
-
-      console.log('global', headers);
 
       if (!headers) {
         return reject({
