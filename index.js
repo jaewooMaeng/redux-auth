@@ -2722,6 +2722,15 @@ Object.defineProperty(exports, "destroyAccount", {
   }
 });
 
+var _verifyAuth = __webpack_require__(48);
+
+Object.defineProperty(exports, "verifyAuth", {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_verifyAuth).default;
+  }
+});
+
 var _sessionStorage = __webpack_require__(10);
 
 Object.defineProperty(exports, "getApiUrl", {
@@ -2938,10 +2947,6 @@ var _destroyAccount3 = _interopRequireDefault(_destroyAccount2);
 
 var _reduxImmutablejs = __webpack_require__(11);
 
-var _verifyAuth2 = __webpack_require__(48);
-
-var _verifyAuth3 = _interopRequireDefault(_verifyAuth2);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /* reducers */
@@ -2962,7 +2967,6 @@ var authStateReducer = exports.authStateReducer = (0, _reduxImmutablejs.combineR
 });
 
 /* actions */
-exports.verifyAuth = _verifyAuth3.default;
 
 /***/ }),
 /* 59 */

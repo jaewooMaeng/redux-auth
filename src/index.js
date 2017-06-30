@@ -41,7 +41,7 @@ export {requestPasswordReset, requestPasswordResetFormUpdate} from "./actions/re
 export {updatePassword, updatePasswordFormUpdate} from "./actions/update-password";
 export {updatePasswordModal, updatePasswordModalFormUpdate} from "./actions/update-password-modal";
 export {destroyAccount} from "./actions/destroy-account";
-export verifyAuth from "./utils/verify-auth";
+export {default as verifyAuth} from "./utils/verify-auth";
 export {getApiUrl} from "./utils/session-storage";
 export {
   hideEmailSignInSuccessModal,
