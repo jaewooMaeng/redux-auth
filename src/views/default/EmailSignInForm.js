@@ -55,7 +55,7 @@ class EmailSignInForm extends React.Component {
       <form className='redux-auth email-sign-in-form'
             style={{clear: "both", overflow: "hidden"}}
             onSubmit={this.handleSubmit.bind(this)}>
-        <Input type="text"
+        <Input type="email"
                className="email-sign-in-email"
                label="Email"
                disabled={disabled}

@@ -53,12 +53,13 @@ class EmailSignUpForm extends React.Component {
       this.props.auth.getIn(["user", "isSignedIn"]) ||
       this.props.auth.getIn(["emailSignUp", this.getEndpoint(), "loading"])
     );
+    const { fields } = this.props;
 
     return (
       <form className='redux-auth email-sign-up-form'
             style={{clear: "both", overflow: "hidden"}}
             onSubmit={this.handleSubmit.bind(this)}>
-        <Input type="text"
+        <Input type="email"
                label="Email"
                className="email-sign-up-email"
                disabled={disabled}
@@ -85,6 +86,16 @@ class EmailSignUpForm extends React.Component {
                onChange={this.handleInput.bind(this, "password_confirmation")}
                {...this.props.inputProps.passwordConfirmation} />
 
+        {fields.map((field) => (
+          <Input type={field.type || "text"}
+                 label={field.label || ""}
+                 className={`email-sign-up-${field.key}`}
+                 disabled={disabled}
+                 value={this.props.auth.getIn(["emailSignUp", this.getEndpoint(), "form", field.key])}
+                 errors={this.props.auth.getIn(["emailSignUp", this.getEndpoint(), "errors", field.key])}
+                 onChange={this.handleInput.bind(this, field.key)}
+                 {...this.props.inputProps.fields} />
+        ))}
         <ButtonLoader loading={this.props.auth.getIn(["emailSignUp", this.getEndpoint(), "loading"])}
                       type="submit"
                       className="email-sign-up-submit"
