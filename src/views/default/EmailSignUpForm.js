@@ -89,7 +89,7 @@ class EmailSignUpForm extends React.Component {
         {fields.map((field, i) => (
           <Input key={i}
                  type={field.type || "text"}
-                 label={field.label || ""}
+                 label={field.label || field.key}
                  className={`email-sign-up-${field.key}`}
                  disabled={disabled}
                  value={this.props.auth.getIn(["emailSignUp", this.getEndpoint(), "form", field.key])}
