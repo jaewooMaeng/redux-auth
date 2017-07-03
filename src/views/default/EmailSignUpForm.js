@@ -86,8 +86,9 @@ class EmailSignUpForm extends React.Component {
                onChange={this.handleInput.bind(this, "password_confirmation")}
                {...this.props.inputProps.passwordConfirmation} />
 
-        {fields.map((field) => (
-          <Input type={field.type || "text"}
+        {fields.map((field, i) => (
+          <Input key={i}
+                 type={field.type || "text"}
                  label={field.label || ""}
                  className={`email-sign-up-${field.key}`}
                  disabled={disabled}
