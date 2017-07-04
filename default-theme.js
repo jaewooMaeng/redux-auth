@@ -379,7 +379,6 @@ var ButtonLoader = function (_React$Component) {
           style: style,
           type: this.props.type,
           onClick: this.handleClick.bind(this) },
-        this.renderIcon(),
         " ",
         this.props.children
       );
@@ -2757,7 +2756,7 @@ var EmailSignUpForm = function (_React$Component) {
         fields.map(function (field, i) {
           return _react2.default.createElement(_Input2.default, _extends({ key: i,
             type: field.type || "text",
-            label: field.label || "",
+            label: field.label || field.key,
             className: "email-sign-up-" + field.key,
             disabled: disabled,
             value: _this2.props.auth.getIn(["emailSignUp", _this2.getEndpoint(), "form", field.key]),

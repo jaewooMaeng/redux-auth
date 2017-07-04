@@ -85,7 +85,7 @@ class ButtonLoader extends React.Component {
         style={style}
         type={this.props.type}
         onClick={this.handleClick.bind(this)}>
-        {this.renderIcon()} {this.props.children}
+        {/*this.renderIcon()*/} {this.props.children}
       </button>
     );
   }
