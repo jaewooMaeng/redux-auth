@@ -2614,7 +2614,7 @@ var EmailSignInForm = function (_React$Component) {
             onClick: this.handleSubmit.bind(this),
             primary: true
           }, this.props.inputProps.submit),
-          "Sign In"
+          this.props.inputProps.submit.title || 'Sign In'
         )
       );
     }
@@ -2775,7 +2775,7 @@ var EmailSignUpForm = function (_React$Component) {
             disabled: disabled,
             onClick: this.handleSubmit.bind(this)
           }, this.props.inputProps.submit),
-          "Sign Up"
+          this.props.inputProps.submit.title || 'Sign Up'
         )
       );
     }

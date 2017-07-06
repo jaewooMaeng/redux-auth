@@ -106,7 +106,7 @@ class EmailSignUpForm extends React.Component {
                       disabled={disabled}
                       onClick={this.handleSubmit.bind(this)}
                       {...this.props.inputProps.submit}>
-          Sign Up
+          {this.props.inputProps.submit.title || 'Sign Up'}
         </ButtonLoader>
       </form>
     );

@@ -82,7 +82,7 @@ class EmailSignInForm extends React.Component {
                       onClick={this.handleSubmit.bind(this)}
                       primary={true}
                       {...this.props.inputProps.submit}>
-          Sign In
+          {this.props.inputProps.submit.title || 'Sign In'}
         </ButtonLoader>
       </form>
     );
