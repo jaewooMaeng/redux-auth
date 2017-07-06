@@ -4733,10 +4733,9 @@ exports.default = (0, _reduxImmutablejs.createReducer)(_immutable2.default.fromJ
 }), _defineProperty(_createReducer, A.EMAIL_SIGN_UP_ERROR, function (state, _ref4) {
   var endpoint = _ref4.endpoint,
       errors = _ref4.errors;
-  return state.mergeDeep(_defineProperty({}, endpoint, {
-    loading: false,
-    errors: errors
-  }));
+  return state.update(endpoint, function (st) {
+    return st.set('loading', false).set('errors', errors);
+  });
 }), _defineProperty(_createReducer, A.EMAIL_SIGN_UP_FORM_UPDATE, function (state, _ref5) {
   var endpoint = _ref5.endpoint,
       key = _ref5.key,
