@@ -2753,7 +2753,7 @@ var EmailSignUpForm = function (_React$Component) {
           errors: this.props.auth.getIn(["emailSignUp", this.getEndpoint(), "errors", "password_confirmation"]),
           onChange: this.handleInput.bind(this, "password_confirmation")
         }, this.props.inputProps.passwordConfirmation)),
-        fields.map(function (field, i) {
+        fields && fields.map(function (field, i) {
           return _react2.default.createElement(_Input2.default, _extends({ key: i,
             type: field.type || "text",
             label: field.label || field.key,
