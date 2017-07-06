@@ -591,7 +591,7 @@ var AuthInput = function (_React$Component) {
           className: this.props.className,
           disabled: this.props.disabled,
           value: this.props.value,
-          placeholder: this.props.label || this.props.placeholder,
+          placeholder: this.props.placeholder || this.props.label,
           onChange: this.handleInput.bind(this) }),
         this.renderErrorList()
       );
