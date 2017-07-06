@@ -1164,24 +1164,24 @@ AuthGlobals.propTypes = {
   passwordResetErrorEnabled: _propTypes2.default.bool
 };
 AuthGlobals.defaultProps = {
-  signOutSuccessEnabled: true,
-  signOutErrorEnabled: true,
-  emailSignInSuccessEnabled: true,
-  emailSignInErrorEnabled: true,
-  oAuthSignInSuccessEnabled: true,
-  oAuthSignInErrorEnabled: true,
-  emailSignUpSuccessEnabled: true,
-  emailSignUpErrorEnabled: true,
-  firstTimeLoginSuccessEnabled: true,
-  firstTimeLoginErrorEnabled: true,
-  requestPasswordResetErrorEnabled: true,
-  requestPasswordResetSuccessEnabled: true,
-  updatePasswordErrorEnabled: true,
-  updatePasswordSuccessEnabled: true,
-  destroyAccountErrorEnabled: true,
-  destroyAccountSuccessEnabled: true,
-  passwordResetSuccessEnabled: true,
-  passwordResetErrorEnabled: true
+  signOutSuccessEnabled: false,
+  signOutErrorEnabled: false,
+  emailSignInSuccessEnabled: false,
+  emailSignInErrorEnabled: false,
+  oAuthSignInSuccessEnabled: false,
+  oAuthSignInErrorEnabled: false,
+  emailSignUpSuccessEnabled: false,
+  emailSignUpErrorEnabled: false,
+  firstTimeLoginSuccessEnabled: false,
+  firstTimeLoginErrorEnabled: false,
+  requestPasswordResetErrorEnabled: false,
+  requestPasswordResetSuccessEnabled: false,
+  updatePasswordErrorEnabled: false,
+  updatePasswordSuccessEnabled: false,
+  destroyAccountErrorEnabled: false,
+  destroyAccountSuccessEnabled: false,
+  passwordResetSuccessEnabled: false,
+  passwordResetErrorEnabled: false
 };
 exports.default = (0, _reactRedux.connect)(function (_ref) {
   var auth = _ref.auth;
