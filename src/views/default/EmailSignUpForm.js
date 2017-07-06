@@ -68,6 +68,20 @@ class EmailSignUpForm extends React.Component {
                onChange={this.handleInput.bind(this, "email")}
                {...this.props.inputProps.email} />
 
+        {fields && fields.map((field, i) => (
+          <Input key={i}
+                 type={field.type || "text"}
+                 label={field.label || field.key}
+                 className={`email-sign-up-${field.key}`}
+                 disabled={disabled}
+                 value={this.props.auth.getIn(["emailSignUp", this.getEndpoint(), "form", field.key])}
+                 errors={this.props.auth.getIn(["emailSignUp", this.getEndpoint(), "errors", field.key])}
+                 onChange={this.handleInput.bind(this, field.key)}
+                 {...field.props} />
+        ))}
+
+        {this.props.children}
+
         <Input type="password"
                label="Password"
                className="email-sign-up-password"
@@ -86,17 +100,6 @@ class EmailSignUpForm extends React.Component {
                onChange={this.handleInput.bind(this, "password_confirmation")}
                {...this.props.inputProps.passwordConfirmation} />
 
-        {fields && fields.map((field, i) => (
-          <Input key={i}
-                 type={field.type || "text"}
-                 label={field.label || field.key}
-                 className={`email-sign-up-${field.key}`}
-                 disabled={disabled}
-                 value={this.props.auth.getIn(["emailSignUp", this.getEndpoint(), "form", field.key])}
-                 errors={this.props.auth.getIn(["emailSignUp", this.getEndpoint(), "errors", field.key])}
-                 onChange={this.handleInput.bind(this, field.key)}
-                 {...field.props} />
-        ))}
         <ButtonLoader loading={this.props.auth.getIn(["emailSignUp", this.getEndpoint(), "loading"])}
                       type="submit"
                       className="email-sign-up-submit"

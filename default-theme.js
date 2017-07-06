@@ -2737,6 +2737,18 @@ var EmailSignUpForm = function (_React$Component) {
           errors: this.props.auth.getIn(["emailSignUp", this.getEndpoint(), "errors", "email"]),
           onChange: this.handleInput.bind(this, "email")
         }, this.props.inputProps.email)),
+        fields && fields.map(function (field, i) {
+          return _react2.default.createElement(_Input2.default, _extends({ key: i,
+            type: field.type || "text",
+            label: field.label || field.key,
+            className: "email-sign-up-" + field.key,
+            disabled: disabled,
+            value: _this2.props.auth.getIn(["emailSignUp", _this2.getEndpoint(), "form", field.key]),
+            errors: _this2.props.auth.getIn(["emailSignUp", _this2.getEndpoint(), "errors", field.key]),
+            onChange: _this2.handleInput.bind(_this2, field.key)
+          }, field.props));
+        }),
+        this.props.children,
         _react2.default.createElement(_Input2.default, _extends({ type: "password",
           label: "Password",
           className: "email-sign-up-password",
@@ -2753,17 +2765,6 @@ var EmailSignUpForm = function (_React$Component) {
           errors: this.props.auth.getIn(["emailSignUp", this.getEndpoint(), "errors", "password_confirmation"]),
           onChange: this.handleInput.bind(this, "password_confirmation")
         }, this.props.inputProps.passwordConfirmation)),
-        fields && fields.map(function (field, i) {
-          return _react2.default.createElement(_Input2.default, _extends({ key: i,
-            type: field.type || "text",
-            label: field.label || field.key,
-            className: "email-sign-up-" + field.key,
-            disabled: disabled,
-            value: _this2.props.auth.getIn(["emailSignUp", _this2.getEndpoint(), "form", field.key]),
-            errors: _this2.props.auth.getIn(["emailSignUp", _this2.getEndpoint(), "errors", field.key]),
-            onChange: _this2.handleInput.bind(_this2, field.key)
-          }, field.props));
-        }),
         _react2.default.createElement(
           _ButtonLoader2.default,
           _extends({ loading: this.props.auth.getIn(["emailSignUp", this.getEndpoint(), "loading"]),
