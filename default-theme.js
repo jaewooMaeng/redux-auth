@@ -2762,7 +2762,7 @@ var EmailSignUpForm = function (_React$Component) {
             value: _this2.props.auth.getIn(["emailSignUp", _this2.getEndpoint(), "form", field.key]),
             errors: _this2.props.auth.getIn(["emailSignUp", _this2.getEndpoint(), "errors", field.key]),
             onChange: _this2.handleInput.bind(_this2, field.key)
-          }, _this2.props.inputProps.fields));
+          }, field.props));
         }),
         _react2.default.createElement(
           _ButtonLoader2.default,
@@ -2775,7 +2775,7 @@ var EmailSignUpForm = function (_React$Component) {
             disabled: disabled,
             onClick: this.handleSubmit.bind(this)
           }, this.props.inputProps.submit),
-          this.props.inputProps.submit.title || 'Sign Up'
+          this.props.inputProps.submit && this.props.inputProps.submit.title || 'Sign Up'
         )
       );
     }

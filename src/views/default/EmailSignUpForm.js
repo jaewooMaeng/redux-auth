@@ -95,7 +95,7 @@ class EmailSignUpForm extends React.Component {
                  value={this.props.auth.getIn(["emailSignUp", this.getEndpoint(), "form", field.key])}
                  errors={this.props.auth.getIn(["emailSignUp", this.getEndpoint(), "errors", field.key])}
                  onChange={this.handleInput.bind(this, field.key)}
-                 {...this.props.inputProps.fields} />
+                 {...field.props} />
         ))}
         <ButtonLoader loading={this.props.auth.getIn(["emailSignUp", this.getEndpoint(), "loading"])}
                       type="submit"
@@ -106,7 +106,7 @@ class EmailSignUpForm extends React.Component {
                       disabled={disabled}
                       onClick={this.handleSubmit.bind(this)}
                       {...this.props.inputProps.submit}>
-          {this.props.inputProps.submit.title || 'Sign Up'}
+          {(this.props.inputProps.submit && this.props.inputProps.submit.title) || 'Sign Up'}
         </ButtonLoader>
       </form>
     );
