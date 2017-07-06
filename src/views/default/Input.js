@@ -26,12 +26,7 @@ class AuthInput extends React.Component {
           {this.props.errors.map((err, i) => {
             return (
               <p className="inline-error-item"
-                 style={{paddingLeft: "20px", position: "relative", marginBottom: "28px"}}
                  key={i}>
-                <i style={{
-                  position: "absolute",
-                  left: 0,
-                  top: 0}}>{"✗"}</i>
                 {this.props.label} {err}
               </p>
             );
@@ -54,7 +49,7 @@ class AuthInput extends React.Component {
           value={this.props.value}
           placeholder={this.props.placeholder || this.props.label}
           onChange={this.handleInput.bind(this)} />
-        {this.renderErrorList()}
+          {this.renderErrorList()}
       </div>
     );
   }

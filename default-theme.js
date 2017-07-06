@@ -555,16 +555,7 @@ var AuthInput = function (_React$Component) {
             return _react2.default.createElement(
               "p",
               { className: "inline-error-item",
-                style: { paddingLeft: "20px", position: "relative", marginBottom: "28px" },
                 key: i },
-              _react2.default.createElement(
-                "i",
-                { style: {
-                    position: "absolute",
-                    left: 0,
-                    top: 0 } },
-                "✗"
-              ),
               _this2.props.label,
               " ",
               err
