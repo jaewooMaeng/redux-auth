@@ -8,19 +8,19 @@ export const UPDATE_ACCOUNT_COMPLETE    = "UPDATE_ACCOUNT_COMPLETE";
 export const UPDATE_ACCOUNT_ERROR       = "UPDATE_ACCOUNT_ERROR";
 export const UPDATE_ACCOUNT_FORM_UPDATE = "UPDATE_ACCOUNT_FORM_UPDATE";
 
-export function updateAccountFormUpdate(endpoint, key, value) {
+export const updateAccountFormUpdate = (endpoint, key, value) => {
   return { type: UPDATE_ACCOUNT_FORM_UPDATE, endpoint, key, value };
 }
-export function updateAccountStart(endpoint) {
+export const updateAccountStart = (endpoint) => {
   return { type: UPDATE_ACCOUNT_START, endpoint };
 }
-export function updateAccountComplete(user, endpoint) {
+export const updateAccountComplete =(user, endpoint) => {
   return { type: UPDATE_ACCOUNT_COMPLETE, user, endpoint };
 }
-export function updateAccountError(errors, endpoint) {
+export const updateAccountError = (errors, endpoint) => {
   return { type: UPDATE_ACCOUNT_ERROR, errors, endpoint };
 }
-export function updateAccount(body, endpointKey) {
+export const updateAccount = (body, endpointKey) => {
   return dispatch => {
     dispatch(updateAccountStart(endpointKey));
 

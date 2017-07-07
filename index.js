@@ -4965,12 +4965,7 @@ exports.default = (0, _reduxImmutablejs.createReducer)(_immutable2.default.fromJ
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.UPDATE_ACCOUNT_FORM_UPDATE = exports.UPDATE_ACCOUNT_ERROR = exports.UPDATE_ACCOUNT_COMPLETE = exports.UPDATE_ACCOUNT_START = undefined;
-exports.updateAccountFormUpdate = updateAccountFormUpdate;
-exports.updateAccountStart = updateAccountStart;
-exports.updateAccountComplete = updateAccountComplete;
-exports.updateAccountError = updateAccountError;
-exports.updateAccount = updateAccount;
+exports.updateAccount = exports.updateAccountError = exports.updateAccountComplete = exports.updateAccountStart = exports.updateAccountFormUpdate = exports.UPDATE_ACCOUNT_FORM_UPDATE = exports.UPDATE_ACCOUNT_ERROR = exports.UPDATE_ACCOUNT_COMPLETE = exports.UPDATE_ACCOUNT_START = undefined;
 
 var _sessionStorage = __webpack_require__(9);
 
@@ -4991,19 +4986,19 @@ var UPDATE_ACCOUNT_COMPLETE = exports.UPDATE_ACCOUNT_COMPLETE = "UPDATE_ACCOUNT_
 var UPDATE_ACCOUNT_ERROR = exports.UPDATE_ACCOUNT_ERROR = "UPDATE_ACCOUNT_ERROR";
 var UPDATE_ACCOUNT_FORM_UPDATE = exports.UPDATE_ACCOUNT_FORM_UPDATE = "UPDATE_ACCOUNT_FORM_UPDATE";
 
-function updateAccountFormUpdate(endpoint, key, value) {
+var updateAccountFormUpdate = exports.updateAccountFormUpdate = function updateAccountFormUpdate(endpoint, key, value) {
   return { type: UPDATE_ACCOUNT_FORM_UPDATE, endpoint: endpoint, key: key, value: value };
-}
-function updateAccountStart(endpoint) {
+};
+var updateAccountStart = exports.updateAccountStart = function updateAccountStart(endpoint) {
   return { type: UPDATE_ACCOUNT_START, endpoint: endpoint };
-}
-function updateAccountComplete(user, endpoint) {
+};
+var updateAccountComplete = exports.updateAccountComplete = function updateAccountComplete(user, endpoint) {
   return { type: UPDATE_ACCOUNT_COMPLETE, user: user, endpoint: endpoint };
-}
-function updateAccountError(errors, endpoint) {
+};
+var updateAccountError = exports.updateAccountError = function updateAccountError(errors, endpoint) {
   return { type: UPDATE_ACCOUNT_ERROR, errors: errors, endpoint: endpoint };
-}
-function updateAccount(body, endpointKey) {
+};
+var updateAccount = exports.updateAccount = function updateAccount(body, endpointKey) {
   return function (dispatch) {
     dispatch(updateAccountStart(endpointKey));
 
@@ -5032,7 +5027,7 @@ function updateAccount(body, endpointKey) {
       throw errors;
     });
   };
-}
+};
 
 /***/ }),
 /* 96 */
