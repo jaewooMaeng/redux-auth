@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 58);
+/******/ 	return __webpack_require__(__webpack_require__.s = 59);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -107,7 +107,7 @@ var _ui = __webpack_require__(34);
 
 var _server = __webpack_require__(26);
 
-var _clientSettings = __webpack_require__(59);
+var _clientSettings = __webpack_require__(60);
 
 var _sessionStorage = __webpack_require__(9);
 
@@ -119,7 +119,7 @@ var _parseUrl = __webpack_require__(35);
 
 var _parseUrl2 = _interopRequireDefault(_parseUrl);
 
-var _reactRouterRedux = __webpack_require__(64);
+var _reactRouterRedux = __webpack_require__(65);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -312,7 +312,7 @@ exports.removeData = removeData;
 exports.persistData = persistData;
 exports.retrieveData = retrieveData;
 
-var _browserCookies = __webpack_require__(60);
+var _browserCookies = __webpack_require__(61);
 
 var _browserCookies2 = _interopRequireDefault(_browserCookies);
 
@@ -660,8 +660,8 @@ function updateAuthCredentials(resp) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var bind = __webpack_require__(49);
-var isBuffer = __webpack_require__(69);
+var bind = __webpack_require__(50);
+var isBuffer = __webpack_require__(70);
 
 /*global toString:true*/
 
@@ -1308,7 +1308,7 @@ var _fetch = __webpack_require__(12);
 
 var _fetch2 = _interopRequireDefault(_fetch);
 
-var _popup = __webpack_require__(65);
+var _popup = __webpack_require__(66);
 
 var _popup2 = _interopRequireDefault(_popup);
 
@@ -1612,7 +1612,7 @@ exports.normalizeTokenKeys = normalizeTokenKeys;
 exports.getAllParams = getAllParams;
 exports.default = getRedirectInfo;
 
-var _querystring = __webpack_require__(62);
+var _querystring = __webpack_require__(63);
 
 var _querystring2 = _interopRequireDefault(_querystring);
 
@@ -1965,7 +1965,7 @@ function updatePasswordModal(body, endpointKey) {
 /* WEBPACK VAR INJECTION */(function(process) {
 
 var utils = __webpack_require__(13);
-var normalizeHeaderName = __webpack_require__(71);
+var normalizeHeaderName = __webpack_require__(72);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -1981,10 +1981,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(50);
+    adapter = __webpack_require__(51);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(50);
+    adapter = __webpack_require__(51);
   }
   return adapter;
 }
@@ -2165,7 +2165,7 @@ var _isomorphicFetch = __webpack_require__(46);
 
 var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 
-var _cookie = __webpack_require__(61);
+var _cookie = __webpack_require__(62);
 
 var _cookie2 = _interopRequireDefault(_cookie);
 
@@ -2183,7 +2183,7 @@ var _parseEndpointConfig3 = __webpack_require__(47);
 
 var _parseEndpointConfig4 = _interopRequireDefault(_parseEndpointConfig3);
 
-var _url = __webpack_require__(63);
+var _url = __webpack_require__(64);
 
 var _url2 = _interopRequireDefault(_url);
 
@@ -2346,6 +2346,80 @@ exports.default = verifyAuth;
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.updateAccount = exports.updateAccountError = exports.updateAccountComplete = exports.updateAccountStart = exports.updateAccountFormUpdate = exports.UPDATE_ACCOUNT_FORM_UPDATE = exports.UPDATE_ACCOUNT_ERROR = exports.UPDATE_ACCOUNT_COMPLETE = exports.UPDATE_ACCOUNT_START = undefined;
+
+var _sessionStorage = __webpack_require__(9);
+
+var _handleFetchResponse = __webpack_require__(16);
+
+var _extend = __webpack_require__(14);
+
+var _extend2 = _interopRequireDefault(_extend);
+
+var _fetch = __webpack_require__(12);
+
+var _fetch2 = _interopRequireDefault(_fetch);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UPDATE_ACCOUNT_START = exports.UPDATE_ACCOUNT_START = "UPDATE_ACCOUNT_START";
+var UPDATE_ACCOUNT_COMPLETE = exports.UPDATE_ACCOUNT_COMPLETE = "UPDATE_ACCOUNT_COMPLETE";
+var UPDATE_ACCOUNT_ERROR = exports.UPDATE_ACCOUNT_ERROR = "UPDATE_ACCOUNT_ERROR";
+var UPDATE_ACCOUNT_FORM_UPDATE = exports.UPDATE_ACCOUNT_FORM_UPDATE = "UPDATE_ACCOUNT_FORM_UPDATE";
+
+var updateAccountFormUpdate = exports.updateAccountFormUpdate = function updateAccountFormUpdate(endpoint, key, value) {
+  return { type: UPDATE_ACCOUNT_FORM_UPDATE, endpoint: endpoint, key: key, value: value };
+};
+var updateAccountStart = exports.updateAccountStart = function updateAccountStart(endpoint) {
+  return { type: UPDATE_ACCOUNT_START, endpoint: endpoint };
+};
+var updateAccountComplete = exports.updateAccountComplete = function updateAccountComplete(user, endpoint) {
+  return { type: UPDATE_ACCOUNT_COMPLETE, user: user, endpoint: endpoint };
+};
+var updateAccountError = exports.updateAccountError = function updateAccountError(errors, endpoint) {
+  return { type: UPDATE_ACCOUNT_ERROR, errors: errors, endpoint: endpoint };
+};
+var updateAccount = exports.updateAccount = function updateAccount(body, endpointKey) {
+  return function (dispatch) {
+    dispatch(updateAccountStart(endpointKey));
+
+    var data = new FormData();
+    for (var key in body) {
+      if (body[key]) {
+        data.append(key, body[key]);
+      }
+    }
+    data.append('confirm_success_url', getConfirmationSuccessUrl());
+
+    return (0, _fetch2.default)((0, _sessionStorage.getAccountUpdateUrl)(endpointKey), {
+      //headers: {
+      //"Accept": "application/json",
+      //'Content-Type': 'multipart/form-data',
+      //},
+      method: "put",
+      body: data
+    }).then(_handleFetchResponse.parseResponse).then(function (_ref) {
+      var data = _ref.data;
+      return dispatch(updateAccountComplete(data, endpointKey));
+    }).catch(function (_ref2) {
+      var errors = _ref2.errors;
+
+      dispatch(updateAccountError(errors, endpointKey));
+      throw errors;
+    });
+  };
+};
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 module.exports = function bind(fn, thisArg) {
   return function wrap() {
     var args = new Array(arguments.length);
@@ -2357,19 +2431,19 @@ module.exports = function bind(fn, thisArg) {
 };
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(13);
-var settle = __webpack_require__(72);
-var buildURL = __webpack_require__(74);
-var parseHeaders = __webpack_require__(75);
-var isURLSameOrigin = __webpack_require__(76);
-var createError = __webpack_require__(51);
-var btoa = typeof window !== 'undefined' && window.btoa && window.btoa.bind(window) || __webpack_require__(77);
+var settle = __webpack_require__(73);
+var buildURL = __webpack_require__(75);
+var parseHeaders = __webpack_require__(76);
+var isURLSameOrigin = __webpack_require__(77);
+var createError = __webpack_require__(52);
+var btoa = typeof window !== 'undefined' && window.btoa && window.btoa.bind(window) || __webpack_require__(78);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -2462,7 +2536,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(78);
+      var cookies = __webpack_require__(79);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ? cookies.read(config.xsrfCookieName) : undefined;
@@ -2537,13 +2611,13 @@ module.exports = function xhrAdapter(config) {
 };
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var enhanceError = __webpack_require__(73);
+var enhanceError = __webpack_require__(74);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -2561,7 +2635,7 @@ module.exports = function createError(message, config, code, request, response) 
 };
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2572,7 +2646,7 @@ module.exports = function isCancel(value) {
 };
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2598,11 +2672,11 @@ Cancel.prototype.__CANCEL__ = true;
 module.exports = Cancel;
 
 /***/ }),
-/* 54 */,
 /* 55 */,
 /* 56 */,
 /* 57 */,
-/* 58 */
+/* 58 */,
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2611,7 +2685,7 @@ module.exports = Cancel;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.axiauth = exports.fetch = exports.hideDestroyAccountErrorModal = exports.hideDestroyAccountSuccessModal = exports.hideUpdatePasswordErrorModal = exports.hideUpdatePasswordSuccessModal = exports.hidePasswordResetRequestErrorModal = exports.hidePasswordResetRequestSuccessModal = exports.hidePasswordResetErrorModal = exports.hideFirstTimeLoginErrorModal = exports.showPasswordResetErrorModal = exports.showFirstTimeLoginErrorModal = exports.hidePasswordResetSuccessModal = exports.hideFirstTimeLoginSuccessModal = exports.showPasswordResetSuccessModal = exports.showFirstTimeLoginSuccessModal = exports.hideEmailSignUpErrorModal = exports.hideEmailSignUpSuccessModal = exports.hideSignOutErrorModal = exports.hideSignOutSuccessModal = exports.hideOAuthSignInErrorModal = exports.hideOAuthSignInSuccessModal = exports.hideEmailSignInErrorModal = exports.hideEmailSignInSuccessModal = exports.getApiUrl = exports.verifyAuth = exports.destroyAccount = exports.updatePasswordModalFormUpdate = exports.updatePasswordModal = exports.updatePasswordFormUpdate = exports.updatePassword = exports.requestPasswordResetFormUpdate = exports.requestPasswordReset = exports.oAuthSignIn = exports.emailSignUpFormUpdate = exports.emailSignUp = exports.signOut = exports.emailSignInFormUpdate = exports.emailSignIn = exports.authenticate = exports.configure = exports.authStateReducer = undefined;
+exports.axiauth = exports.fetch = exports.hideDestroyAccountErrorModal = exports.hideDestroyAccountSuccessModal = exports.hideUpdatePasswordErrorModal = exports.hideUpdatePasswordSuccessModal = exports.hidePasswordResetRequestErrorModal = exports.hidePasswordResetRequestSuccessModal = exports.hidePasswordResetErrorModal = exports.hideFirstTimeLoginErrorModal = exports.showPasswordResetErrorModal = exports.showFirstTimeLoginErrorModal = exports.hidePasswordResetSuccessModal = exports.hideFirstTimeLoginSuccessModal = exports.showPasswordResetSuccessModal = exports.showFirstTimeLoginSuccessModal = exports.hideEmailSignUpErrorModal = exports.hideEmailSignUpSuccessModal = exports.hideSignOutErrorModal = exports.hideSignOutSuccessModal = exports.hideOAuthSignInErrorModal = exports.hideOAuthSignInSuccessModal = exports.hideEmailSignInErrorModal = exports.hideEmailSignInSuccessModal = exports.getApiUrl = exports.verifyAuth = exports.destroyAccount = exports.updatePasswordModalFormUpdate = exports.updatePasswordModal = exports.updatePasswordFormUpdate = exports.updatePassword = exports.updateAccountFormUpdate = exports.updateAccount = exports.requestPasswordResetFormUpdate = exports.requestPasswordReset = exports.oAuthSignIn = exports.emailSignUpFormUpdate = exports.emailSignUp = exports.signOut = exports.emailSignInFormUpdate = exports.emailSignIn = exports.authenticate = exports.configure = exports.authStateReducer = undefined;
 
 var _configure = __webpack_require__(5);
 
@@ -2691,6 +2765,21 @@ Object.defineProperty(exports, "requestPasswordResetFormUpdate", {
   enumerable: true,
   get: function get() {
     return _requestPasswordReset.requestPasswordResetFormUpdate;
+  }
+});
+
+var _updateAccount = __webpack_require__(49);
+
+Object.defineProperty(exports, "updateAccount", {
+  enumerable: true,
+  get: function get() {
+    return _updateAccount.updateAccount;
+  }
+});
+Object.defineProperty(exports, "updateAccountFormUpdate", {
+  enumerable: true,
+  get: function get() {
+    return _updateAccount.updateAccountFormUpdate;
   }
 });
 
@@ -2895,7 +2984,7 @@ Object.defineProperty(exports, "fetch", {
   }
 });
 
-var _axiauth = __webpack_require__(66);
+var _axiauth = __webpack_require__(67);
 
 Object.defineProperty(exports, "axiauth", {
   enumerable: true,
@@ -2904,41 +2993,41 @@ Object.defineProperty(exports, "axiauth", {
   }
 });
 
-var _authenticate2 = __webpack_require__(86);
+var _authenticate2 = __webpack_require__(87);
 
 var _authenticate3 = _interopRequireDefault(_authenticate2);
 
-var _configure2 = __webpack_require__(87);
+var _configure2 = __webpack_require__(88);
 
 var _configure3 = _interopRequireDefault(_configure2);
 
-var _user = __webpack_require__(88);
+var _user = __webpack_require__(89);
 
 var _user2 = _interopRequireDefault(_user);
 
-var _ui2 = __webpack_require__(89);
+var _ui2 = __webpack_require__(90);
 
 var _ui3 = _interopRequireDefault(_ui2);
 
-var _emailSignIn2 = __webpack_require__(90);
+var _emailSignIn2 = __webpack_require__(91);
 
 var _emailSignIn3 = _interopRequireDefault(_emailSignIn2);
 
-var _emailSignUp2 = __webpack_require__(91);
+var _emailSignUp2 = __webpack_require__(92);
 
 var _emailSignUp3 = _interopRequireDefault(_emailSignUp2);
 
-var _oauthSignIn2 = __webpack_require__(92);
+var _oauthSignIn2 = __webpack_require__(93);
 
 var _oauthSignIn3 = _interopRequireDefault(_oauthSignIn2);
 
-var _requestPasswordReset2 = __webpack_require__(93);
+var _requestPasswordReset2 = __webpack_require__(94);
 
 var _requestPasswordReset3 = _interopRequireDefault(_requestPasswordReset2);
 
-var _updateAccount = __webpack_require__(94);
+var _updateAccount2 = __webpack_require__(95);
 
-var _updateAccount2 = _interopRequireDefault(_updateAccount);
+var _updateAccount3 = _interopRequireDefault(_updateAccount2);
 
 var _updatePassword2 = __webpack_require__(96);
 
@@ -2973,7 +3062,7 @@ var authStateReducer = exports.authStateReducer = (0, _reduxImmutablejs.combineR
   authentication: _authenticate3.default,
   requestPasswordReset: _requestPasswordReset3.default,
   oAuthSignIn: _oauthSignIn3.default,
-  updateAccount: _updateAccount2.default,
+  updateAccount: _updateAccount3.default,
   updatePassword: _updatePassword3.default,
   updatePasswordModal: _updatePasswordModal3.default,
   destroyAccount: _destroyAccount3.default,
@@ -2985,7 +3074,7 @@ var authStateReducer = exports.authStateReducer = (0, _reduxImmutablejs.combineR
 /* actions */
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3134,37 +3223,37 @@ function applyConfig() {
 }
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports) {
 
 module.exports = require("browser-cookies");
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports) {
 
 module.exports = require("cookie");
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports) {
 
 module.exports = require("querystring");
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports) {
 
 module.exports = require("url");
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router-redux");
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3239,7 +3328,7 @@ function openPopup(provider, url, name) {
 }
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3262,7 +3351,7 @@ exports.default = function () {
   });
 };
 
-var _axios = __webpack_require__(67);
+var _axios = __webpack_require__(68);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -3346,24 +3435,24 @@ function updateAuthCredentials(resp) {
 }
 
 /***/ }),
-/* 67 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = __webpack_require__(68);
-
-/***/ }),
 /* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
+module.exports = __webpack_require__(69);
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var utils = __webpack_require__(13);
-var bind = __webpack_require__(49);
-var Axios = __webpack_require__(70);
+var bind = __webpack_require__(50);
+var Axios = __webpack_require__(71);
 var defaults = __webpack_require__(39);
 
 /**
@@ -3397,15 +3486,15 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(53);
-axios.CancelToken = __webpack_require__(84);
-axios.isCancel = __webpack_require__(52);
+axios.Cancel = __webpack_require__(54);
+axios.CancelToken = __webpack_require__(85);
+axios.isCancel = __webpack_require__(53);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(85);
+axios.spread = __webpack_require__(86);
 
 module.exports = axios;
 
@@ -3413,7 +3502,7 @@ module.exports = axios;
 module.exports.default = axios;
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3442,7 +3531,7 @@ function isSlowBuffer(obj) {
 }
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3450,10 +3539,10 @@ function isSlowBuffer(obj) {
 
 var defaults = __webpack_require__(39);
 var utils = __webpack_require__(13);
-var InterceptorManager = __webpack_require__(79);
-var dispatchRequest = __webpack_require__(80);
-var isAbsoluteURL = __webpack_require__(82);
-var combineURLs = __webpack_require__(83);
+var InterceptorManager = __webpack_require__(80);
+var dispatchRequest = __webpack_require__(81);
+var isAbsoluteURL = __webpack_require__(83);
+var combineURLs = __webpack_require__(84);
 
 /**
  * Create a new instance of Axios
@@ -3534,7 +3623,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 module.exports = Axios;
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3552,13 +3641,13 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 };
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createError = __webpack_require__(51);
+var createError = __webpack_require__(52);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -3578,7 +3667,7 @@ module.exports = function settle(resolve, reject, response) {
 };
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3606,7 +3695,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 };
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3673,7 +3762,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 };
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3718,7 +3807,7 @@ module.exports = function parseHeaders(headers) {
 };
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3787,7 +3876,7 @@ function nonStandardBrowserEnv() {
 }();
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3828,7 +3917,7 @@ function btoa(input) {
 module.exports = btoa;
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3887,7 +3976,7 @@ function nonStandardBrowserEnv() {
 }();
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3945,15 +4034,15 @@ InterceptorManager.prototype.forEach = function forEach(fn) {
 module.exports = InterceptorManager;
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(13);
-var transformData = __webpack_require__(81);
-var isCancel = __webpack_require__(52);
+var transformData = __webpack_require__(82);
+var isCancel = __webpack_require__(53);
 var defaults = __webpack_require__(39);
 
 /**
@@ -4011,7 +4100,7 @@ module.exports = function dispatchRequest(config) {
 };
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4037,7 +4126,7 @@ module.exports = function transformData(data, headers, fns) {
 };
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4059,7 +4148,7 @@ module.exports = function isAbsoluteURL(url) {
 };
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4078,13 +4167,13 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 };
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Cancel = __webpack_require__(53);
+var Cancel = __webpack_require__(54);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -4141,7 +4230,7 @@ CancelToken.source = function source() {
 module.exports = CancelToken;
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4175,7 +4264,7 @@ module.exports = function spread(callback) {
 };
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4226,7 +4315,7 @@ exports.default = (0, _reduxImmutablejs.createReducer)(initialState, (_createRed
 }), _createReducer));
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4291,7 +4380,7 @@ exports.default = (0, _reduxImmutablejs.createReducer)(initialState, (_createRed
 }), _createReducer));
 
 /***/ }),
-/* 88 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4420,7 +4509,7 @@ exports.default = (0, _reduxImmutablejs.createReducer)(initialState, (_createRed
 }), _createReducer));
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4632,7 +4721,7 @@ exports.default = (0, _reduxImmutablejs.createReducer)(initialState, (_createRed
 }), _createReducer));
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4698,7 +4787,7 @@ exports.default = (0, _reduxImmutablejs.createReducer)(_immutable2.default.fromJ
 }), _createReducer));
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4764,7 +4853,7 @@ exports.default = (0, _reduxImmutablejs.createReducer)(_immutable2.default.fromJ
 }), _createReducer));
 
 /***/ }),
-/* 92 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4824,7 +4913,7 @@ exports.default = (0, _reduxImmutablejs.createReducer)(_immutable2.default.fromJ
 }), _createReducer));
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4890,7 +4979,7 @@ exports.default = (0, _reduxImmutablejs.createReducer)(_immutable2.default.fromJ
 }), _createReducer));
 
 /***/ }),
-/* 94 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4908,7 +4997,7 @@ var _immutable2 = _interopRequireDefault(_immutable);
 
 var _reduxImmutablejs = __webpack_require__(10);
 
-var _updateAccount = __webpack_require__(95);
+var _updateAccount = __webpack_require__(49);
 
 var A = _interopRequireWildcard(_updateAccount);
 
@@ -4954,80 +5043,6 @@ exports.default = (0, _reduxImmutablejs.createReducer)(_immutable2.default.fromJ
     form: _defineProperty({}, key, value)
   }));
 }), _createReducer));
-
-/***/ }),
-/* 95 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.updateAccount = exports.updateAccountError = exports.updateAccountComplete = exports.updateAccountStart = exports.updateAccountFormUpdate = exports.UPDATE_ACCOUNT_FORM_UPDATE = exports.UPDATE_ACCOUNT_ERROR = exports.UPDATE_ACCOUNT_COMPLETE = exports.UPDATE_ACCOUNT_START = undefined;
-
-var _sessionStorage = __webpack_require__(9);
-
-var _handleFetchResponse = __webpack_require__(16);
-
-var _extend = __webpack_require__(14);
-
-var _extend2 = _interopRequireDefault(_extend);
-
-var _fetch = __webpack_require__(12);
-
-var _fetch2 = _interopRequireDefault(_fetch);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var UPDATE_ACCOUNT_START = exports.UPDATE_ACCOUNT_START = "UPDATE_ACCOUNT_START";
-var UPDATE_ACCOUNT_COMPLETE = exports.UPDATE_ACCOUNT_COMPLETE = "UPDATE_ACCOUNT_COMPLETE";
-var UPDATE_ACCOUNT_ERROR = exports.UPDATE_ACCOUNT_ERROR = "UPDATE_ACCOUNT_ERROR";
-var UPDATE_ACCOUNT_FORM_UPDATE = exports.UPDATE_ACCOUNT_FORM_UPDATE = "UPDATE_ACCOUNT_FORM_UPDATE";
-
-var updateAccountFormUpdate = exports.updateAccountFormUpdate = function updateAccountFormUpdate(endpoint, key, value) {
-  return { type: UPDATE_ACCOUNT_FORM_UPDATE, endpoint: endpoint, key: key, value: value };
-};
-var updateAccountStart = exports.updateAccountStart = function updateAccountStart(endpoint) {
-  return { type: UPDATE_ACCOUNT_START, endpoint: endpoint };
-};
-var updateAccountComplete = exports.updateAccountComplete = function updateAccountComplete(user, endpoint) {
-  return { type: UPDATE_ACCOUNT_COMPLETE, user: user, endpoint: endpoint };
-};
-var updateAccountError = exports.updateAccountError = function updateAccountError(errors, endpoint) {
-  return { type: UPDATE_ACCOUNT_ERROR, errors: errors, endpoint: endpoint };
-};
-var updateAccount = exports.updateAccount = function updateAccount(body, endpointKey) {
-  return function (dispatch) {
-    dispatch(updateAccountStart(endpointKey));
-
-    var data = new FormData();
-    for (var key in body) {
-      if (body[key]) {
-        data.append(key, body[key]);
-      }
-    }
-    data.append('confirm_success_url', getConfirmationSuccessUrl());
-
-    return (0, _fetch2.default)((0, _sessionStorage.getAccountUpdateUrl)(endpointKey), {
-      //headers: {
-      //"Accept": "application/json",
-      //'Content-Type': 'multipart/form-data',
-      //},
-      method: "put",
-      body: data
-    }).then(_handleFetchResponse.parseResponse).then(function (_ref) {
-      var data = _ref.data;
-      return dispatch(updateAccountComplete(data, endpointKey));
-    }).catch(function (_ref2) {
-      var errors = _ref2.errors;
-
-      dispatch(updateAccountError(errors, endpointKey));
-      throw errors;
-    });
-  };
-};
 
 /***/ }),
 /* 96 */

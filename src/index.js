@@ -40,6 +40,7 @@ export {signOut} from "./actions/sign-out";
 export {emailSignUp, emailSignUpFormUpdate} from "./actions/email-sign-up";
 export {oAuthSignIn} from "./actions/oauth-sign-in";
 export {requestPasswordReset, requestPasswordResetFormUpdate} from "./actions/request-password-reset";
+export {updateAccount, updateAccountFormUpdate} from './actions/update-account';
 export {updatePassword, updatePasswordFormUpdate} from "./actions/update-password";
 export {updatePasswordModal, updatePasswordModalFormUpdate} from "./actions/update-password-modal";
 export {destroyAccount} from "./actions/destroy-account";
