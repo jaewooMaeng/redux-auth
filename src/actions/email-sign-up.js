@@ -23,7 +23,7 @@ export function emailSignUpError(errors, endpoint) {
 export function emailSignUp(body, endpointKey) {
   return dispatch => {
     if (Object.keys(body).length === 0 && body.constructor === Object) {
-      return dispatch(updateAccountError({}, endpointKey));
+      return Promise.resolve(dispatch(updateAccountError({}, endpointKey)));
     }
     dispatch(emailSignUpStart(endpointKey));
 

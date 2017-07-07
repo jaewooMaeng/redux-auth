@@ -1248,7 +1248,7 @@ function emailSignUpError(errors, endpoint) {
 function emailSignUp(body, endpointKey) {
   return function (dispatch) {
     if (Object.keys(body).length === 0 && body.constructor === Object) {
-      return dispatch(updateAccountError({}, endpointKey));
+      return Promise.resolve(dispatch(updateAccountError({}, endpointKey)));
     }
     dispatch(emailSignUpStart(endpointKey));
 
@@ -2388,7 +2388,7 @@ var updateAccountError = exports.updateAccountError = function updateAccountErro
 var updateAccount = exports.updateAccount = function updateAccount(body, endpointKey) {
   return function (dispatch) {
     if (Object.keys(body).length === 0 && body.constructor === Object) {
-      return dispatch(updateAccountError({}, endpointKey));
+      return Promise.resolve(dispatch(updateAccountError({}, endpointKey)));
     }
     dispatch(updateAccountStart(endpointKey));
 

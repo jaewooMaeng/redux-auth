@@ -23,7 +23,7 @@ export const updateAccountError = (errors, endpoint) => {
 export const updateAccount = (body, endpointKey) => {
   return dispatch => {
     if (Object.keys(body).length === 0 && body.constructor === Object) {
-      return dispatch(updateAccountError({}, endpointKey));
+      return Promise.resolve(dispatch(updateAccountError({}, endpointKey)));
     }
     dispatch(updateAccountStart(endpointKey));
 
