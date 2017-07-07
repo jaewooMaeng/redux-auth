@@ -3367,6 +3367,8 @@ var UpdateAccountForm = function (_React$Component) {
       var disabled = !this.props.auth.getIn(["user", "isSignedIn"]) || this.props.auth.getIn(["updateAccount", this.getEndpoint(), "loading"]);
       var fields = this.props.fields;
 
+      var emailForm = this.props.auth.getIn(["updateAccount", this.getEndpoint(), "form", "email"]);
+      var emailValue = emailForm === undefined || emailForm === null ? this.props.inputProps.email.initValue : emailForm;
 
       return _react2.default.createElement(
         "form",
@@ -3377,17 +3379,19 @@ var UpdateAccountForm = function (_React$Component) {
           label: "Email",
           className: "update-account-email",
           disabled: disabled,
-          value: this.props.auth.getIn(["updateAccount", this.getEndpoint(), "form", "email"]) || this.props.inputProps.email.initValue,
+          value: emailValue,
           errors: this.props.auth.getIn(["updateAccount", this.getEndpoint(), "errors", "email"]),
           onChange: this.handleInput.bind(this, "email")
         }, this.props.inputProps.email)),
         fields && fields.map(function (field, i) {
+          var keyForm = _this2.props.auth.getIn(["updateAccount", _this2.getEndpoint(), "form", field.key]);
+          var keyValue = keyForm === undefined || keyForm === null ? field.initValue : keyForm;
           return _react2.default.createElement(_Input2.default, _extends({ key: i,
             type: field.type || "text",
             label: field.label || field.key,
             className: "update-account-" + field.key,
             disabled: disabled,
-            value: _this2.props.auth.getIn(["updateAccount", _this2.getEndpoint(), "form", field.key]) || field.initValue,
+            value: keyValue,
             errors: _this2.props.auth.getIn(["updateAccount", _this2.getEndpoint(), "errors", field.key]),
             onChange: _this2.handleInput.bind(_this2, field.key)
           }, field.props));

@@ -58,6 +58,8 @@ class UpdateAccountForm extends React.Component {
       this.props.auth.getIn(["updateAccount", this.getEndpoint(), "loading"])
     );
     const { fields } = this.props;
+    const emailForm = this.props.auth.getIn(["updateAccount", this.getEndpoint(), "form", "email"]);
+    const emailValue = emailForm === undefined || emailForm === null ? this.props.inputProps.email.initValue : emailForm;
 
     return (
       <form className='redux-auth update-account-form'
@@ -67,23 +69,27 @@ class UpdateAccountForm extends React.Component {
                label="Email"
                className="update-account-email"
                disabled={disabled}
-               value={this.props.auth.getIn(["updateAccount", this.getEndpoint(), "form", "email"]) || this.props.inputProps.email.initValue}
+               value={emailValue}
                errors={this.props.auth.getIn(["updateAccount", this.getEndpoint(), "errors", "email"])}
                onChange={this.handleInput.bind(this, "email")}
                {...this.props.inputProps.email} />
 
-        {fields && fields.map((field, i) => (
-          <Input key={i}
-                 type={field.type || "text"}
-                 label={field.label || field.key}
-                 className={`update-account-${field.key}`}
-                 disabled={disabled}
-                 value={this.props.auth.getIn(["updateAccount", this.getEndpoint(), "form", field.key]) || field.initValue}
-                 errors={this.props.auth.getIn(["updateAccount", this.getEndpoint(), "errors", field.key])}
-                 onChange={this.handleInput.bind(this, field.key)}
-                 {...field.props}
-                 />
-        ))}
+        {fields && fields.map((field, i) => {
+          const keyForm = this.props.auth.getIn(["updateAccount", this.getEndpoint(), "form", field.key]);
+          const keyValue = keyForm === undefined || keyForm === null ? field.initValue : keyForm;
+          return (
+            <Input key={i}
+                   type={field.type || "text"}
+                   label={field.label || field.key}
+                   className={`update-account-${field.key}`}
+                   disabled={disabled}
+                   value={keyValue}
+                   errors={this.props.auth.getIn(["updateAccount", this.getEndpoint(), "errors", field.key])}
+                   onChange={this.handleInput.bind(this, field.key)}
+                   {...field.props}
+                   />
+          )
+        })}
 
         {this.props.children}
 
