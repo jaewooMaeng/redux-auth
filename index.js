@@ -1244,15 +1244,21 @@ function emailSignUp(body, endpointKey) {
   return function (dispatch) {
     dispatch(emailSignUpStart(endpointKey));
 
+    var data = new FormData();
+    for (var key in body) {
+      if (body[key]) {
+        data.append(key, body[key]);
+      }
+    }
+    data.append('confirm_success_url', (0, _sessionStorage.getConfirmationSuccessUrl)());
+
     return (0, _fetch2.default)((0, _sessionStorage.getEmailSignUpUrl)(endpointKey), {
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json"
       },
       method: "post",
-      body: JSON.stringify((0, _extend2.default)(body, {
-        confirm_success_url: (0, _sessionStorage.getConfirmationSuccessUrl)()
-      }))
+      body: data
     }).then(_handleFetchResponse.parseResponse).then(function (_ref) {
       var data = _ref.data;
       return dispatch(emailSignUpComplete(data, endpointKey));

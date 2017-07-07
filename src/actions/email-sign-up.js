@@ -24,15 +24,21 @@ export function emailSignUp(body, endpointKey) {
   return dispatch => {
     dispatch(emailSignUpStart(endpointKey));
 
+    let data = new FormData();
+    for (let key in body) {
+      if (body[key]) {
+        data.append(key, body[key]);
+      }
+    }
+    data.append('confirm_success_url', getConfirmationSuccessUrl());
+
     return fetch(getEmailSignUpUrl(endpointKey), {
       headers: {
         "Accept": "application/json",
         "Content-Type": "application/json"
       },
       method: "post",
-      body: JSON.stringify(extend(body, {
-        confirm_success_url: getConfirmationSuccessUrl()
-      }))
+      body: data,
     })
       .then(parseResponse)
       .then(({data}) => dispatch(emailSignUpComplete(data, endpointKey)))
