@@ -93,7 +93,7 @@ class UpdateAccountForm extends React.Component {
                value={this.props.auth.getIn(["updateAccount", this.getEndpoint(), "form", "current_password"])}
                errors={this.props.auth.getIn(["updateAccount", this.getEndpoint(), "errors", "current_password"])}
                onChange={this.handleInput.bind(this, "current_password")}
-               {...this.props.inputProps.current_password} />
+               {...this.props.inputProps.currentPassword} />
 
         <Input type="password"
                label="Password"

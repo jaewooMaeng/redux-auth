@@ -3400,7 +3400,7 @@ var UpdateAccountForm = function (_React$Component) {
           value: this.props.auth.getIn(["updateAccount", this.getEndpoint(), "form", "current_password"]),
           errors: this.props.auth.getIn(["updateAccount", this.getEndpoint(), "errors", "current_password"]),
           onChange: this.handleInput.bind(this, "current_password")
-        }, this.props.inputProps.current_password)),
+        }, this.props.inputProps.currentPassword)),
         _react2.default.createElement(_Input2.default, _extends({ type: "password",
           label: "Password",
           className: "update-account-password",
