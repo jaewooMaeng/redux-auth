@@ -2701,6 +2701,10 @@ var EmailSignUpForm = function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(event) {
+      if (this.props.handleSubmit) {
+        this.props.handleSubmit().then(this.props.next).catch(function () {});
+        return;
+      }
       console.log("submitting form to endpoint", this.getEndpoint());
       event.preventDefault();
       var formData = this.props.auth.getIn(["emailSignUp", this.getEndpoint(), "form"]).toJS();

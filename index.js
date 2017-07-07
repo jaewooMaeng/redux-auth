@@ -1253,10 +1253,10 @@ function emailSignUp(body, endpointKey) {
     data.append('confirm_success_url', (0, _sessionStorage.getConfirmationSuccessUrl)());
 
     return (0, _fetch2.default)((0, _sessionStorage.getEmailSignUpUrl)(endpointKey), {
-      headers: {
-        "Accept": "application/json",
-        'Content-Type': 'multipart/form-data'
-      },
+      //headers: {
+      //"Accept": "application/json",
+      //'Content-Type': 'multipart/form-data',
+      //},
       method: "post",
       body: data
     }).then(_handleFetchResponse.parseResponse).then(function (_ref) {

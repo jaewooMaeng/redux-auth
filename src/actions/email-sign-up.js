@@ -33,10 +33,10 @@ export function emailSignUp(body, endpointKey) {
     data.append('confirm_success_url', getConfirmationSuccessUrl());
 
     return fetch(getEmailSignUpUrl(endpointKey), {
-      headers: {
-        "Accept": "application/json",
-        'Content-Type': 'multipart/form-data',
-      },
+      //headers: {
+        //"Accept": "application/json",
+        //'Content-Type': 'multipart/form-data',
+      //},
       method: "post",
       body: data,
     })
