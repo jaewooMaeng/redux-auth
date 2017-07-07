@@ -2392,7 +2392,6 @@ var updateAccount = exports.updateAccount = function updateAccount(body, endpoin
         data.append(key, body[key]);
       }
     }
-    data.append('confirm_success_url', getConfirmationSuccessUrl());
 
     return (0, _fetch2.default)((0, _sessionStorage.getAccountUpdateUrl)(endpointKey), {
       //headers: {

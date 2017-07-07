@@ -30,7 +30,6 @@ export const updateAccount = (body, endpointKey) => {
         data.append(key, body[key]);
       }
     }
-    data.append('confirm_success_url', getConfirmationSuccessUrl());
 
     return fetch(getAccountUpdateUrl(endpointKey), {
       //headers: {
