@@ -35,7 +35,7 @@ export function emailSignUp(body, endpointKey) {
     return fetch(getEmailSignUpUrl(endpointKey), {
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        'Content-Type': 'multipart/form-data',
       },
       method: "post",
       body: data,

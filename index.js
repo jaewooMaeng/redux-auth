@@ -1255,7 +1255,7 @@ function emailSignUp(body, endpointKey) {
     return (0, _fetch2.default)((0, _sessionStorage.getEmailSignUpUrl)(endpointKey), {
       headers: {
         "Accept": "application/json",
-        "Content-Type": "application/json"
+        'Content-Type': 'multipart/form-data'
       },
       method: "post",
       body: data
