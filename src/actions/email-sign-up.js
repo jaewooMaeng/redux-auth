@@ -21,6 +21,7 @@ export function emailSignUpError(errors, endpoint) {
   return { type: EMAIL_SIGN_UP_ERROR, errors, endpoint };
 }
 export function emailSignUp(body, endpointKey) {
+  if (Object.keys(body).length === 0 && body.constructor === Object) return Promise.resolve();
   return dispatch => {
     dispatch(emailSignUpStart(endpointKey));
 
