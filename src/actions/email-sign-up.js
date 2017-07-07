@@ -21,8 +21,10 @@ export function emailSignUpError(errors, endpoint) {
   return { type: EMAIL_SIGN_UP_ERROR, errors, endpoint };
 }
 export function emailSignUp(body, endpointKey) {
-  if (Object.keys(body).length === 0 && body.constructor === Object) return;
   return dispatch => {
+    if (Object.keys(body).length === 0 && body.constructor === Object) {
+      return dispatch(updateAccountError({}, endpointKey));
+    }
     dispatch(emailSignUpStart(endpointKey));
 
     let data = new FormData();

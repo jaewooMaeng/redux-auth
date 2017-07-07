@@ -21,8 +21,10 @@ export const updateAccountError = (errors, endpoint) => {
   return { type: UPDATE_ACCOUNT_ERROR, errors, endpoint };
 }
 export const updateAccount = (body, endpointKey) => {
-  if (Object.keys(body).length === 0 && body.constructor === Object) return;
   return dispatch => {
+    if (Object.keys(body).length === 0 && body.constructor === Object) {
+      return dispatch(updateAccountError({}, endpointKey));
+    }
     dispatch(updateAccountStart(endpointKey));
 
     let data = new FormData();
