@@ -111,7 +111,7 @@ var _clientSettings = __webpack_require__(60);
 
 var _sessionStorage = __webpack_require__(9);
 
-var _verifyAuth = __webpack_require__(48);
+var _verifyAuth = __webpack_require__(49);
 
 var _verifyAuth2 = _interopRequireDefault(_verifyAuth);
 
@@ -568,7 +568,7 @@ exports.default = function (url) {
   });
 };
 
-var _isomorphicFetch = __webpack_require__(46);
+var _isomorphicFetch = __webpack_require__(47);
 
 var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 
@@ -1840,6 +1840,82 @@ function requestPasswordReset(body, endpoint) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.updateAccount = exports.updateAccountError = exports.updateAccountComplete = exports.updateAccountStart = exports.updateAccountFormUpdate = exports.UPDATE_ACCOUNT_FORM_UPDATE = exports.UPDATE_ACCOUNT_ERROR = exports.UPDATE_ACCOUNT_COMPLETE = exports.UPDATE_ACCOUNT_START = undefined;
+
+var _sessionStorage = __webpack_require__(9);
+
+var _handleFetchResponse = __webpack_require__(16);
+
+var _extend = __webpack_require__(14);
+
+var _extend2 = _interopRequireDefault(_extend);
+
+var _fetch = __webpack_require__(12);
+
+var _fetch2 = _interopRequireDefault(_fetch);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UPDATE_ACCOUNT_START = exports.UPDATE_ACCOUNT_START = "UPDATE_ACCOUNT_START";
+var UPDATE_ACCOUNT_COMPLETE = exports.UPDATE_ACCOUNT_COMPLETE = "UPDATE_ACCOUNT_COMPLETE";
+var UPDATE_ACCOUNT_ERROR = exports.UPDATE_ACCOUNT_ERROR = "UPDATE_ACCOUNT_ERROR";
+var UPDATE_ACCOUNT_FORM_UPDATE = exports.UPDATE_ACCOUNT_FORM_UPDATE = "UPDATE_ACCOUNT_FORM_UPDATE";
+
+var updateAccountFormUpdate = exports.updateAccountFormUpdate = function updateAccountFormUpdate(endpoint, key, value) {
+  return { type: UPDATE_ACCOUNT_FORM_UPDATE, endpoint: endpoint, key: key, value: value };
+};
+var updateAccountStart = exports.updateAccountStart = function updateAccountStart(endpoint) {
+  return { type: UPDATE_ACCOUNT_START, endpoint: endpoint };
+};
+var updateAccountComplete = exports.updateAccountComplete = function updateAccountComplete(user, endpoint) {
+  return { type: UPDATE_ACCOUNT_COMPLETE, user: user, endpoint: endpoint };
+};
+var updateAccountError = exports.updateAccountError = function updateAccountError(errors, endpoint) {
+  return { type: UPDATE_ACCOUNT_ERROR, errors: errors, endpoint: endpoint };
+};
+var updateAccount = exports.updateAccount = function updateAccount(body, endpointKey) {
+  return function (dispatch) {
+    if (Object.keys(body).length === 0 && body.constructor === Object) {
+      return Promise.resolve(dispatch(updateAccountError({}, endpointKey)));
+    }
+    dispatch(updateAccountStart(endpointKey));
+
+    var data = new FormData();
+    for (var key in body) {
+      if (body[key]) {
+        data.append(key, body[key]);
+      }
+    }
+
+    return (0, _fetch2.default)((0, _sessionStorage.getAccountUpdateUrl)(endpointKey), {
+      //headers: {
+      //"Accept": "application/json",
+      //'Content-Type': 'multipart/form-data',
+      //},
+      method: "put",
+      body: data
+    }).then(_handleFetchResponse.parseResponse).then(function (_ref) {
+      var data = _ref.data;
+      return dispatch(updateAccountComplete(data, endpointKey));
+    }).catch(function (_ref2) {
+      var errors = _ref2.errors;
+
+      dispatch(updateAccountError(errors, endpointKey));
+      throw errors;
+    });
+  };
+};
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.UPDATE_PASSWORD_FORM_UPDATE = exports.UPDATE_PASSWORD_ERROR = exports.UPDATE_PASSWORD_COMPLETE = exports.UPDATE_PASSWORD_START = undefined;
 exports.updatePasswordFormUpdate = updatePasswordFormUpdate;
 exports.updatePasswordStart = updatePasswordStart;
@@ -1896,7 +1972,7 @@ function updatePassword(body, endpoint) {
 }
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1961,7 +2037,7 @@ function updatePasswordModal(body, endpointKey) {
 }
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2054,19 +2130,19 @@ module.exports = defaults;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 40 */,
 /* 41 */,
 /* 42 */,
 /* 43 */,
 /* 44 */,
 /* 45 */,
-/* 46 */
+/* 46 */,
+/* 47 */
 /***/ (function(module, exports) {
 
 module.exports = require("isomorphic-fetch");
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2150,7 +2226,7 @@ function parseEndpointConfig(endpoint) {
 }
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2164,7 +2240,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 exports.fetchToken = fetchToken;
 
-var _isomorphicFetch = __webpack_require__(46);
+var _isomorphicFetch = __webpack_require__(47);
 
 var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 
@@ -2182,7 +2258,7 @@ var C = _interopRequireWildcard(_constants);
 
 var _fetch = __webpack_require__(12);
 
-var _parseEndpointConfig3 = __webpack_require__(47);
+var _parseEndpointConfig3 = __webpack_require__(48);
 
 var _parseEndpointConfig4 = _interopRequireDefault(_parseEndpointConfig3);
 
@@ -2341,82 +2417,6 @@ function verifyAuth(rawEndpoints, _ref2) {
 }
 
 exports.default = verifyAuth;
-
-/***/ }),
-/* 49 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.updateAccount = exports.updateAccountError = exports.updateAccountComplete = exports.updateAccountStart = exports.updateAccountFormUpdate = exports.UPDATE_ACCOUNT_FORM_UPDATE = exports.UPDATE_ACCOUNT_ERROR = exports.UPDATE_ACCOUNT_COMPLETE = exports.UPDATE_ACCOUNT_START = undefined;
-
-var _sessionStorage = __webpack_require__(9);
-
-var _handleFetchResponse = __webpack_require__(16);
-
-var _extend = __webpack_require__(14);
-
-var _extend2 = _interopRequireDefault(_extend);
-
-var _fetch = __webpack_require__(12);
-
-var _fetch2 = _interopRequireDefault(_fetch);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var UPDATE_ACCOUNT_START = exports.UPDATE_ACCOUNT_START = "UPDATE_ACCOUNT_START";
-var UPDATE_ACCOUNT_COMPLETE = exports.UPDATE_ACCOUNT_COMPLETE = "UPDATE_ACCOUNT_COMPLETE";
-var UPDATE_ACCOUNT_ERROR = exports.UPDATE_ACCOUNT_ERROR = "UPDATE_ACCOUNT_ERROR";
-var UPDATE_ACCOUNT_FORM_UPDATE = exports.UPDATE_ACCOUNT_FORM_UPDATE = "UPDATE_ACCOUNT_FORM_UPDATE";
-
-var updateAccountFormUpdate = exports.updateAccountFormUpdate = function updateAccountFormUpdate(endpoint, key, value) {
-  return { type: UPDATE_ACCOUNT_FORM_UPDATE, endpoint: endpoint, key: key, value: value };
-};
-var updateAccountStart = exports.updateAccountStart = function updateAccountStart(endpoint) {
-  return { type: UPDATE_ACCOUNT_START, endpoint: endpoint };
-};
-var updateAccountComplete = exports.updateAccountComplete = function updateAccountComplete(user, endpoint) {
-  return { type: UPDATE_ACCOUNT_COMPLETE, user: user, endpoint: endpoint };
-};
-var updateAccountError = exports.updateAccountError = function updateAccountError(errors, endpoint) {
-  return { type: UPDATE_ACCOUNT_ERROR, errors: errors, endpoint: endpoint };
-};
-var updateAccount = exports.updateAccount = function updateAccount(body, endpointKey) {
-  return function (dispatch) {
-    if (Object.keys(body).length === 0 && body.constructor === Object) {
-      return Promise.resolve(dispatch(updateAccountError({}, endpointKey)));
-    }
-    dispatch(updateAccountStart(endpointKey));
-
-    var data = new FormData();
-    for (var key in body) {
-      if (body[key]) {
-        data.append(key, body[key]);
-      }
-    }
-
-    return (0, _fetch2.default)((0, _sessionStorage.getAccountUpdateUrl)(endpointKey), {
-      //headers: {
-      //"Accept": "application/json",
-      //'Content-Type': 'multipart/form-data',
-      //},
-      method: "put",
-      body: data
-    }).then(_handleFetchResponse.parseResponse).then(function (_ref) {
-      var data = _ref.data;
-      return dispatch(updateAccountComplete(data, endpointKey));
-    }).catch(function (_ref2) {
-      var errors = _ref2.errors;
-
-      dispatch(updateAccountError(errors, endpointKey));
-      throw errors;
-    });
-  };
-};
 
 /***/ }),
 /* 50 */
@@ -2773,7 +2773,7 @@ Object.defineProperty(exports, "requestPasswordResetFormUpdate", {
   }
 });
 
-var _updateAccount = __webpack_require__(49);
+var _updateAccount = __webpack_require__(37);
 
 Object.defineProperty(exports, "updateAccount", {
   enumerable: true,
@@ -2788,7 +2788,7 @@ Object.defineProperty(exports, "updateAccountFormUpdate", {
   }
 });
 
-var _updatePassword = __webpack_require__(37);
+var _updatePassword = __webpack_require__(38);
 
 Object.defineProperty(exports, "updatePassword", {
   enumerable: true,
@@ -2803,7 +2803,7 @@ Object.defineProperty(exports, "updatePasswordFormUpdate", {
   }
 });
 
-var _updatePasswordModal = __webpack_require__(38);
+var _updatePasswordModal = __webpack_require__(39);
 
 Object.defineProperty(exports, "updatePasswordModal", {
   enumerable: true,
@@ -2827,7 +2827,7 @@ Object.defineProperty(exports, "destroyAccount", {
   }
 });
 
-var _verifyAuth = __webpack_require__(48);
+var _verifyAuth = __webpack_require__(49);
 
 Object.defineProperty(exports, "verifyAuth", {
   enumerable: true,
@@ -3102,7 +3102,7 @@ var _fetch = __webpack_require__(12);
 
 var _fetch2 = _interopRequireDefault(_fetch);
 
-var _parseEndpointConfig2 = __webpack_require__(47);
+var _parseEndpointConfig2 = __webpack_require__(48);
 
 var _parseEndpointConfig3 = _interopRequireDefault(_parseEndpointConfig2);
 
@@ -3458,7 +3458,7 @@ module.exports = __webpack_require__(69);
 var utils = __webpack_require__(13);
 var bind = __webpack_require__(50);
 var Axios = __webpack_require__(71);
-var defaults = __webpack_require__(39);
+var defaults = __webpack_require__(40);
 
 /**
  * Create an instance of Axios
@@ -3542,7 +3542,7 @@ function isSlowBuffer(obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(39);
+var defaults = __webpack_require__(40);
 var utils = __webpack_require__(13);
 var InterceptorManager = __webpack_require__(80);
 var dispatchRequest = __webpack_require__(81);
@@ -4048,7 +4048,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(13);
 var transformData = __webpack_require__(82);
 var isCancel = __webpack_require__(53);
-var defaults = __webpack_require__(39);
+var defaults = __webpack_require__(40);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -4413,6 +4413,8 @@ var _emailSignIn = __webpack_require__(27);
 
 var _emailSignUp = __webpack_require__(29);
 
+var _updateAccount = __webpack_require__(37);
+
 var _signOut = __webpack_require__(28);
 
 var _oauthSignIn = __webpack_require__(30);
@@ -4482,7 +4484,7 @@ exports.default = (0, _reduxImmutablejs.createReducer)(initialState, (_createRed
     isSignedIn: true,
     endpointKey: endpoint
   }) : state;
-}), _defineProperty(_createReducer, _oauthSignIn.OAUTH_SIGN_IN_COMPLETE, function (state, _ref7) {
+}), _defineProperty(_createReducer, _updateAccount.UPDATE_ACCOUNT_COMPLETE, function (state, _ref7) {
   var endpoint = _ref7.endpoint,
       user = _ref7.user;
   return state.merge({
@@ -4490,10 +4492,18 @@ exports.default = (0, _reduxImmutablejs.createReducer)(initialState, (_createRed
     isSignedIn: true,
     endpointKey: endpoint
   });
-}), _defineProperty(_createReducer, ssActions.SS_AUTH_TOKEN_UPDATE, function (state, _ref8) {
-  var user = _ref8.user,
-      mustResetPassword = _ref8.mustResetPassword,
-      firstTimeLogin = _ref8.firstTimeLogin;
+}), _defineProperty(_createReducer, _oauthSignIn.OAUTH_SIGN_IN_COMPLETE, function (state, _ref8) {
+  var endpoint = _ref8.endpoint,
+      user = _ref8.user;
+  return state.merge({
+    attributes: user,
+    isSignedIn: true,
+    endpointKey: endpoint
+  });
+}), _defineProperty(_createReducer, ssActions.SS_AUTH_TOKEN_UPDATE, function (state, _ref9) {
+  var user = _ref9.user,
+      mustResetPassword = _ref9.mustResetPassword,
+      firstTimeLogin = _ref9.firstTimeLogin;
 
   return state.merge({
     mustResetPassword: mustResetPassword,
@@ -4556,7 +4566,7 @@ var _oauthSignIn = __webpack_require__(30);
 
 var oAuthSignInActions = _interopRequireWildcard(_oauthSignIn);
 
-var _updatePassword = __webpack_require__(37);
+var _updatePassword = __webpack_require__(38);
 
 var updatePasswordActions = _interopRequireWildcard(_updatePassword);
 
@@ -4564,7 +4574,7 @@ var _destroyAccount = __webpack_require__(31);
 
 var destroyAccountActions = _interopRequireWildcard(_destroyAccount);
 
-var _updatePasswordModal = __webpack_require__(38);
+var _updatePasswordModal = __webpack_require__(39);
 
 var updatePasswordModalActions = _interopRequireWildcard(_updatePasswordModal);
 
@@ -5002,7 +5012,7 @@ var _immutable2 = _interopRequireDefault(_immutable);
 
 var _reduxImmutablejs = __webpack_require__(10);
 
-var _updateAccount = __webpack_require__(49);
+var _updateAccount = __webpack_require__(37);
 
 var A = _interopRequireWildcard(_updateAccount);
 
@@ -5068,7 +5078,7 @@ var _immutable2 = _interopRequireDefault(_immutable);
 
 var _reduxImmutablejs = __webpack_require__(10);
 
-var _updatePassword = __webpack_require__(37);
+var _updatePassword = __webpack_require__(38);
 
 var A = _interopRequireWildcard(_updatePassword);
 
@@ -5134,7 +5144,7 @@ var _immutable2 = _interopRequireDefault(_immutable);
 
 var _reduxImmutablejs = __webpack_require__(10);
 
-var _updatePasswordModal = __webpack_require__(38);
+var _updatePasswordModal = __webpack_require__(39);
 
 var A = _interopRequireWildcard(_updatePasswordModal);
 
