@@ -67,7 +67,7 @@ class UpdateAccountForm extends React.Component {
                label="Email"
                className="update-account-email"
                disabled={disabled}
-               value={this.props.auth.getIn(["updateAccount", this.getEndpoint(), "form", "email"])}
+               value={this.props.auth.getIn(["updateAccount", this.getEndpoint(), "form", "email"]) || this.props.inputProps.email.initValue}
                errors={this.props.auth.getIn(["updateAccount", this.getEndpoint(), "errors", "email"])}
                onChange={this.handleInput.bind(this, "email")}
                {...this.props.inputProps.email} />
@@ -78,10 +78,12 @@ class UpdateAccountForm extends React.Component {
                  label={field.label || field.key}
                  className={`update-account-${field.key}`}
                  disabled={disabled}
-                 value={this.props.auth.getIn(["updateAccount", this.getEndpoint(), "form", field.key])}
+                 value={this.props.auth.getIn(["updateAccount", this.getEndpoint(), "form", field.key]) || this.props.inputProps[key].initValue}
                  errors={this.props.auth.getIn(["updateAccount", this.getEndpoint(), "errors", field.key])}
                  onChange={this.handleInput.bind(this, field.key)}
-                 {...field.props} />
+                 {...field.props}
+                 {...this.props.inputProps[key]}
+                 />
         ))}
 
         {this.props.children}
