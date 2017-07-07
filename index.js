@@ -97,7 +97,7 @@ var _extend = __webpack_require__(14);
 
 var _extend2 = _interopRequireDefault(_extend);
 
-var _constants = __webpack_require__(18);
+var _constants = __webpack_require__(19);
 
 var C = _interopRequireWildcard(_constants);
 
@@ -109,7 +109,7 @@ var _server = __webpack_require__(26);
 
 var _clientSettings = __webpack_require__(59);
 
-var _sessionStorage = __webpack_require__(10);
+var _sessionStorage = __webpack_require__(9);
 
 var _verifyAuth = __webpack_require__(48);
 
@@ -273,8 +273,7 @@ function configure() {
 /* 6 */,
 /* 7 */,
 /* 8 */,
-/* 9 */,
-/* 10 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -302,6 +301,7 @@ exports.getEmailSignInUrl = getEmailSignInUrl;
 exports.getEmailSignUpUrl = getEmailSignUpUrl;
 exports.getPasswordResetRequestUrl = getPasswordResetRequestUrl;
 exports.getPasswordUpdateUrl = getPasswordUpdateUrl;
+exports.getAccountUpdateUrl = getAccountUpdateUrl;
 exports.getTokenValidationPath = getTokenValidationPath;
 exports.getOAuthUrl = getOAuthUrl;
 exports.getConfirmationSuccessUrl = getConfirmationSuccessUrl;
@@ -316,7 +316,7 @@ var _browserCookies = __webpack_require__(60);
 
 var _browserCookies2 = _interopRequireDefault(_browserCookies);
 
-var _constants = __webpack_require__(18);
+var _constants = __webpack_require__(19);
 
 var C = _interopRequireWildcard(_constants);
 
@@ -441,6 +441,10 @@ function getPasswordUpdateUrl(endpointKey) {
   return "" + getApiUrl(endpointKey) + getSessionEndpoint(endpointKey).passwordUpdatePath;
 }
 
+function getAccountUpdateUrl(endpointKey) {
+  return "" + getApiUrl(endpointKey) + getSessionEndpoint(endpointKey).accountUpdatePath;
+}
+
 function getTokenValidationPath(endpointKey) {
   return "" + getApiUrl(endpointKey) + getSessionEndpoint(endpointKey).tokenValidationPath;
 }
@@ -534,13 +538,121 @@ function retrieveData(key, storage) {
 };
 
 /***/ }),
-/* 11 */
+/* 10 */
 /***/ (function(module, exports) {
 
 module.exports = require("redux-immutablejs");
 
 /***/ }),
+/* 11 */,
 /* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.addAuthorizationHeader = addAuthorizationHeader;
+
+exports.default = function (url) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  if (!options.headers) {
+    options.headers = {};
+  }
+  (0, _extend2.default)(options.headers, getAuthHeaders(url));
+  return (0, _isomorphicFetch2.default)(url, options).then(function (resp) {
+    return updateAuthCredentials(resp);
+  });
+};
+
+var _isomorphicFetch = __webpack_require__(46);
+
+var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
+
+var _constants = __webpack_require__(19);
+
+var C = _interopRequireWildcard(_constants);
+
+var _extend = __webpack_require__(14);
+
+var _extend2 = _interopRequireDefault(_extend);
+
+var _sessionStorage = __webpack_require__(9);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var isApiRequest = function isApiRequest(url) {
+  return url.match((0, _sessionStorage.getApiUrl)((0, _sessionStorage.getSessionEndpointKey)()));
+};
+
+/**
+ * Add access token as a bearer token in accordance to RFC 6750
+ *
+ * @param {string} accessToken
+ * @param {object} headers
+ * @returns {object} New extended headers object, with Authorization property
+ */
+function addAuthorizationHeader(accessToken, headers) {
+  return Object.assign({}, headers, {
+    Authorization: "Bearer " + accessToken
+  });
+}
+
+function getAuthHeaders(url) {
+  if (isApiRequest(url)) {
+    // fetch current auth headers from storage
+    var currentHeaders = (0, _sessionStorage.retrieveData)(C.SAVED_CREDS_KEY) || {},
+        nextHeaders = {};
+
+    // bust IE cache
+    nextHeaders["If-Modified-Since"] = "Mon, 26 Jul 1997 05:00:00 GMT";
+
+    // set header for each key in `tokenFormat` config
+    for (var key in (0, _sessionStorage.getTokenFormat)()) {
+      nextHeaders[key] = currentHeaders[key];
+    }
+
+    return addAuthorizationHeader(currentHeaders['access-token'], nextHeaders);
+  } else {
+    return {};
+  }
+}
+
+function updateAuthCredentials(resp) {
+  // check config apiUrl matches the current response url
+  if (isApiRequest(resp.url)) {
+    // set header for each key in `tokenFormat` config
+    var newHeaders = {};
+
+    // set flag to ensure that we don't accidentally nuke the headers
+    // if the response tokens aren't sent back from the API
+    var blankHeaders = true;
+
+    // set header key + val for each key in `tokenFormat` config
+    for (var key in (0, _sessionStorage.getTokenFormat)()) {
+      newHeaders[key] = resp.headers.get(key);
+
+      if (newHeaders[key]) {
+        blankHeaders = false;
+      }
+    }
+
+    // persist headers for next request
+    if (!blankHeaders) {
+      (0, _sessionStorage.persistData)(C.SAVED_CREDS_KEY, newHeaders);
+    }
+  }
+
+  return resp;
+}
+
+/***/ }),
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -848,113 +960,6 @@ module.exports = {
 };
 
 /***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.addAuthorizationHeader = addAuthorizationHeader;
-
-exports.default = function (url) {
-  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-  if (!options.headers) {
-    options.headers = {};
-  }
-  (0, _extend2.default)(options.headers, getAuthHeaders(url));
-  return (0, _isomorphicFetch2.default)(url, options).then(function (resp) {
-    return updateAuthCredentials(resp);
-  });
-};
-
-var _isomorphicFetch = __webpack_require__(46);
-
-var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
-
-var _constants = __webpack_require__(18);
-
-var C = _interopRequireWildcard(_constants);
-
-var _extend = __webpack_require__(14);
-
-var _extend2 = _interopRequireDefault(_extend);
-
-var _sessionStorage = __webpack_require__(10);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var isApiRequest = function isApiRequest(url) {
-  return url.match((0, _sessionStorage.getApiUrl)((0, _sessionStorage.getSessionEndpointKey)()));
-};
-
-/**
- * Add access token as a bearer token in accordance to RFC 6750
- *
- * @param {string} accessToken
- * @param {object} headers
- * @returns {object} New extended headers object, with Authorization property
- */
-function addAuthorizationHeader(accessToken, headers) {
-  return Object.assign({}, headers, {
-    Authorization: "Bearer " + accessToken
-  });
-}
-
-function getAuthHeaders(url) {
-  if (isApiRequest(url)) {
-    // fetch current auth headers from storage
-    var currentHeaders = (0, _sessionStorage.retrieveData)(C.SAVED_CREDS_KEY) || {},
-        nextHeaders = {};
-
-    // bust IE cache
-    nextHeaders["If-Modified-Since"] = "Mon, 26 Jul 1997 05:00:00 GMT";
-
-    // set header for each key in `tokenFormat` config
-    for (var key in (0, _sessionStorage.getTokenFormat)()) {
-      nextHeaders[key] = currentHeaders[key];
-    }
-
-    return addAuthorizationHeader(currentHeaders['access-token'], nextHeaders);
-  } else {
-    return {};
-  }
-}
-
-function updateAuthCredentials(resp) {
-  // check config apiUrl matches the current response url
-  if (isApiRequest(resp.url)) {
-    // set header for each key in `tokenFormat` config
-    var newHeaders = {};
-
-    // set flag to ensure that we don't accidentally nuke the headers
-    // if the response tokens aren't sent back from the API
-    var blankHeaders = true;
-
-    // set header key + val for each key in `tokenFormat` config
-    for (var key in (0, _sessionStorage.getTokenFormat)()) {
-      newHeaders[key] = resp.headers.get(key);
-
-      if (newHeaders[key]) {
-        blankHeaders = false;
-      }
-    }
-
-    // persist headers for next request
-    if (!blankHeaders) {
-      (0, _sessionStorage.persistData)(C.SAVED_CREDS_KEY, newHeaders);
-    }
-  }
-
-  return resp;
-}
-
-/***/ }),
 /* 14 */
 /***/ (function(module, exports) {
 
@@ -962,24 +967,7 @@ module.exports = require("extend");
 
 /***/ }),
 /* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var INITIAL_CONFIG_KEY = exports.INITIAL_CONFIG_KEY = "default";
-var DEFAULT_CONFIG_KEY = exports.DEFAULT_CONFIG_KEY = "defaultConfigKey";
-var SAVED_CONFIG_KEY = exports.SAVED_CONFIG_KEY = "currentConfigName";
-var SAVED_CREDS_KEY = exports.SAVED_CREDS_KEY = "authHeaders";
-
-/***/ }),
-/* 19 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -999,6 +987,23 @@ function parseResponse(response) {
     });
   }
 }
+
+/***/ }),
+/* 17 */,
+/* 18 */,
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var INITIAL_CONFIG_KEY = exports.INITIAL_CONFIG_KEY = "default";
+var DEFAULT_CONFIG_KEY = exports.DEFAULT_CONFIG_KEY = "defaultConfigKey";
+var SAVED_CONFIG_KEY = exports.SAVED_CONFIG_KEY = "currentConfigName";
+var SAVED_CREDS_KEY = exports.SAVED_CREDS_KEY = "authHeaders";
 
 /***/ }),
 /* 20 */,
@@ -1072,13 +1077,13 @@ exports.emailSignInComplete = emailSignInComplete;
 exports.emailSignInError = emailSignInError;
 exports.emailSignIn = emailSignIn;
 
-var _sessionStorage = __webpack_require__(10);
+var _sessionStorage = __webpack_require__(9);
 
 var _configure = __webpack_require__(5);
 
-var _handleFetchResponse = __webpack_require__(19);
+var _handleFetchResponse = __webpack_require__(16);
 
-var _fetch = __webpack_require__(13);
+var _fetch = __webpack_require__(12);
 
 var _fetch2 = _interopRequireDefault(_fetch);
 
@@ -1148,13 +1153,13 @@ exports.signOutComplete = signOutComplete;
 exports.signOutError = signOutError;
 exports.signOut = signOut;
 
-var _sessionStorage = __webpack_require__(10);
+var _sessionStorage = __webpack_require__(9);
 
-var _handleFetchResponse = __webpack_require__(19);
+var _handleFetchResponse = __webpack_require__(16);
 
 var _configure = __webpack_require__(5);
 
-var _fetch = __webpack_require__(13);
+var _fetch = __webpack_require__(12);
 
 var _fetch2 = _interopRequireDefault(_fetch);
 
@@ -1209,15 +1214,15 @@ exports.emailSignUpComplete = emailSignUpComplete;
 exports.emailSignUpError = emailSignUpError;
 exports.emailSignUp = emailSignUp;
 
-var _sessionStorage = __webpack_require__(10);
+var _sessionStorage = __webpack_require__(9);
 
-var _handleFetchResponse = __webpack_require__(19);
+var _handleFetchResponse = __webpack_require__(16);
 
 var _extend = __webpack_require__(14);
 
 var _extend2 = _interopRequireDefault(_extend);
 
-var _fetch = __webpack_require__(13);
+var _fetch = __webpack_require__(12);
 
 var _fetch2 = _interopRequireDefault(_fetch);
 
@@ -1287,19 +1292,19 @@ exports.oAuthSignInComplete = oAuthSignInComplete;
 exports.oAuthSignInError = oAuthSignInError;
 exports.oAuthSignIn = oAuthSignIn;
 
-var _constants = __webpack_require__(18);
+var _constants = __webpack_require__(19);
 
 var C = _interopRequireWildcard(_constants);
 
 var _parseUrl = __webpack_require__(35);
 
-var _sessionStorage = __webpack_require__(10);
+var _sessionStorage = __webpack_require__(9);
 
 var _configure = __webpack_require__(5);
 
-var _handleFetchResponse = __webpack_require__(19);
+var _handleFetchResponse = __webpack_require__(16);
 
-var _fetch = __webpack_require__(13);
+var _fetch = __webpack_require__(12);
 
 var _fetch2 = _interopRequireDefault(_fetch);
 
@@ -1420,13 +1425,13 @@ exports.destroyAccountComplete = destroyAccountComplete;
 exports.destroyAccountError = destroyAccountError;
 exports.destroyAccount = destroyAccount;
 
-var _sessionStorage = __webpack_require__(10);
+var _sessionStorage = __webpack_require__(9);
 
-var _handleFetchResponse = __webpack_require__(19);
+var _handleFetchResponse = __webpack_require__(16);
 
 var _configure = __webpack_require__(5);
 
-var _fetch = __webpack_require__(13);
+var _fetch = __webpack_require__(12);
 
 var _fetch2 = _interopRequireDefault(_fetch);
 
@@ -1768,15 +1773,15 @@ exports.requestPasswordResetComplete = requestPasswordResetComplete;
 exports.requestPasswordResetError = requestPasswordResetError;
 exports.requestPasswordReset = requestPasswordReset;
 
-var _sessionStorage = __webpack_require__(10);
+var _sessionStorage = __webpack_require__(9);
 
-var _handleFetchResponse = __webpack_require__(19);
+var _handleFetchResponse = __webpack_require__(16);
 
 var _extend = __webpack_require__(14);
 
 var _extend2 = _interopRequireDefault(_extend);
 
-var _fetch = __webpack_require__(13);
+var _fetch = __webpack_require__(12);
 
 var _fetch2 = _interopRequireDefault(_fetch);
 
@@ -1839,11 +1844,11 @@ exports.updatePasswordComplete = updatePasswordComplete;
 exports.updatePasswordError = updatePasswordError;
 exports.updatePassword = updatePassword;
 
-var _sessionStorage = __webpack_require__(10);
+var _sessionStorage = __webpack_require__(9);
 
-var _handleFetchResponse = __webpack_require__(19);
+var _handleFetchResponse = __webpack_require__(16);
 
-var _fetch = __webpack_require__(13);
+var _fetch = __webpack_require__(12);
 
 var _fetch2 = _interopRequireDefault(_fetch);
 
@@ -1904,11 +1909,11 @@ exports.updatePasswordModalComplete = updatePasswordModalComplete;
 exports.updatePasswordModalError = updatePasswordModalError;
 exports.updatePasswordModal = updatePasswordModal;
 
-var _sessionStorage = __webpack_require__(10);
+var _sessionStorage = __webpack_require__(9);
 
-var _handleFetchResponse = __webpack_require__(19);
+var _handleFetchResponse = __webpack_require__(16);
 
-var _fetch = __webpack_require__(13);
+var _fetch = __webpack_require__(12);
 
 var _fetch2 = _interopRequireDefault(_fetch);
 
@@ -1959,7 +1964,7 @@ function updatePasswordModal(body, endpointKey) {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var utils = __webpack_require__(12);
+var utils = __webpack_require__(13);
 var normalizeHeaderName = __webpack_require__(71);
 
 var DEFAULT_CONTENT_TYPE = {
@@ -2069,7 +2074,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = parseEndpointConfig;
 
-var _constants = __webpack_require__(18);
+var _constants = __webpack_require__(19);
 
 var C = _interopRequireWildcard(_constants);
 
@@ -2168,11 +2173,11 @@ var _parseUrl = __webpack_require__(35);
 
 var _parseUrl2 = _interopRequireDefault(_parseUrl);
 
-var _constants = __webpack_require__(18);
+var _constants = __webpack_require__(19);
 
 var C = _interopRequireWildcard(_constants);
 
-var _fetch = __webpack_require__(13);
+var _fetch = __webpack_require__(12);
 
 var _parseEndpointConfig3 = __webpack_require__(47);
 
@@ -2358,7 +2363,7 @@ module.exports = function bind(fn, thisArg) {
 "use strict";
 
 
-var utils = __webpack_require__(12);
+var utils = __webpack_require__(13);
 var settle = __webpack_require__(72);
 var buildURL = __webpack_require__(74);
 var parseHeaders = __webpack_require__(75);
@@ -2737,7 +2742,7 @@ Object.defineProperty(exports, "verifyAuth", {
   }
 });
 
-var _sessionStorage = __webpack_require__(10);
+var _sessionStorage = __webpack_require__(9);
 
 Object.defineProperty(exports, "getApiUrl", {
   enumerable: true,
@@ -2881,7 +2886,7 @@ Object.defineProperty(exports, "hideDestroyAccountErrorModal", {
   }
 });
 
-var _fetch = __webpack_require__(13);
+var _fetch = __webpack_require__(12);
 
 Object.defineProperty(exports, "fetch", {
   enumerable: true,
@@ -2931,27 +2936,31 @@ var _requestPasswordReset2 = __webpack_require__(93);
 
 var _requestPasswordReset3 = _interopRequireDefault(_requestPasswordReset2);
 
-var _updatePassword2 = __webpack_require__(94);
+var _updateAccount = __webpack_require__(94);
+
+var _updateAccount2 = _interopRequireDefault(_updateAccount);
+
+var _updatePassword2 = __webpack_require__(96);
 
 var _updatePassword3 = _interopRequireDefault(_updatePassword2);
 
-var _updatePasswordModal2 = __webpack_require__(95);
+var _updatePasswordModal2 = __webpack_require__(97);
 
 var _updatePasswordModal3 = _interopRequireDefault(_updatePasswordModal2);
 
-var _server = __webpack_require__(96);
+var _server = __webpack_require__(98);
 
 var _server2 = _interopRequireDefault(_server);
 
-var _signOut2 = __webpack_require__(97);
+var _signOut2 = __webpack_require__(99);
 
 var _signOut3 = _interopRequireDefault(_signOut2);
 
-var _destroyAccount2 = __webpack_require__(98);
+var _destroyAccount2 = __webpack_require__(100);
 
 var _destroyAccount3 = _interopRequireDefault(_destroyAccount2);
 
-var _reduxImmutablejs = __webpack_require__(11);
+var _reduxImmutablejs = __webpack_require__(10);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2964,6 +2973,7 @@ var authStateReducer = exports.authStateReducer = (0, _reduxImmutablejs.combineR
   authentication: _authenticate3.default,
   requestPasswordReset: _requestPasswordReset3.default,
   oAuthSignIn: _oauthSignIn3.default,
+  updateAccount: _updateAccount2.default,
   updatePassword: _updatePassword3.default,
   updatePasswordModal: _updatePasswordModal3.default,
   destroyAccount: _destroyAccount3.default,
@@ -2986,7 +2996,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.applyConfig = applyConfig;
 
-var _constants = __webpack_require__(18);
+var _constants = __webpack_require__(19);
 
 var C = _interopRequireWildcard(_constants);
 
@@ -2994,7 +3004,7 @@ var _extend = __webpack_require__(14);
 
 var _extend2 = _interopRequireDefault(_extend);
 
-var _fetch = __webpack_require__(13);
+var _fetch = __webpack_require__(12);
 
 var _fetch2 = _interopRequireDefault(_fetch);
 
@@ -3004,7 +3014,7 @@ var _parseEndpointConfig3 = _interopRequireDefault(_parseEndpointConfig2);
 
 var _configure = __webpack_require__(5);
 
-var _sessionStorage = __webpack_require__(10);
+var _sessionStorage = __webpack_require__(9);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3256,7 +3266,7 @@ var _axios = __webpack_require__(67);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _constants = __webpack_require__(18);
+var _constants = __webpack_require__(19);
 
 var C = _interopRequireWildcard(_constants);
 
@@ -3264,7 +3274,7 @@ var _extend = __webpack_require__(14);
 
 var _extend2 = _interopRequireDefault(_extend);
 
-var _sessionStorage = __webpack_require__(10);
+var _sessionStorage = __webpack_require__(9);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -3351,7 +3361,7 @@ module.exports = __webpack_require__(68);
 "use strict";
 
 
-var utils = __webpack_require__(12);
+var utils = __webpack_require__(13);
 var bind = __webpack_require__(49);
 var Axios = __webpack_require__(70);
 var defaults = __webpack_require__(39);
@@ -3439,7 +3449,7 @@ function isSlowBuffer(obj) {
 
 
 var defaults = __webpack_require__(39);
-var utils = __webpack_require__(12);
+var utils = __webpack_require__(13);
 var InterceptorManager = __webpack_require__(79);
 var dispatchRequest = __webpack_require__(80);
 var isAbsoluteURL = __webpack_require__(82);
@@ -3530,7 +3540,7 @@ module.exports = Axios;
 "use strict";
 
 
-var utils = __webpack_require__(12);
+var utils = __webpack_require__(13);
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -3602,7 +3612,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 "use strict";
 
 
-var utils = __webpack_require__(12);
+var utils = __webpack_require__(13);
 
 function encode(val) {
   return encodeURIComponent(val).replace(/%40/gi, '@').replace(/%3A/gi, ':').replace(/%24/g, '$').replace(/%2C/gi, ',').replace(/%20/g, '+').replace(/%5B/gi, '[').replace(/%5D/gi, ']');
@@ -3669,7 +3679,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 "use strict";
 
 
-var utils = __webpack_require__(12);
+var utils = __webpack_require__(13);
 
 /**
  * Parse headers into an object
@@ -3714,7 +3724,7 @@ module.exports = function parseHeaders(headers) {
 "use strict";
 
 
-var utils = __webpack_require__(12);
+var utils = __webpack_require__(13);
 
 module.exports = utils.isStandardBrowserEnv() ?
 
@@ -3824,7 +3834,7 @@ module.exports = btoa;
 "use strict";
 
 
-var utils = __webpack_require__(12);
+var utils = __webpack_require__(13);
 
 module.exports = utils.isStandardBrowserEnv() ?
 
@@ -3883,7 +3893,7 @@ function nonStandardBrowserEnv() {
 "use strict";
 
 
-var utils = __webpack_require__(12);
+var utils = __webpack_require__(13);
 
 function InterceptorManager() {
   this.handlers = [];
@@ -3941,7 +3951,7 @@ module.exports = InterceptorManager;
 "use strict";
 
 
-var utils = __webpack_require__(12);
+var utils = __webpack_require__(13);
 var transformData = __webpack_require__(81);
 var isCancel = __webpack_require__(52);
 var defaults = __webpack_require__(39);
@@ -4007,7 +4017,7 @@ module.exports = function dispatchRequest(config) {
 "use strict";
 
 
-var utils = __webpack_require__(12);
+var utils = __webpack_require__(13);
 
 /**
  * Transform the data for a request or a response
@@ -4181,7 +4191,7 @@ var _immutable = __webpack_require__(4);
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
-var _reduxImmutablejs = __webpack_require__(11);
+var _reduxImmutablejs = __webpack_require__(10);
 
 var _authenticate = __webpack_require__(25);
 
@@ -4232,7 +4242,7 @@ var _immutable = __webpack_require__(4);
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
-var _reduxImmutablejs = __webpack_require__(11);
+var _reduxImmutablejs = __webpack_require__(10);
 
 var _configure = __webpack_require__(5);
 
@@ -4297,9 +4307,9 @@ var _immutable = __webpack_require__(4);
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
-var _reduxImmutablejs = __webpack_require__(11);
+var _reduxImmutablejs = __webpack_require__(10);
 
-var _sessionStorage = __webpack_require__(10);
+var _sessionStorage = __webpack_require__(9);
 
 var _authenticate = __webpack_require__(25);
 
@@ -4426,7 +4436,7 @@ var _immutable = __webpack_require__(4);
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
-var _reduxImmutablejs = __webpack_require__(11);
+var _reduxImmutablejs = __webpack_require__(10);
 
 var _ui = __webpack_require__(34);
 
@@ -4638,7 +4648,7 @@ var _immutable = __webpack_require__(4);
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
-var _reduxImmutablejs = __webpack_require__(11);
+var _reduxImmutablejs = __webpack_require__(10);
 
 var _emailSignIn = __webpack_require__(27);
 
@@ -4704,7 +4714,7 @@ var _immutable = __webpack_require__(4);
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
-var _reduxImmutablejs = __webpack_require__(11);
+var _reduxImmutablejs = __webpack_require__(10);
 
 var _emailSignUp = __webpack_require__(29);
 
@@ -4770,7 +4780,7 @@ var _immutable = __webpack_require__(4);
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
-var _reduxImmutablejs = __webpack_require__(11);
+var _reduxImmutablejs = __webpack_require__(10);
 
 var _oauthSignIn = __webpack_require__(30);
 
@@ -4830,7 +4840,7 @@ var _immutable = __webpack_require__(4);
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
-var _reduxImmutablejs = __webpack_require__(11);
+var _reduxImmutablejs = __webpack_require__(10);
 
 var _requestPasswordReset = __webpack_require__(36);
 
@@ -4896,7 +4906,152 @@ var _immutable = __webpack_require__(4);
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
-var _reduxImmutablejs = __webpack_require__(11);
+var _reduxImmutablejs = __webpack_require__(10);
+
+var _updateAccount = __webpack_require__(95);
+
+var A = _interopRequireWildcard(_updateAccount);
+
+var _configure = __webpack_require__(5);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var initialState = {
+  loading: false,
+  errors: null,
+  form: {}
+};
+
+exports.default = (0, _reduxImmutablejs.createReducer)(_immutable2.default.fromJS({}), (_createReducer = {}, _defineProperty(_createReducer, _configure.SET_ENDPOINT_KEYS, function (state, _ref) {
+  var endpoints = _ref.endpoints;
+  return state.merge(endpoints.reduce(function (coll, k) {
+    coll[k] = _immutable2.default.fromJS(initialState);
+    return coll;
+  }, {}));
+}), _defineProperty(_createReducer, A.UPDATE_ACCOUNT_START, function (state, _ref2) {
+  var endpoint = _ref2.endpoint;
+  return state.setIn([endpoint, "loading"], true);
+}), _defineProperty(_createReducer, A.UPDATE_ACCOUNT_COMPLETE, function (state, _ref3) {
+  var endpoint = _ref3.endpoint;
+  return state.merge(_defineProperty({}, endpoint, initialState));
+}), _defineProperty(_createReducer, A.UPDATE_ACCOUNT_ERROR, function (state, _ref4) {
+  var endpoint = _ref4.endpoint,
+      errors = _ref4.errors;
+  return state.setIn([endpoint, "errors"], _immutable2.default.fromJS({})).mergeDeep(_defineProperty({}, endpoint, {
+    loading: false,
+    errors: errors
+  }));
+}), _defineProperty(_createReducer, A.UPDATE_ACCOUNT_FORM_UPDATE, function (state, _ref5) {
+  var endpoint = _ref5.endpoint,
+      key = _ref5.key,
+      value = _ref5.value;
+
+  return state.mergeDeep(_defineProperty({}, endpoint, {
+    form: _defineProperty({}, key, value)
+  }));
+}), _createReducer));
+
+/***/ }),
+/* 95 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.UPDATE_ACCOUNT_FORM_UPDATE = exports.UPDATE_ACCOUNT_ERROR = exports.UPDATE_ACCOUNT_COMPLETE = exports.UPDATE_ACCOUNT_START = undefined;
+exports.updateAccountFormUpdate = updateAccountFormUpdate;
+exports.updateAccountStart = updateAccountStart;
+exports.updateAccountComplete = updateAccountComplete;
+exports.updateAccountError = updateAccountError;
+exports.updateAccount = updateAccount;
+
+var _sessionStorage = __webpack_require__(9);
+
+var _handleFetchResponse = __webpack_require__(16);
+
+var _extend = __webpack_require__(14);
+
+var _extend2 = _interopRequireDefault(_extend);
+
+var _fetch = __webpack_require__(12);
+
+var _fetch2 = _interopRequireDefault(_fetch);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UPDATE_ACCOUNT_START = exports.UPDATE_ACCOUNT_START = "UPDATE_ACCOUNT_START";
+var UPDATE_ACCOUNT_COMPLETE = exports.UPDATE_ACCOUNT_COMPLETE = "UPDATE_ACCOUNT_COMPLETE";
+var UPDATE_ACCOUNT_ERROR = exports.UPDATE_ACCOUNT_ERROR = "UPDATE_ACCOUNT_ERROR";
+var UPDATE_ACCOUNT_FORM_UPDATE = exports.UPDATE_ACCOUNT_FORM_UPDATE = "UPDATE_ACCOUNT_FORM_UPDATE";
+
+function updateAccountFormUpdate(endpoint, key, value) {
+  return { type: UPDATE_ACCOUNT_FORM_UPDATE, endpoint: endpoint, key: key, value: value };
+}
+function updateAccountStart(endpoint) {
+  return { type: UPDATE_ACCOUNT_START, endpoint: endpoint };
+}
+function updateAccountComplete(user, endpoint) {
+  return { type: UPDATE_ACCOUNT_COMPLETE, user: user, endpoint: endpoint };
+}
+function updateAccountError(errors, endpoint) {
+  return { type: UPDATE_ACCOUNT_ERROR, errors: errors, endpoint: endpoint };
+}
+function updateAccount(body, endpointKey) {
+  return function (dispatch) {
+    dispatch(updateAccountStart(endpointKey));
+
+    var data = new FormData();
+    for (var key in body) {
+      if (body[key]) {
+        data.append(key, body[key]);
+      }
+    }
+    data.append('confirm_success_url', getConfirmationSuccessUrl());
+
+    return (0, _fetch2.default)((0, _sessionStorage.getAccountUpdateUrl)(endpointKey), {
+      //headers: {
+      //"Accept": "application/json",
+      //'Content-Type': 'multipart/form-data',
+      //},
+      method: "put",
+      body: data
+    }).then(_handleFetchResponse.parseResponse).then(function (_ref) {
+      var data = _ref.data;
+      return dispatch(updateAccountComplete(data, endpointKey));
+    }).catch(function (_ref2) {
+      var errors = _ref2.errors;
+
+      dispatch(updateAccountError(errors, endpointKey));
+      throw errors;
+    });
+  };
+}
+
+/***/ }),
+/* 96 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createReducer;
+
+var _immutable = __webpack_require__(4);
+
+var _immutable2 = _interopRequireDefault(_immutable);
+
+var _reduxImmutablejs = __webpack_require__(10);
 
 var _updatePassword = __webpack_require__(37);
 
@@ -4946,7 +5101,7 @@ exports.default = (0, _reduxImmutablejs.createReducer)(_immutable2.default.fromJ
 }), _createReducer));
 
 /***/ }),
-/* 95 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4962,7 +5117,7 @@ var _immutable = __webpack_require__(4);
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
-var _reduxImmutablejs = __webpack_require__(11);
+var _reduxImmutablejs = __webpack_require__(10);
 
 var _updatePasswordModal = __webpack_require__(38);
 
@@ -5012,7 +5167,7 @@ exports.default = (0, _reduxImmutablejs.createReducer)(_immutable2.default.fromJ
 }), _createReducer));
 
 /***/ }),
-/* 96 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5026,7 +5181,7 @@ var _immutable = __webpack_require__(4);
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
-var _reduxImmutablejs = __webpack_require__(11);
+var _reduxImmutablejs = __webpack_require__(10);
 
 var _server = __webpack_require__(26);
 
@@ -5064,7 +5219,7 @@ exports.default = (0, _reduxImmutablejs.createReducer)(initialState, _defineProp
 }));
 
 /***/ }),
-/* 97 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5080,7 +5235,7 @@ var _immutable = __webpack_require__(4);
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
-var _reduxImmutablejs = __webpack_require__(11);
+var _reduxImmutablejs = __webpack_require__(10);
 
 var _signOut = __webpack_require__(28);
 
@@ -5125,7 +5280,7 @@ exports.default = (0, _reduxImmutablejs.createReducer)(_immutable2.default.fromJ
 }), _createReducer));
 
 /***/ }),
-/* 98 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5141,7 +5296,7 @@ var _immutable = __webpack_require__(4);
 
 var _immutable2 = _interopRequireDefault(_immutable);
 
-var _reduxImmutablejs = __webpack_require__(11);
+var _reduxImmutablejs = __webpack_require__(10);
 
 var _destroyAccount = __webpack_require__(31);
 

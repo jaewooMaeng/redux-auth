@@ -126,6 +126,10 @@ export function getPasswordUpdateUrl (endpointKey) {
   return `${getApiUrl(endpointKey)}${getSessionEndpoint(endpointKey).passwordUpdatePath}`
 }
 
+export function getAccountUpdateUrl (endpointKey) {
+  return `${getApiUrl(endpointKey)}${getSessionEndpoint(endpointKey).accountUpdatePath}`
+}
+
 export function getTokenValidationPath (endpointKey) {
   return `${getApiUrl(endpointKey)}${getSessionEndpoint(endpointKey).tokenValidationPath}`
 }

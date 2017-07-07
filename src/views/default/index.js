@@ -5,6 +5,7 @@ export SignOutButton from "./SignOutButton";
 export RequestPasswordResetForm from "./RequestPasswordResetForm";
 export OAuthSignInButton from "./OAuthSignInButton";
 export UpdatePasswordForm from "./UpdatePasswordForm";
+export UpdateAccountForm from './UpdateAccountForm';
 export DestroyAccountButton from "./DestroyAccountButton";
 export TokenBridge from "../TokenBridge";
 export ButtonLoader from "./ButtonLoader";

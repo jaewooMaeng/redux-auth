@@ -6,6 +6,7 @@ import emailSignIn from "./reducers/email-sign-in";
 import emailSignUp from "./reducers/email-sign-up";
 import oAuthSignIn from "./reducers/oauth-sign-in";
 import requestPasswordReset from "./reducers/request-password-reset";
+import updateAccount from './reducers/update-account';
 import updatePassword from "./reducers/update-password";
 import updatePasswordModal from "./reducers/update-password-modal";
 import server from "./reducers/server";
@@ -22,6 +23,7 @@ export const authStateReducer = combineReducers({
   authentication,
   requestPasswordReset,
   oAuthSignIn,
+  updateAccount,
   updatePassword,
   updatePasswordModal,
   destroyAccount,

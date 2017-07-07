@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 126);
+/******/ 	return __webpack_require__(__webpack_require__.s = 128);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -145,11 +145,11 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _rcDialog = __webpack_require__(129);
+var _rcDialog = __webpack_require__(131);
 
 var _rcDialog2 = _interopRequireDefault(_rcDialog);
 
-var _ErrorList = __webpack_require__(130);
+var _ErrorList = __webpack_require__(132);
 
 var _ErrorList2 = _interopRequireDefault(_ErrorList);
 
@@ -252,14 +252,14 @@ exports.default = (0, _reactRedux.connect)(function (_ref) {
 
 /***/ }),
 /* 8 */,
-/* 9 */
+/* 9 */,
+/* 10 */,
+/* 11 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-bootstrap");
 
 /***/ }),
-/* 10 */,
-/* 11 */,
 /* 12 */,
 /* 13 */,
 /* 14 */
@@ -268,8 +268,7 @@ module.exports = require("react-bootstrap");
 module.exports = require("extend");
 
 /***/ }),
-/* 15 */,
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -291,7 +290,7 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactLoader = __webpack_require__(21);
+var _reactLoader = __webpack_require__(22);
 
 var _reactLoader2 = _interopRequireDefault(_reactLoader);
 
@@ -421,6 +420,7 @@ ButtonLoader.defaultProps = {
 exports.default = ButtonLoader;
 
 /***/ }),
+/* 16 */,
 /* 17 */,
 /* 18 */,
 /* 19 */,
@@ -490,13 +490,6 @@ exports.default = (0, _reactRedux.connect)(function (_ref) {
 
 /***/ }),
 /* 21 */
-/***/ (function(module, exports) {
-
-module.exports = require("react-loader");
-
-/***/ }),
-/* 22 */,
-/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -605,6 +598,13 @@ AuthInput.defaultProps = {
 exports.default = AuthInput;
 
 /***/ }),
+/* 22 */
+/***/ (function(module, exports) {
+
+module.exports = require("react-loader");
+
+/***/ }),
+/* 23 */,
 /* 24 */,
 /* 25 */,
 /* 26 */,
@@ -888,7 +888,9 @@ module.exports = ReactPropTypesSecret;
 /* 123 */,
 /* 124 */,
 /* 125 */,
-/* 126 */
+/* 126 */,
+/* 127 */,
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -897,37 +899,41 @@ module.exports = ReactPropTypesSecret;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ButtonLoader = exports.TokenBridge = exports.DestroyAccountButton = exports.UpdatePasswordForm = exports.OAuthSignInButton = exports.RequestPasswordResetForm = exports.SignOutButton = exports.EmailSignUpForm = exports.EmailSignInForm = exports.AuthGlobals = undefined;
+exports.ButtonLoader = exports.TokenBridge = exports.DestroyAccountButton = exports.UpdateAccountForm = exports.UpdatePasswordForm = exports.OAuthSignInButton = exports.RequestPasswordResetForm = exports.SignOutButton = exports.EmailSignUpForm = exports.EmailSignInForm = exports.AuthGlobals = undefined;
 
-var _AuthGlobals2 = __webpack_require__(127);
+var _AuthGlobals2 = __webpack_require__(129);
 
 var _AuthGlobals3 = _interopRequireDefault(_AuthGlobals2);
 
-var _EmailSignInForm2 = __webpack_require__(147);
+var _EmailSignInForm2 = __webpack_require__(149);
 
 var _EmailSignInForm3 = _interopRequireDefault(_EmailSignInForm2);
 
-var _EmailSignUpForm2 = __webpack_require__(148);
+var _EmailSignUpForm2 = __webpack_require__(150);
 
 var _EmailSignUpForm3 = _interopRequireDefault(_EmailSignUpForm2);
 
-var _SignOutButton2 = __webpack_require__(149);
+var _SignOutButton2 = __webpack_require__(151);
 
 var _SignOutButton3 = _interopRequireDefault(_SignOutButton2);
 
-var _RequestPasswordResetForm2 = __webpack_require__(150);
+var _RequestPasswordResetForm2 = __webpack_require__(152);
 
 var _RequestPasswordResetForm3 = _interopRequireDefault(_RequestPasswordResetForm2);
 
-var _OAuthSignInButton2 = __webpack_require__(151);
+var _OAuthSignInButton2 = __webpack_require__(153);
 
 var _OAuthSignInButton3 = _interopRequireDefault(_OAuthSignInButton2);
 
-var _UpdatePasswordForm2 = __webpack_require__(152);
+var _UpdatePasswordForm2 = __webpack_require__(154);
 
 var _UpdatePasswordForm3 = _interopRequireDefault(_UpdatePasswordForm2);
 
-var _DestroyAccountButton2 = __webpack_require__(153);
+var _UpdateAccountForm2 = __webpack_require__(155);
+
+var _UpdateAccountForm3 = _interopRequireDefault(_UpdateAccountForm2);
+
+var _DestroyAccountButton2 = __webpack_require__(156);
 
 var _DestroyAccountButton3 = _interopRequireDefault(_DestroyAccountButton2);
 
@@ -935,7 +941,7 @@ var _TokenBridge2 = __webpack_require__(20);
 
 var _TokenBridge3 = _interopRequireDefault(_TokenBridge2);
 
-var _ButtonLoader2 = __webpack_require__(16);
+var _ButtonLoader2 = __webpack_require__(15);
 
 var _ButtonLoader3 = _interopRequireDefault(_ButtonLoader2);
 
@@ -948,12 +954,13 @@ exports.SignOutButton = _SignOutButton3.default;
 exports.RequestPasswordResetForm = _RequestPasswordResetForm3.default;
 exports.OAuthSignInButton = _OAuthSignInButton3.default;
 exports.UpdatePasswordForm = _UpdatePasswordForm3.default;
+exports.UpdateAccountForm = _UpdateAccountForm3.default;
 exports.DestroyAccountButton = _DestroyAccountButton3.default;
 exports.TokenBridge = _TokenBridge3.default;
 exports.ButtonLoader = _ButtonLoader3.default;
 
 /***/ }),
-/* 127 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -973,71 +980,71 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _EmailSignInSuccessModal = __webpack_require__(128);
+var _EmailSignInSuccessModal = __webpack_require__(130);
 
 var _EmailSignInSuccessModal2 = _interopRequireDefault(_EmailSignInSuccessModal);
 
-var _EmailSignInErrorModal = __webpack_require__(131);
+var _EmailSignInErrorModal = __webpack_require__(133);
 
 var _EmailSignInErrorModal2 = _interopRequireDefault(_EmailSignInErrorModal);
 
-var _OAuthSignInSuccessModal = __webpack_require__(132);
+var _OAuthSignInSuccessModal = __webpack_require__(134);
 
 var _OAuthSignInSuccessModal2 = _interopRequireDefault(_OAuthSignInSuccessModal);
 
-var _OAuthSignInErrorModal = __webpack_require__(133);
+var _OAuthSignInErrorModal = __webpack_require__(135);
 
 var _OAuthSignInErrorModal2 = _interopRequireDefault(_OAuthSignInErrorModal);
 
-var _EmailSignUpSuccessModal = __webpack_require__(134);
+var _EmailSignUpSuccessModal = __webpack_require__(136);
 
 var _EmailSignUpSuccessModal2 = _interopRequireDefault(_EmailSignUpSuccessModal);
 
-var _EmailSignUpErrorModal = __webpack_require__(135);
+var _EmailSignUpErrorModal = __webpack_require__(137);
 
 var _EmailSignUpErrorModal2 = _interopRequireDefault(_EmailSignUpErrorModal);
 
-var _SignOutSuccessModal = __webpack_require__(136);
+var _SignOutSuccessModal = __webpack_require__(138);
 
 var _SignOutSuccessModal2 = _interopRequireDefault(_SignOutSuccessModal);
 
-var _SignOutErrorModal = __webpack_require__(137);
+var _SignOutErrorModal = __webpack_require__(139);
 
 var _SignOutErrorModal2 = _interopRequireDefault(_SignOutErrorModal);
 
-var _FirstTimeLoginSuccessModal = __webpack_require__(138);
+var _FirstTimeLoginSuccessModal = __webpack_require__(140);
 
 var _FirstTimeLoginSuccessModal2 = _interopRequireDefault(_FirstTimeLoginSuccessModal);
 
-var _FirstTimeLoginErrorModal = __webpack_require__(139);
+var _FirstTimeLoginErrorModal = __webpack_require__(141);
 
 var _FirstTimeLoginErrorModal2 = _interopRequireDefault(_FirstTimeLoginErrorModal);
 
-var _RequestPasswordResetErrorModal = __webpack_require__(140);
+var _RequestPasswordResetErrorModal = __webpack_require__(142);
 
 var _RequestPasswordResetErrorModal2 = _interopRequireDefault(_RequestPasswordResetErrorModal);
 
-var _RequestPasswordResetSuccessModal = __webpack_require__(141);
+var _RequestPasswordResetSuccessModal = __webpack_require__(143);
 
 var _RequestPasswordResetSuccessModal2 = _interopRequireDefault(_RequestPasswordResetSuccessModal);
 
-var _UpdatePasswordErrorModal = __webpack_require__(142);
+var _UpdatePasswordErrorModal = __webpack_require__(144);
 
 var _UpdatePasswordErrorModal2 = _interopRequireDefault(_UpdatePasswordErrorModal);
 
-var _UpdatePasswordSuccessModal = __webpack_require__(143);
+var _UpdatePasswordSuccessModal = __webpack_require__(145);
 
 var _UpdatePasswordSuccessModal2 = _interopRequireDefault(_UpdatePasswordSuccessModal);
 
-var _DestroyAccountErrorModal = __webpack_require__(144);
+var _DestroyAccountErrorModal = __webpack_require__(146);
 
 var _DestroyAccountErrorModal2 = _interopRequireDefault(_DestroyAccountErrorModal);
 
-var _DestroyAccountSuccessModal = __webpack_require__(145);
+var _DestroyAccountSuccessModal = __webpack_require__(147);
 
 var _DestroyAccountSuccessModal2 = _interopRequireDefault(_DestroyAccountSuccessModal);
 
-var _PasswordResetSuccessModal = __webpack_require__(146);
+var _PasswordResetSuccessModal = __webpack_require__(148);
 
 var _PasswordResetSuccessModal2 = _interopRequireDefault(_PasswordResetSuccessModal);
 
@@ -1180,7 +1187,7 @@ exports.default = (0, _reactRedux.connect)(function (_ref) {
 })(AuthGlobals);
 
 /***/ }),
-/* 128 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1252,13 +1259,13 @@ exports.default = (0, _reactRedux.connect)(function (_ref) {
 })(EmailSignInSuccessModal);
 
 /***/ }),
-/* 129 */
+/* 131 */
 /***/ (function(module, exports) {
 
 module.exports = require("rc-dialog");
 
 /***/ }),
-/* 130 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1378,7 +1385,7 @@ ErrorList.defaultProps = {
 exports.default = ErrorList;
 
 /***/ }),
-/* 131 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1435,7 +1442,7 @@ var EmailSignInErrorModal = function (_React$Component) {
 exports.default = EmailSignInErrorModal;
 
 /***/ }),
-/* 132 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1506,7 +1513,7 @@ exports.default = (0, _reactRedux.connect)(function (_ref) {
 })(OAuthSignInSuccessModal);
 
 /***/ }),
-/* 133 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1572,7 +1579,7 @@ var OAuthSignInErrorModal = function (_React$Component) {
 exports.default = OAuthSignInErrorModal;
 
 /***/ }),
-/* 134 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1643,7 +1650,7 @@ exports.default = (0, _reactRedux.connect)(function (_ref) {
 })(EmailSignUpSuccessModal);
 
 /***/ }),
-/* 135 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1700,7 +1707,7 @@ var EmailSignUpErrorModal = function (_React$Component) {
 exports.default = EmailSignUpErrorModal;
 
 /***/ }),
-/* 136 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1764,7 +1771,7 @@ var SignOutSuccessModal = function (_React$Component) {
 exports.default = SignOutSuccessModal;
 
 /***/ }),
-/* 137 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1828,7 +1835,7 @@ var SignOutErrorModal = function (_React$Component) {
 exports.default = SignOutErrorModal;
 
 /***/ }),
-/* 138 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1898,7 +1905,7 @@ exports.default = (0, _reactRedux.connect)(function (_ref) {
 })(FirstTimeLoginSuccessModal);
 
 /***/ }),
-/* 139 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1962,7 +1969,7 @@ var FirstTimeLoginErrorModal = function (_React$Component) {
 exports.default = FirstTimeLoginErrorModal;
 
 /***/ }),
-/* 140 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2019,7 +2026,7 @@ var RequestPasswordResetErrorModal = function (_React$Component) {
 exports.default = RequestPasswordResetErrorModal;
 
 /***/ }),
-/* 141 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2088,7 +2095,7 @@ exports.default = (0, _reactRedux.connect)(function (_ref) {
 })(RequestPasswordResetSuccessModal);
 
 /***/ }),
-/* 142 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2145,7 +2152,7 @@ var UpdatePasswordErrorModal = function (_React$Component) {
 exports.default = UpdatePasswordErrorModal;
 
 /***/ }),
-/* 143 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2209,7 +2216,7 @@ var UpdatePasswordSuccessModal = function (_React$Component) {
 exports.default = UpdatePasswordSuccessModal;
 
 /***/ }),
-/* 144 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2266,7 +2273,7 @@ var DestroyAccountErrorModal = function (_React$Component) {
 exports.default = DestroyAccountErrorModal;
 
 /***/ }),
-/* 145 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2335,7 +2342,7 @@ exports.default = (0, _reactRedux.connect)(function (_ref) {
 })(DestroyAccountSuccessModal);
 
 /***/ }),
-/* 146 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2357,13 +2364,13 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactBootstrap = __webpack_require__(9);
+var _reactBootstrap = __webpack_require__(11);
 
-var _ButtonLoader = __webpack_require__(16);
+var _ButtonLoader = __webpack_require__(15);
 
 var _ButtonLoader2 = _interopRequireDefault(_ButtonLoader);
 
-var _Input = __webpack_require__(23);
+var _Input = __webpack_require__(21);
 
 var _Input2 = _interopRequireDefault(_Input);
 
@@ -2500,7 +2507,7 @@ exports.default = (0, _reactRedux.connect)(function (_ref) {
 })(PasswordResetSuccessModal);
 
 /***/ }),
-/* 147 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2522,11 +2529,11 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _ButtonLoader = __webpack_require__(16);
+var _ButtonLoader = __webpack_require__(15);
 
 var _ButtonLoader2 = _interopRequireDefault(_ButtonLoader);
 
-var _Input = __webpack_require__(23);
+var _Input = __webpack_require__(21);
 
 var _Input2 = _interopRequireDefault(_Input);
 
@@ -2637,7 +2644,7 @@ exports.default = (0, _reactRedux.connect)(function (_ref) {
 })(EmailSignInForm);
 
 /***/ }),
-/* 148 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2659,11 +2666,11 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Input = __webpack_require__(23);
+var _Input = __webpack_require__(21);
 
 var _Input2 = _interopRequireDefault(_Input);
 
-var _ButtonLoader = __webpack_require__(16);
+var _ButtonLoader = __webpack_require__(15);
 
 var _ButtonLoader2 = _interopRequireDefault(_ButtonLoader);
 
@@ -2701,11 +2708,11 @@ var EmailSignUpForm = function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(event) {
+      console.log("submitting form to endpoint", this.getEndpoint());
       if (this.props.handleSubmit) {
         this.props.handleSubmit().then(this.props.next).catch(function () {});
         return;
       }
-      console.log("submitting form to endpoint", this.getEndpoint());
       event.preventDefault();
       var formData = this.props.auth.getIn(["emailSignUp", this.getEndpoint(), "form"]).toJS();
       this.props.dispatch((0, _emailSignUp.emailSignUp)(formData, this.getEndpoint())).then(this.props.next).catch(function () {});
@@ -2805,7 +2812,7 @@ exports.default = (0, _reactRedux.connect)(function (_ref) {
 })(EmailSignUpForm);
 
 /***/ }),
-/* 149 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2827,7 +2834,7 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _ButtonLoader = __webpack_require__(16);
+var _ButtonLoader = __webpack_require__(15);
 
 var _ButtonLoader2 = _interopRequireDefault(_ButtonLoader);
 
@@ -2900,7 +2907,7 @@ exports.default = (0, _reactRedux.connect)(function (_ref) {
 })(SignOutButton);
 
 /***/ }),
-/* 150 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2922,11 +2929,11 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Input = __webpack_require__(23);
+var _Input = __webpack_require__(21);
 
 var _Input2 = _interopRequireDefault(_Input);
 
-var _ButtonLoader = __webpack_require__(16);
+var _ButtonLoader = __webpack_require__(15);
 
 var _ButtonLoader2 = _interopRequireDefault(_ButtonLoader);
 
@@ -3032,7 +3039,7 @@ exports.default = (0, _reactRedux.connect)(function (_ref) {
 })(RequestPasswordResetForm);
 
 /***/ }),
-/* 151 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3056,7 +3063,7 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _reactRedux = __webpack_require__(2);
 
-var _ButtonLoader = __webpack_require__(16);
+var _ButtonLoader = __webpack_require__(15);
 
 var _ButtonLoader2 = _interopRequireDefault(_ButtonLoader);
 
@@ -3136,7 +3143,7 @@ exports.default = (0, _reactRedux.connect)(function (_ref) {
 })(OAuthSignInButton);
 
 /***/ }),
-/* 152 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3158,11 +3165,11 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Input = __webpack_require__(23);
+var _Input = __webpack_require__(21);
 
 var _Input2 = _interopRequireDefault(_Input);
 
-var _ButtonLoader = __webpack_require__(16);
+var _ButtonLoader = __webpack_require__(15);
 
 var _ButtonLoader2 = _interopRequireDefault(_ButtonLoader);
 
@@ -3279,7 +3286,7 @@ exports.default = (0, _reactRedux.connect)(function (_ref) {
 })(UpdatePasswordForm);
 
 /***/ }),
-/* 153 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3301,7 +3308,183 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _ButtonLoader = __webpack_require__(16);
+var _Input = __webpack_require__(21);
+
+var _Input2 = _interopRequireDefault(_Input);
+
+var _ButtonLoader = __webpack_require__(15);
+
+var _ButtonLoader2 = _interopRequireDefault(_ButtonLoader);
+
+var _updateAccount = __webpack_require__(1);
+
+var _reactRedux = __webpack_require__(2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var UpdateAccountForm = function (_React$Component) {
+  _inherits(UpdateAccountForm, _React$Component);
+
+  function UpdateAccountForm() {
+    _classCallCheck(this, UpdateAccountForm);
+
+    return _possibleConstructorReturn(this, (UpdateAccountForm.__proto__ || Object.getPrototypeOf(UpdateAccountForm)).apply(this, arguments));
+  }
+
+  _createClass(UpdateAccountForm, [{
+    key: "getEndpoint",
+    value: function getEndpoint() {
+      return this.props.endpoint || this.props.auth.getIn(["configure", "currentEndpointKey"]) || this.props.auth.getIn(["configure", "defaultEndpointKey"]);
+    }
+  }, {
+    key: "handleInput",
+    value: function handleInput(key, val) {
+      this.props.dispatch((0, _updateAccount.updateAccountFormUpdate)(this.getEndpoint(), key, val));
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(event) {
+      console.log("submitting form to endpoint", this.getEndpoint());
+      if (this.props.handleSubmit) {
+        this.props.handleSubmit().then(this.props.next).catch(function () {});
+        return;
+      }
+      event.preventDefault();
+      var formData = this.props.auth.getIn(["updateAccount", this.getEndpoint(), "form"]).toJS();
+      this.props.dispatch((0, _updateAccount.updateAccount)(formData, this.getEndpoint())).then(this.props.next).catch(function () {});
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var disabled = !this.props.auth.getIn(["user", "isSignedIn"]) || this.props.auth.getIn(["updateAccount", this.getEndpoint(), "loading"]);
+      var fields = this.props.fields;
+
+
+      return _react2.default.createElement(
+        "form",
+        { className: "redux-auth update-account-form",
+          style: { clear: "both", overflow: "hidden" },
+          onSubmit: this.handleSubmit.bind(this) },
+        _react2.default.createElement(_Input2.default, _extends({ type: "email",
+          label: "Email",
+          className: "update-account-email",
+          disabled: disabled,
+          value: this.props.auth.getIn(["updateAccount", this.getEndpoint(), "form", "email"]),
+          errors: this.props.auth.getIn(["updateAccount", this.getEndpoint(), "errors", "email"]),
+          onChange: this.handleInput.bind(this, "email")
+        }, this.props.inputProps.email)),
+        fields && fields.map(function (field, i) {
+          return _react2.default.createElement(_Input2.default, _extends({ key: i,
+            type: field.type || "text",
+            label: field.label || field.key,
+            className: "update-account-" + field.key,
+            disabled: disabled,
+            value: _this2.props.auth.getIn(["updateAccount", _this2.getEndpoint(), "form", field.key]),
+            errors: _this2.props.auth.getIn(["updateAccount", _this2.getEndpoint(), "errors", field.key]),
+            onChange: _this2.handleInput.bind(_this2, field.key)
+          }, field.props));
+        }),
+        this.props.children,
+        _react2.default.createElement(_Input2.default, _extends({ type: "password",
+          label: "Current Password",
+          className: "update-account-current-password",
+          disabled: disabled,
+          value: this.props.auth.getIn(["updateAccount", this.getEndpoint(), "form", "current_password"]),
+          errors: this.props.auth.getIn(["updateAccount", this.getEndpoint(), "errors", "current_password"]),
+          onChange: this.handleInput.bind(this, "current_password")
+        }, this.props.inputProps.current_password)),
+        _react2.default.createElement(_Input2.default, _extends({ type: "password",
+          label: "Password",
+          className: "update-account-password",
+          disabled: disabled,
+          value: this.props.auth.getIn(["updateAccount", this.getEndpoint(), "form", "password"]),
+          errors: this.props.auth.getIn(["updateAccount", this.getEndpoint(), "errors", "password"]),
+          onChange: this.handleInput.bind(this, "password")
+        }, this.props.inputProps.password)),
+        _react2.default.createElement(_Input2.default, _extends({ type: "password",
+          label: "Password Confirmation",
+          className: "update-account-password-confirmation",
+          disabled: disabled,
+          value: this.props.auth.getIn(["updateAccount", this.getEndpoint(), "form", "password_confirmation"]),
+          errors: this.props.auth.getIn(["updateAccount", this.getEndpoint(), "errors", "password_confirmation"]),
+          onChange: this.handleInput.bind(this, "password_confirmation")
+        }, this.props.inputProps.passwordConfirmation)),
+        _react2.default.createElement(
+          _ButtonLoader2.default,
+          _extends({ loading: this.props.auth.getIn(["updateAccount", this.getEndpoint(), "loading"]),
+            type: "submit",
+            className: "update-account-submit",
+            primary: true,
+            style: { float: "right" },
+            icon: this.props.icon,
+            disabled: disabled,
+            onClick: this.handleSubmit.bind(this)
+          }, this.props.inputProps.submit),
+          this.props.inputProps.submit && this.props.inputProps.submit.title || 'Sign Up'
+        )
+      );
+    }
+  }]);
+
+  return UpdateAccountForm;
+}(_react2.default.Component);
+
+UpdateAccountForm.propTypes = {
+  endpoint: _propTypes2.default.string,
+  next: _propTypes2.default.func,
+  icon: _propTypes2.default.string,
+  inputProps: _propTypes2.default.shape({
+    email: _propTypes2.default.object,
+    password: _propTypes2.default.object,
+    passwordConfirmation: _propTypes2.default.object,
+    submit: _propTypes2.default.object
+  })
+};
+UpdateAccountForm.defaultProps = {
+  next: function next() {},
+  inputProps: {
+    email: {},
+    password: {},
+    submit: {}
+  }
+};
+exports.default = (0, _reactRedux.connect)(function (_ref) {
+  var auth = _ref.auth;
+  return { auth: auth };
+})(UpdateAccountForm);
+
+/***/ }),
+/* 156 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(3);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _ButtonLoader = __webpack_require__(15);
 
 var _ButtonLoader2 = _interopRequireDefault(_ButtonLoader);
 
