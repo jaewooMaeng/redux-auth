@@ -1246,7 +1246,7 @@ function emailSignUpError(errors, endpoint) {
   return { type: EMAIL_SIGN_UP_ERROR, errors: errors, endpoint: endpoint };
 }
 function emailSignUp(body, endpointKey) {
-  if (Object.keys(body).length === 0 && body.constructor === Object) return Promise.resolve();
+  if (Object.keys(body).length === 0 && body.constructor === Object) return;
   return function (dispatch) {
     dispatch(emailSignUpStart(endpointKey));
 
@@ -2384,7 +2384,7 @@ var updateAccountError = exports.updateAccountError = function updateAccountErro
   return { type: UPDATE_ACCOUNT_ERROR, errors: errors, endpoint: endpoint };
 };
 var updateAccount = exports.updateAccount = function updateAccount(body, endpointKey) {
-  if (Object.keys(body).length === 0 && body.constructor === Object) return Promise.resolve();
+  if (Object.keys(body).length === 0 && body.constructor === Object) return;
   return function (dispatch) {
     dispatch(updateAccountStart(endpointKey));
 
