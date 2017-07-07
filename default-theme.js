@@ -3387,10 +3387,10 @@ var UpdateAccountForm = function (_React$Component) {
             label: field.label || field.key,
             className: "update-account-" + field.key,
             disabled: disabled,
-            value: _this2.props.auth.getIn(["updateAccount", _this2.getEndpoint(), "form", field.key]) || _this2.props.inputProps[key].initValue,
+            value: _this2.props.auth.getIn(["updateAccount", _this2.getEndpoint(), "form", field.key]) || field.initValue,
             errors: _this2.props.auth.getIn(["updateAccount", _this2.getEndpoint(), "errors", field.key]),
             onChange: _this2.handleInput.bind(_this2, field.key)
-          }, field.props, _this2.props.inputProps[key]));
+          }, field.props));
         }),
         this.props.children,
         _react2.default.createElement(_Input2.default, _extends({ type: "password",

@@ -78,11 +78,10 @@ class UpdateAccountForm extends React.Component {
                  label={field.label || field.key}
                  className={`update-account-${field.key}`}
                  disabled={disabled}
-                 value={this.props.auth.getIn(["updateAccount", this.getEndpoint(), "form", field.key]) || this.props.inputProps[key].initValue}
+                 value={this.props.auth.getIn(["updateAccount", this.getEndpoint(), "form", field.key]) || field.initValue}
                  errors={this.props.auth.getIn(["updateAccount", this.getEndpoint(), "errors", field.key])}
                  onChange={this.handleInput.bind(this, field.key)}
                  {...field.props}
-                 {...this.props.inputProps[key]}
                  />
         ))}
 
