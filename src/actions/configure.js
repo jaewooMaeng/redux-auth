@@ -92,7 +92,6 @@ export function configure(endpoint={}, settings={}) {
             // do NOT send initial validation request.
             // instead use the credentials that were sent back by the server.
             settings.initialCredentials = serverCreds;
-            console.log(1, settings.initialCredentials);
           }
 
           // sync client dom to prevent React "out of sync" error
@@ -112,8 +111,7 @@ export function configure(endpoint={}, settings={}) {
       }
 
       if (authRedirectHeaders && authRedirectHeaders.uid && authRedirectHeaders["access-token"]) {
-        settings.initialCredentials = extend({}, settings.initialCredentials, authRedirectHeaders);
-        console.log(2, settings.initialCredentials);
+        settings.initialCredentials = Object.assign({}, settings.initialCredentials, {headers: authRedirectHeaders});
       }
 
       // if tokens were invalidated by server or from the settings, make sure
