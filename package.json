@@ -36,7 +36,7 @@
   ],
   "dependencies": {
     "axios": "^0.16.2",
-    "browser-cookies": "^1.0.8",
+    "browser-cookies": "^1.1.0",
     "classnames": "^2.1.5",
     "cookie": "^0.3.1",
     "extend": "^3.0.0",
