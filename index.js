@@ -3208,7 +3208,8 @@ function applyConfig() {
         user = _getCurrentSettings$i.user,
         headers = _getCurrentSettings$i.headers;
 
-    if (headers) (0, _sessionStorage.persistData)(C.SAVED_CREDS_KEY, headers);
+    (0, _sessionStorage.persistData)(C.SAVED_CREDS_KEY, headers);
+    //if (headers) persistData(C.SAVED_CREDS_KEY, headers);
     return Promise.resolve(user);
   } else if (savedCreds) {
     // verify session credentials with API

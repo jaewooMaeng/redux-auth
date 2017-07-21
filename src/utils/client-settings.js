@@ -96,7 +96,8 @@ export function applyConfig({dispatch, endpoint={}, settings={}, reset=false}={}
   if (getCurrentSettings().initialCredentials) {
     // skip initial headers check (i.e. check was already done server-side)
     let {user, headers} = getCurrentSettings().initialCredentials;
-    if (headers) persistData(C.SAVED_CREDS_KEY, headers);
+    persistData(C.SAVED_CREDS_KEY, headers);
+    //if (headers) persistData(C.SAVED_CREDS_KEY, headers);
     return Promise.resolve(user);
   } else if (savedCreds) {
     // verify session credentials with API

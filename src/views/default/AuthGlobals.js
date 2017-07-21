@@ -59,8 +59,8 @@ class AuthGlobals extends React.Component {
     updatePasswordSuccessEnabled: false,
     destroyAccountErrorEnabled: false,
     destroyAccountSuccessEnabled: false,
-    passwordResetSuccessEnabled: false,
-    passwordResetErrorEnabled: false
+    passwordResetSuccessEnabled: true,
+    passwordResetErrorEnabled: true
   };
 
   render () {

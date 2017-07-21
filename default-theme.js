@@ -1178,8 +1178,8 @@ AuthGlobals.defaultProps = {
   updatePasswordSuccessEnabled: false,
   destroyAccountErrorEnabled: false,
   destroyAccountSuccessEnabled: false,
-  passwordResetSuccessEnabled: false,
-  passwordResetErrorEnabled: false
+  passwordResetSuccessEnabled: true,
+  passwordResetErrorEnabled: true
 };
 exports.default = (0, _reactRedux.connect)(function (_ref) {
   var auth = _ref.auth;
