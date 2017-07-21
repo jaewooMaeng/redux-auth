@@ -79,6 +79,8 @@ export function configure(endpoint={}, settings={}) {
       // credentials that were injected into the dom.
       let tokenBridge = document.getElementById("token-bridge");
 
+      let {authRedirectPath, authRedirectHeaders} = getRedirectInfo(window.location);
+
       if (tokenBridge) {
         let rawServerCreds = tokenBridge.innerHTML;
         if (rawServerCreds) {
@@ -98,13 +100,11 @@ export function configure(endpoint={}, settings={}) {
           dispatch(ssAuthTokenUpdate({
             user,
             headers,
-            mustResetPassword,
+            mustResetPassword: mustResetPassword || (authRedirectHeaders && authRedirectHeaders.reset_password),
             firstTimeLogin
           }));
         }
       }
-
-      let {authRedirectPath, authRedirectHeaders} = getRedirectInfo(window.location);
 
       if (authRedirectPath) {
         dispatch(push({pathname: authRedirectPath}));

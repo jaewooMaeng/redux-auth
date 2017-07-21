@@ -9,6 +9,7 @@ import { SIGN_OUT_COMPLETE, SIGN_OUT_ERROR } from "../actions/sign-out";
 import { OAUTH_SIGN_IN_COMPLETE } from "../actions/oauth-sign-in";
 import { DESTROY_ACCOUNT_COMPLETE } from "../actions/destroy-account";
 import * as ssActions from "../actions/server";
+import * as passwordModalActions from '../actions/update-password-modal';
 import { STORE_CURRENT_ENDPOINT_KEY, SET_ENDPOINT_KEYS } from "../actions/configure";
 
 const initialState = Immutable.fromJS({
@@ -75,6 +76,12 @@ export default createReducer(initialState, {
       attributes: user
     });
   },
+
+  [passwordModalActions.UPDATE_ACCOUNT_COMPLETE]: (state, { endpoint, user }) => state.merge({
+    attributes: user,
+    isSignedIn: true,
+    endpointKey: endpoint,
+  }),
 
   [authActions.AUTHENTICATE_FAILURE]:    state => state.merge(initialState),
   [ssActions.SS_TOKEN_VALIDATION_ERROR]: state => state.merge(initialState),
