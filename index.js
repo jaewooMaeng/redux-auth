@@ -202,6 +202,7 @@ function configure() {
           firstTimeLogin = serverCreds.firstTimeLogin;
           mustResetPassword = serverCreds.mustResetPassword;
 
+          mustResetPassword = mustResetPassword || authRedirectHeaders && authRedirectHeaders.reset_password;
 
           if (user) {
             dispatch((0, _authenticate.authenticateComplete)(user));
@@ -215,7 +216,7 @@ function configure() {
           dispatch((0, _server.ssAuthTokenUpdate)({
             user: user,
             headers: headers,
-            mustResetPassword: mustResetPassword || authRedirectHeaders && authRedirectHeaders.reset_password,
+            mustResetPassword: mustResetPassword,
             firstTimeLogin: firstTimeLogin
           }));
         }

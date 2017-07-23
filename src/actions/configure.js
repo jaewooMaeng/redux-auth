@@ -87,6 +87,7 @@ export function configure(endpoint={}, settings={}) {
           let serverCreds = JSON.parse(rawServerCreds);
 
           ({headers, user, firstTimeLogin, mustResetPassword} = serverCreds);
+          mustResetPassword =  mustResetPassword || (authRedirectHeaders && authRedirectHeaders.reset_password)
 
           if (user) {
             dispatch(authenticateComplete(user));
@@ -100,7 +101,7 @@ export function configure(endpoint={}, settings={}) {
           dispatch(ssAuthTokenUpdate({
             user,
             headers,
-            mustResetPassword: mustResetPassword || (authRedirectHeaders && authRedirectHeaders.reset_password),
+            mustResetPassword,
             firstTimeLogin
           }));
         }
