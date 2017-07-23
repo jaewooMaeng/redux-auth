@@ -44,7 +44,8 @@ class PasswordResetSuccessModal extends React.Component {
 
   render () {
     let loading = this.props.auth.getIn(["updatePasswordModal", this.getEndpoint(), "loading"]),
-        endpoint = this.getEndpoint();
+        endpoint = this.getEndpoint(),
+        errors = this.props.auth.getIn(['updatePasswordModal', this.getEndpoint(), 'errors']);
 
     return (
       <Modal
@@ -53,6 +54,9 @@ class PasswordResetSuccessModal extends React.Component {
         onHide={this.close.bind(this)}>
         <Modal.Header closeButton>
           <Modal.Title>{this.props.title || 'Reset Your Password'}</Modal.Title>
+          <p className="message">
+            {errors && errors.size > 0 && errors.get(0)}
+          </p>
         </Modal.Header>
 
         <form className="redux-auth password-reset-success-form">

@@ -2426,7 +2426,8 @@ var PasswordResetSuccessModal = function (_React$Component) {
     key: "render",
     value: function render() {
       var loading = this.props.auth.getIn(["updatePasswordModal", this.getEndpoint(), "loading"]),
-          endpoint = this.getEndpoint();
+          endpoint = this.getEndpoint(),
+          errors = this.props.auth.getIn(['updatePasswordModal', this.getEndpoint(), 'errors']);
 
       return _react2.default.createElement(
         _reactBootstrap.Modal,
@@ -2441,6 +2442,11 @@ var PasswordResetSuccessModal = function (_React$Component) {
             _reactBootstrap.Modal.Title,
             null,
             this.props.title || 'Reset Your Password'
+          ),
+          _react2.default.createElement(
+            "p",
+            { className: "message" },
+            errors && errors.size > 0 && errors.get(0)
           )
         ),
         _react2.default.createElement(
