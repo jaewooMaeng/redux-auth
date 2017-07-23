@@ -148,7 +148,7 @@ function configure() {
 
     var promise = void 0,
         firstTimeLogin = void 0,
-        mustResetPassword = settings.initialCredentials.reset_password === 'true',
+        mustResetPassword = settings.initialCredentials && settings.initialCredentials.reset_password === 'true',
         user = void 0,
         headers = void 0;
 

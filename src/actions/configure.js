@@ -38,7 +38,7 @@ export function configure(endpoint={}, settings={}) {
 
     let promise,
         firstTimeLogin,
-        mustResetPassword = settings.initialCredentials.reset_password === 'true',
+        mustResetPassword = settings.initialCredentials && settings.initialCredentials.reset_password === 'true',
         user,
         headers;
 
