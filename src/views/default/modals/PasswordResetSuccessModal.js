@@ -52,10 +52,10 @@ class PasswordResetSuccessModal extends React.Component {
         className="password-reset-success-modal"
         onHide={this.close.bind(this)}>
         <Modal.Header closeButton>
-          <Modal.Title>Reset Your Password</Modal.Title>
+          <Modal.Title>{this.props.title || 'Reset Your Password'}</Modal.Title>
         </Modal.Header>
 
-        <form>
+        <form className="redux-auth password-reset-success-form">
           <Modal.Body>
             <Input
               type="password"

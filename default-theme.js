@@ -970,6 +970,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
@@ -1132,7 +1134,9 @@ var AuthGlobals = function (_React$Component) {
         _react2.default.createElement(_UpdatePasswordSuccessModal2.default, { show: updatePasswordSuccess }),
         _react2.default.createElement(_DestroyAccountErrorModal2.default, { show: destroyAccountError }),
         _react2.default.createElement(_DestroyAccountSuccessModal2.default, { show: destroyAccountSuccess }),
-        _react2.default.createElement(_PasswordResetSuccessModal2.default, { show: passwordResetSuccess }),
+        _react2.default.createElement(_PasswordResetSuccessModal2.default, _extends({
+          show: passwordResetSuccess
+        }, this.props.passwordResetModalProps)),
         _react2.default.createElement(_TokenBridge2.default, null)
       );
     }
@@ -2436,12 +2440,12 @@ var PasswordResetSuccessModal = function (_React$Component) {
           _react2.default.createElement(
             _reactBootstrap.Modal.Title,
             null,
-            "Reset Your Password"
+            this.props.title || 'Reset Your Password'
           )
         ),
         _react2.default.createElement(
           "form",
-          null,
+          { className: "redux-auth password-reset-success-form" },
           _react2.default.createElement(
             _reactBootstrap.Modal.Body,
             null,

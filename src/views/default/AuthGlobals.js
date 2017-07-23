@@ -172,7 +172,10 @@ class AuthGlobals extends React.Component {
         <UpdatePasswordSuccessModal show={updatePasswordSuccess} />
         <DestroyAccountErrorModal show={destroyAccountError} />
         <DestroyAccountSuccessModal show={destroyAccountSuccess} />
-        <PasswordResetSuccessModal show={passwordResetSuccess} />
+        <PasswordResetSuccessModal
+          show={passwordResetSuccess}
+          {...this.props.passwordResetModalProps}
+        />
         <TokenBridge />
       </div>
     );
