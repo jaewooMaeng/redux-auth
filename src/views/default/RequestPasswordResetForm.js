@@ -70,12 +70,11 @@ class RequestPasswordResetForm extends React.Component {
           loading={loading}
           type="submit"
           primary={true}
-          style={{float: "right"}}
           className="request-password-reset-submit"
           disabled={inputDisabled || submitDisabled}
           onClick={this.handleSubmit.bind(this)}
           {...this.props.inputProps.submit}>
-          Request Password Reset
+          {this.props.inputProps.submit.title || 'Request Password Reset'}
         </ButtonLoader>
       </form>
     );

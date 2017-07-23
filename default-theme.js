@@ -368,7 +368,7 @@ var ButtonLoader = function (_React$Component) {
     key: "render",
     value: function render() {
       var color = this.getColor();
-      var style = (0, _extend2.default)({ color: color, paddingLeft: 15, position: "relative" }, this.props.style);
+      var style = this.props.style;
 
       return _react2.default.createElement(
         "button",
@@ -3005,12 +3005,11 @@ var RequestPasswordResetForm = function (_React$Component) {
             loading: loading,
             type: "submit",
             primary: true,
-            style: { float: "right" },
             className: "request-password-reset-submit",
             disabled: inputDisabled || submitDisabled,
             onClick: this.handleSubmit.bind(this)
           }, this.props.inputProps.submit),
-          "Request Password Reset"
+          this.props.inputProps.submit.title || 'Request Password Reset'
         )
       );
     }

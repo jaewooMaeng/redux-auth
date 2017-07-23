@@ -76,7 +76,7 @@ class ButtonLoader extends React.Component {
 
   render () {
     let color = this.getColor();
-    let style = extend({color, paddingLeft: 15, position: "relative"}, this.props.style);
+    let style = this.props.style;
 
     return (
       <button
