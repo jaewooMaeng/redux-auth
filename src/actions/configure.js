@@ -36,11 +36,7 @@ export function configure(endpoint={}, settings={}) {
 
     dispatch(authenticateStart());
 
-    let promise,
-        firstTimeLogin,
-        mustResetPassword = settings.initialCredentials && settings.initialCredentials.reset_password === 'true',
-        user,
-        headers;
+    let promise, firstTimeLogin, user, headers, mustResetPassword;
 
     if (settings.isServer) {
       promise = verifyAuth(endpoint, settings)
@@ -79,15 +75,12 @@ export function configure(endpoint={}, settings={}) {
       // credentials that were injected into the dom.
       let tokenBridge = document.getElementById("token-bridge");
 
-      let {authRedirectPath, authRedirectHeaders} = getRedirectInfo(window.location);
-
       if (tokenBridge) {
         let rawServerCreds = tokenBridge.innerHTML;
         if (rawServerCreds) {
           let serverCreds = JSON.parse(rawServerCreds);
 
           ({headers, user, firstTimeLogin, mustResetPassword} = serverCreds);
-          mustResetPassword =  mustResetPassword || (authRedirectHeaders && authRedirectHeaders.reset_password)
 
           if (user) {
             dispatch(authenticateComplete(user));
@@ -106,6 +99,8 @@ export function configure(endpoint={}, settings={}) {
           }));
         }
       }
+
+      let {authRedirectPath, authRedirectHeaders} = getRedirectInfo(window.location);
 
       if (authRedirectPath) {
         dispatch(push({pathname: authRedirectPath}));

@@ -148,9 +148,9 @@ function configure() {
 
     var promise = void 0,
         firstTimeLogin = void 0,
-        mustResetPassword = settings.initialCredentials && settings.initialCredentials.reset_password === 'true',
         user = void 0,
-        headers = void 0;
+        headers = void 0,
+        mustResetPassword = void 0;
 
     if (settings.isServer) {
       promise = (0, _verifyAuth2.default)(endpoint, settings).then(function (_ref) {
@@ -188,10 +188,6 @@ function configure() {
       // credentials that were injected into the dom.
       var tokenBridge = document.getElementById("token-bridge");
 
-      var _getRedirectInfo = (0, _parseUrl2.default)(window.location),
-          authRedirectPath = _getRedirectInfo.authRedirectPath,
-          authRedirectHeaders = _getRedirectInfo.authRedirectHeaders;
-
       if (tokenBridge) {
         var rawServerCreds = tokenBridge.innerHTML;
         if (rawServerCreds) {
@@ -202,7 +198,6 @@ function configure() {
           firstTimeLogin = serverCreds.firstTimeLogin;
           mustResetPassword = serverCreds.mustResetPassword;
 
-          mustResetPassword = mustResetPassword || authRedirectHeaders && authRedirectHeaders.reset_password;
 
           if (user) {
             dispatch((0, _authenticate.authenticateComplete)(user));
@@ -221,6 +216,10 @@ function configure() {
           }));
         }
       }
+
+      var _getRedirectInfo = (0, _parseUrl2.default)(window.location),
+          authRedirectPath = _getRedirectInfo.authRedirectPath,
+          authRedirectHeaders = _getRedirectInfo.authRedirectHeaders;
 
       if (authRedirectPath) {
         dispatch((0, _reactRouterRedux.push)({ pathname: authRedirectPath }));
