@@ -3354,6 +3354,11 @@ exports.default = function () {
   (0, _extend2.default)(options.headers, getAuthHeaders(options.url));
   return (0, _axios2.default)(options).then(function (resp) {
     return updateAuthCredentials(resp);
+  }).catch(function (e) {
+    if (e.response.status !== 401) {
+      updateAuthCredentials(e.response);
+    }
+    throw e;
   });
 };
 

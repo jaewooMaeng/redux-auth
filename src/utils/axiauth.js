@@ -80,5 +80,11 @@ export default function (options={}) {
   }
   extend(options.headers, getAuthHeaders(options.url));
   return axios(options)
-  .then(resp => updateAuthCredentials(resp));
+  .then(resp => updateAuthCredentials(resp))
+  .catch(e => {
+    if (e.response.status !== 401) {
+      updateAuthCredentials(e.response);
+    }
+    throw e;
+  });
 }
