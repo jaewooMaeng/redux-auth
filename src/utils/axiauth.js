@@ -39,7 +39,6 @@ function getAuthHeaders(url) {
     for (let key in getTokenFormat()) {
       nextHeaders[key] = currentHeaders[key];
     }
-    console.log('currentHeaders', currentHeaders, 'nextHeaders', nextHeaders);
 
     return addAuthorizationHeader(currentHeaders['access-token'], nextHeaders);
   } else {
@@ -80,6 +79,7 @@ export default function (options={}) {
     options.headers = {}
   }
   extend(options.headers, getAuthHeaders(options.url));
+  console.log('headers', options.headers);
   return axios(options)
   .then(resp => updateAuthCredentials(resp))
   .catch(e => {
