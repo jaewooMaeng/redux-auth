@@ -39,6 +39,7 @@ function getAuthHeaders(url) {
     for (let key in getTokenFormat()) {
       nextHeaders[key] = currentHeaders[key];
     }
+    console.log('currentHeaders', currentHeaders, 'nextHeaders', nextHeaders);
 
     return addAuthorizationHeader(currentHeaders['access-token'], nextHeaders);
   } else {

@@ -3416,6 +3416,7 @@ function getAuthHeaders(url) {
     for (var key in (0, _sessionStorage.getTokenFormat)()) {
       nextHeaders[key] = currentHeaders[key];
     }
+    console.log('currentHeaders', currentHeaders, 'nextHeaders', nextHeaders);
 
     return addAuthorizationHeader(currentHeaders['access-token'], nextHeaders);
   } else {
