@@ -56,6 +56,7 @@ function updateAuthCredentials(resp) {
     // if the response tokens aren't sent back from the API
     let blankHeaders = true;
 
+    console.log('axiauth', resp);
     // set header key + val for each key in `tokenFormat` config
     for (let key in getTokenFormat()) {
       newHeaders[key] = resp.headers[key];

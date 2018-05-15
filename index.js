@@ -3434,6 +3434,7 @@ function updateAuthCredentials(resp) {
     // if the response tokens aren't sent back from the API
     var blankHeaders = true;
 
+    console.log('axiauth', resp);
     // set header key + val for each key in `tokenFormat` config
     for (var key in (0, _sessionStorage.getTokenFormat)()) {
       newHeaders[key] = resp.headers[key];
