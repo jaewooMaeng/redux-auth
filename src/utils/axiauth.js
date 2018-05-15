@@ -56,7 +56,7 @@ function updateAuthCredentials(resp) {
     // if the response tokens aren't sent back from the API
     let blankHeaders = true;
 
-    console.log('axiauth', resp);
+    //console.log('axiauth resp', resp);
     // set header key + val for each key in `tokenFormat` config
     for (let key in getTokenFormat()) {
       newHeaders[key] = resp.headers[key];
@@ -79,7 +79,7 @@ export default function (options={}) {
     options.headers = {}
   }
   extend(options.headers, getAuthHeaders(options.url));
-  console.log('headers', options.headers);
+  //console.log('axiauth req headers', options.headers);
   return axios(options)
   .then(resp => updateAuthCredentials(resp))
   .catch(e => {

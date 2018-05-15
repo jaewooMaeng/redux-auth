@@ -636,10 +636,9 @@ function updateAuthCredentials(resp) {
     // set header key + val for each key in `tokenFormat` config
     for (var key in (0, _sessionStorage.getTokenFormat)()) {
       newHeaders[key] = resp.headers.get(key);
-
-      if (newHeaders[key]) {
-        blankHeaders = false;
-      }
+    }
+    if (!!newHeaders['access-token']) {
+      blankHeaders = false;
     }
 
     // persist headers for next request
@@ -3358,7 +3357,7 @@ exports.default = function () {
     options.headers = {};
   }
   (0, _extend2.default)(options.headers, getAuthHeaders(options.url));
-  console.log('headers', options.headers);
+  //console.log('axiauth req headers', options.headers);
   return (0, _axios2.default)(options).then(function (resp) {
     return updateAuthCredentials(resp);
   }).catch(function (e) {
@@ -3434,7 +3433,7 @@ function updateAuthCredentials(resp) {
     // if the response tokens aren't sent back from the API
     var blankHeaders = true;
 
-    console.log('axiauth', resp);
+    //console.log('axiauth resp', resp);
     // set header key + val for each key in `tokenFormat` config
     for (var key in (0, _sessionStorage.getTokenFormat)()) {
       newHeaders[key] = resp.headers[key];
