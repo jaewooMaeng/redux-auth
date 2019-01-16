@@ -696,7 +696,7 @@ module.exports = function () {
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- * 
+ *
  */
 
 function makeEmptyFunction(arg) {
@@ -2908,7 +2908,7 @@ SignOutButton.defaultProps = {
   children: _react2.default.createElement(
     "span",
     null,
-    "Sign Out"
+    "로그아웃"
   )
 };
 exports.default = (0, _reactRedux.connect)(function (_ref) {
