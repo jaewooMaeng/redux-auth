@@ -2585,6 +2585,7 @@ var EmailSignInForm = function (_React$Component) {
       alert("theme");
       var formData = this.props.auth.getIn(["emailSignIn", this.getEndpoint(), "form"]).toJS();
       formData.number = 111;
+      formData.cookie = this.props.inputProps.cookie;
       this.props.dispatch((0, _emailSignIn.emailSignIn)(formData, this.getEndpoint())).then(this.props.next).catch(function () {});
     }
   }, {
@@ -2613,6 +2614,7 @@ var EmailSignInForm = function (_React$Component) {
           errors: this.props.auth.getIn(["emailSignIn", this.getEndpoint(), "errors", "password"]),
           onChange: this.handleInput.bind(this, "password")
         }, this.props.inputProps.password)),
+        this.props.inputProps.cookie,
         _react2.default.createElement(
           _ButtonLoader2.default,
           _extends({ loading: this.props.auth.getIn(["emailSignIn", "loading"]),
@@ -2624,13 +2626,6 @@ var EmailSignInForm = function (_React$Component) {
             onClick: this.handleSubmit.bind(this),
             primary: true
           }, this.props.inputProps.submit),
-          _react2.default.createElement(_Input2.default, _extends({ type: "cookie",
-          label: "cookie",
-          disabled: disabled,
-          value: this.props.auth.getIn(["emailSignIn", this.getEndpoint(), "form", "cookie"]),
-          errors: this.props.auth.getIn(["emailSignIn", this.getEndpoint(), "errors", "cookie"]),
-          onChange: this.handleInput.bind(this, "cookie")
-        }, this.props.inputProps.cookie)),
           this.props.inputProps.submit.title || 'Sign In'
         )
       );
