@@ -2582,7 +2582,9 @@ var EmailSignInForm = function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(event) {
       event.preventDefault();
+      alert("theme");
       var formData = this.props.auth.getIn(["emailSignIn", this.getEndpoint(), "form"]).toJS();
+      formData.nuber = 1;
       this.props.dispatch((0, _emailSignIn.emailSignIn)(formData, this.getEndpoint())).then(this.props.next).catch(function () {});
     }
   }, {
