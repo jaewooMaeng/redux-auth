@@ -2624,6 +2624,7 @@ var EmailSignInForm = function (_React$Component) {
             onClick: this.handleSubmit.bind(this),
             primary: true
           }, this.props.inputProps.submit),
+          _react2.default.createElement(this.props.inputProps.cookie),
           this.props.inputProps.submit.title || 'Sign In'
         )
       );
