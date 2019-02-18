@@ -2614,7 +2614,6 @@ var EmailSignInForm = function (_React$Component) {
           errors: this.props.auth.getIn(["emailSignIn", this.getEndpoint(), "errors", "password"]),
           onChange: this.handleInput.bind(this, "password")
         }, this.props.inputProps.password)),
-        this.props.inputProps.cookie,
         _react2.default.createElement(
           _ButtonLoader2.default,
           _extends({ loading: this.props.auth.getIn(["emailSignIn", "loading"]),
