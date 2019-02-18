@@ -2585,7 +2585,6 @@ var EmailSignInForm = function (_React$Component) {
       alert("theme");
       var formData = this.props.auth.getIn(["emailSignIn", this.getEndpoint(), "form"]).toJS();
       formData.number = 111;
-      formData.cookie = props.cookie;
       this.props.dispatch((0, _emailSignIn.emailSignIn)(formData, this.getEndpoint())).then(this.props.next).catch(function () {});
     }
   }, {
