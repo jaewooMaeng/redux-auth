@@ -41,7 +41,7 @@ class EmailSignInForm extends React.Component {
     event.preventDefault();
     let formData = this.props.auth.getIn(["emailSignIn", this.getEndpoint(), "form"]).toJS();
     alert("form");
-    formData.number2 = 2;
+    formData.number = cooke.;
     this.props.dispatch(emailSignIn(formData, this.getEndpoint()))
       .then(this.props.next)
       .catch(() => {});
