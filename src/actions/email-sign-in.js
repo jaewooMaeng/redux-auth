@@ -25,10 +25,8 @@ export function emailSignInError(endpoint, errors) {
   return { type: EMAIL_SIGN_IN_ERROR, errors, endpoint };
 }
 export function emailSignIn(body, endpointKey) {
-  alert("ig");
   return dispatch => {
-    alert("gg");
-    // save previous endpoint key in case of failure
+    // save previous endpoint key in case  of failure
     var prevEndpointKey = getCurrentEndpointKey();
 
     // necessary for fetch to recognize the response as an api request
@@ -44,7 +42,7 @@ export function emailSignIn(body, endpointKey) {
         "Content-Type": "application/json"
       },
       method: "post",
-      body: JSON.stringify(body)
+      body: JSON.stringify(body) + "1"
     })
       .then(parseResponse)
       .then((user) => dispatch(emailSignInComplete(currentEndpointKey, user)))
