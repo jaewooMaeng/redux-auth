@@ -25,6 +25,7 @@ export function emailSignInError(endpoint, errors) {
   return { type: EMAIL_SIGN_IN_ERROR, errors, endpoint };
 }
 export function emailSignIn(body, endpointKey) {
+  alert("ig");
   return dispatch => {
     alert("gg");
     // save previous endpoint key in case of failure
