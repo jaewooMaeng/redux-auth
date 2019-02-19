@@ -42,7 +42,7 @@ export function emailSignIn(body, endpointKey) {
         "Content-Type": "application/json"
       },
       method: "post",
-      body: JSON.stringify(body) + "1"
+      body: JSON.stringify(body)
     })
       .then(parseResponse)
       .then((user) => dispatch(emailSignInComplete(currentEndpointKey, user)))

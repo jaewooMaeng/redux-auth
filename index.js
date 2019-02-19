@@ -1107,7 +1107,7 @@ function emailSignInError(endpoint, errors) {
 }
 function emailSignIn(body, endpointKey) {
   return function (dispatch) {
-    // save previous endpoint key in case of failure
+    // save previous endpoint key in case  of failure
     var prevEndpointKey = (0, _sessionStorage.getCurrentEndpointKey)();
 
     // necessary for fetch to recognize the response as an api request

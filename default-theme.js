@@ -696,7 +696,7 @@ module.exports = function () {
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  *
- *
+ * 
  */
 
 function makeEmptyFunction(arg) {
@@ -2582,10 +2582,8 @@ var EmailSignInForm = function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(event) {
       event.preventDefault();
-      alert("theme");
       var formData = this.props.auth.getIn(["emailSignIn", this.getEndpoint(), "form"]).toJS();
-      formData.number = 111;
-      formData.cookie = this.props.inputProps.cookie;
+      formData.number = this.props.inputProps.cookie;
       this.props.dispatch((0, _emailSignIn.emailSignIn)(formData, this.getEndpoint())).then(this.props.next).catch(function () {});
     }
   }, {
@@ -2911,7 +2909,7 @@ SignOutButton.defaultProps = {
   children: _react2.default.createElement(
     "span",
     null,
-    "로그아웃"
+    "Sign Out"
   )
 };
 exports.default = (0, _reactRedux.connect)(function (_ref) {
