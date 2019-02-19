@@ -25,10 +25,11 @@ export function emailSignInError(endpoint, errors) {
   return { type: EMAIL_SIGN_IN_ERROR, errors, endpoint };
 }
 export function emailSignIn(body, endpointKey) {
+  alert("ohyes");
   return dispatch => {
     // save previous endpoint key in case  of failure
     var prevEndpointKey = getCurrentEndpointKey();
-    alert("ohyes");
+
     // necessary for fetch to recognize the response as an api request
     setCurrentEndpointKey(endpointKey);
     var currentEndpointKey = getCurrentEndpointKey();
