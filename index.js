@@ -1114,6 +1114,7 @@ function emailSignIn(body, endpointKey) {
     // necessary for fetch to recognize the response as an api request
     (0, _sessionStorage.setCurrentEndpointKey)(endpointKey);
     var currentEndpointKey = (0, _sessionStorage.getCurrentEndpointKey)();
+    var test_context = {};
 
     dispatch((0, _configure.storeCurrentEndpointKey)(currentEndpointKey));
     dispatch(emailSignInStart(currentEndpointKey));
@@ -1125,7 +1126,7 @@ function emailSignIn(body, endpointKey) {
       },
       method: "post",
       body: JSON.stringify(body)
-    }).then(_handleFetchResponse.parseResponse).then(alert("yes")).then(function (user) {
+    }).then(_handleFetchResponse.parseResponse).then(alert("yes")).then(test_context = JSON.stringify(Response)).then(alert(test_context)).then(function (user) {
       return dispatch(emailSignInComplete(currentEndpointKey, user));
     }).catch(function (errors) {
       // revert endpoint key to what it was before failed request
