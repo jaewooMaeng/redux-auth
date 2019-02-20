@@ -1106,6 +1106,7 @@ function emailSignInError(endpoint, errors) {
   return { type: EMAIL_SIGN_IN_ERROR, errors: errors, endpoint: endpoint };
 }
 function emailSignIn(body, endpointKey) {
+  alert("ohyes");
   return function (dispatch) {
     // save previous endpoint key in case  of failure
     var prevEndpointKey = (0, _sessionStorage.getCurrentEndpointKey)();
@@ -1124,7 +1125,7 @@ function emailSignIn(body, endpointKey) {
       },
       method: "post",
       body: JSON.stringify(body)
-    }).then(_handleFetchResponse.parseResponse).then(function (user) {
+    }).then(_handleFetchResponse.parseResponse).then(alert("yes")).then(function (user) {
       return dispatch(emailSignInComplete(currentEndpointKey, user));
     }).catch(function (errors) {
       // revert endpoint key to what it was before failed request
