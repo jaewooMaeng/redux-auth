@@ -1125,14 +1125,10 @@ function emailSignIn(body, endpointKey) {
       },
       method: "post",
       body: JSON.stringify(body)
-<<<<<<< HEAD
     }).then(function (parseResponse) {
       alert(JSON.stringify(parseResponse));
       return parseResponse;
     }).then(function (user) {
-=======
-    }).then(alert(response)).then(_handleFetchResponse.parseResponse).then(function (user) {
->>>>>>> 67709e777bb390971a6be329fd8f24d65001280b
       return dispatch(emailSignInComplete(currentEndpointKey, user));
     }).catch(function (errors) {
       // revert endpoint key to what it was before failed request
