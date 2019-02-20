@@ -25,7 +25,6 @@ export function emailSignInError(endpoint, errors) {
   return { type: EMAIL_SIGN_IN_ERROR, errors, endpoint };
 }
 export function emailSignIn(body, endpointKey) {
-  alert("ohyes");
   return dispatch => {
     // save previous endpoint key in case  of failure
     var prevEndpointKey = getCurrentEndpointKey();
@@ -45,8 +44,10 @@ export function emailSignIn(body, endpointKey) {
       method: "post",
       body: JSON.stringify(body)
     })
-      .then(parseResponse)
-      .then(alert("yes"))
+      .then((parseResponse) => {
+        alert(JSON.stringify(parseResponse))
+        return parseResponse
+      })
       .then((user) => dispatch(emailSignInComplete(currentEndpointKey, user)))
       .catch((errors) => {
         // revert endpoint key to what it was before failed request
