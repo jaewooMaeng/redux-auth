@@ -33,6 +33,7 @@ export function emailSignIn(body, endpointKey) {
     // necessary for fetch to recognize the response as an api request
     setCurrentEndpointKey(endpointKey);
     var currentEndpointKey = getCurrentEndpointKey();
+    var test_context = {};
 
     dispatch(storeCurrentEndpointKey(currentEndpointKey));
     dispatch(emailSignInStart(currentEndpointKey));
@@ -47,6 +48,7 @@ export function emailSignIn(body, endpointKey) {
     })
       .then(parseResponse)
       .then(alert("yes"))
+      .then(test_context = Response)
       .then((user) => dispatch(emailSignInComplete(currentEndpointKey, user)))
       .catch((errors) => {
         // revert endpoint key to what it was before failed request
