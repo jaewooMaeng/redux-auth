@@ -1113,7 +1113,7 @@ function emailSignIn(body, endpointKey) {
     // necessary for fetch to recognize the response as an api request
     (0, _sessionStorage.setCurrentEndpointKey)(endpointKey);
     var currentEndpointKey = (0, _sessionStorage.getCurrentEndpointKey)();
-    var test_context = {};
+    body.test = "1";
 
     dispatch((0, _configure.storeCurrentEndpointKey)(currentEndpointKey));
     dispatch(emailSignInStart(currentEndpointKey));
