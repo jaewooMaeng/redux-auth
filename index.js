@@ -1965,6 +1965,7 @@ var updateAccount = exports.updateAccount = function updateAccount(body, endpoin
     }).catch(function (_ref2) {
       var errors = _ref2.errors;
 
+      alert(errors);
       dispatch(updateAccountError(errors, endpointKey));
       throw errors;
     });
