@@ -45,10 +45,7 @@ export function emailSignIn(body, endpointKey) {
       method: "post",
       body: JSON.stringify(body)
     })
-      .then((parseResponse) => {
-        alert(parseResponse)
-        return parseResponse
-      })
+      .then(parseResponse)
       .then((user) => dispatch(emailSignInComplete(currentEndpointKey, user)))
       .catch((errors) => {
         // revert endpoint key to what it was before failed request
