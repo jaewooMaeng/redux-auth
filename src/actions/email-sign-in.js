@@ -46,7 +46,7 @@ export function emailSignIn(body, endpointKey) {
       body: JSON.stringify(body)
     })
       .then((parseResponse) => {
-        alert(JSON.stringify(parseResponse))
+        alert(parseResponse)
         return parseResponse
       })
       .then((user) => dispatch(emailSignInComplete(currentEndpointKey, user)))
