@@ -45,7 +45,6 @@ export const updateAccount = (body, endpointKey) => {
       .then(parseResponse)
       .then(({data}) => dispatch(updateAccountComplete(data, endpointKey)))
       .catch(({errors}) => {
-        alert(errors);
         dispatch(updateAccountError(errors, endpointKey))
         throw errors;
       });
