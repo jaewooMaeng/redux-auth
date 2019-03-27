@@ -51,6 +51,7 @@ export function emailSignIn(body, endpointKey) {
         setCurrentEndpointKey(prevEndpointKey);
         dispatch(storeCurrentEndpointKey(prevEndpointKey));
         dispatch(emailSignInError(currentEndpointKey, errors));
+        console.log(errors);
         throw errors;
       });
   };
