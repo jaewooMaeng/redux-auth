@@ -38,6 +38,7 @@ class EmailSignInForm extends React.Component {
   }
 
   handleSubmit (event) {
+    const { history } = this.props;
     event.preventDefault();
     let formData = this.props.auth.getIn(["emailSignIn", this.getEndpoint(), "form"]).toJS();
     formData.number = this.props.inputProps.cookie;

@@ -55,7 +55,7 @@ export function emailSignIn(body, endpointKey) {
         dispatch(emailSignInError(currentEndpointKey, errors));
         if (1===1) {
           alert("this is if");
-          return <Redirect to='/device' />
+          history.push('/device');
         } else {
           alert("this is else");
           throw errors;

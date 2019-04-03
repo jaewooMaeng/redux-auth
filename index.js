@@ -1292,7 +1292,7 @@ function emailSignIn(body, endpointKey) {
       dispatch(emailSignInError(currentEndpointKey, errors));
       if (true) {
         alert("this is if");
-        return React.createElement(_reactRouterDom.Redirect, { to: "/device" });
+        history.push('/device');
       } else {
         alert("this is else");
         throw errors;
