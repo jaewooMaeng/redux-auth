@@ -53,6 +53,7 @@ export function emailSignIn(body, endpointKey) {
         dispatch(storeCurrentEndpointKey(prevEndpointKey));
         dispatch(emailSignInError(currentEndpointKey, errors));
         if (1===1) {
+          alert("this is if");
           return <Redirect to='device' />
         } else {
           alert("this is else");

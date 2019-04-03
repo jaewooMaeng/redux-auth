@@ -1288,6 +1288,7 @@ function emailSignIn(body, endpointKey) {
       dispatch((0, _configure.storeCurrentEndpointKey)(prevEndpointKey));
       dispatch(emailSignInError(currentEndpointKey, errors));
       if (true) {
+        alert("this is if");
         return React.createElement(_reactRouterDom.Redirect, { to: "device" });
       } else {
         alert("this is else");
