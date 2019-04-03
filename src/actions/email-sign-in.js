@@ -49,6 +49,7 @@ export function emailSignIn(body, endpointKey) {
       .catch((errors) => {
         // revert endpoint key to what it was before failed request
         alert(JSON.stringify(errors));
+        console.log(errors);
         setCurrentEndpointKey(prevEndpointKey);
         dispatch(storeCurrentEndpointKey(prevEndpointKey));
         dispatch(emailSignInError(currentEndpointKey, errors));

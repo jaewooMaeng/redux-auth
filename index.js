@@ -1128,7 +1128,8 @@ function emailSignIn(body, endpointKey) {
       return dispatch(emailSignInComplete(currentEndpointKey, user));
     }).catch(function (errors) {
       // revert endpoint key to what it was before failed request
-      alert(errors);
+      alert(JSON.stringify(errors));
+      console.log(errors);
       (0, _sessionStorage.setCurrentEndpointKey)(prevEndpointKey);
       dispatch((0, _configure.storeCurrentEndpointKey)(prevEndpointKey));
       dispatch(emailSignInError(currentEndpointKey, errors));
