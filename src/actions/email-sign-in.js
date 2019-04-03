@@ -52,12 +52,10 @@ export function emailSignIn(body, endpointKey) {
       .then((user) => dispatch(emailSignInComplete(currentEndpointKey, user)))
       .catch((errors) => {
         // revert endpoint key to what it was before failed request
-        alert(JSON.stringify(errors));
-        console.log(errors);
         setCurrentEndpointKey(prevEndpointKey);
         dispatch(storeCurrentEndpointKey(prevEndpointKey));
         dispatch(emailSignInError(currentEndpointKey, errors));
-        1===1 ? console.log("if is working") : console.log("it is still working")
+        1===1 ? alert("if is working") : alert("it is still working");
         throw errors;
       });
   };
