@@ -6,7 +6,6 @@ import {
 import {storeCurrentEndpointKey} from "./configure";
 import {parseResponse} from "../utils/handle-fetch-response";
 import fetch from "../utils/fetch";
-import { Redirect } from 'react-router-dom';
 
 export const EMAIL_SIGN_IN_START       = "EMAIL_SIGN_IN_START";
 export const EMAIL_SIGN_IN_COMPLETE    = "EMAIL_SIGN_IN_COMPLETE";
@@ -46,20 +45,13 @@ export function emailSignIn(body, endpointKey) {
       body: JSON.stringify(body)
     })
       .then(parseResponse)
-      .then((1===1) ? console.log('go') : alert(response.json()))
       .then((user) => dispatch(emailSignInComplete(currentEndpointKey, user)))
       .catch((errors) => {
         // revert endpoint key to what it was before failed request
         setCurrentEndpointKey(prevEndpointKey);
         dispatch(storeCurrentEndpointKey(prevEndpointKey));
         dispatch(emailSignInError(currentEndpointKey, errors));
-        if (1===1) {
-          alert("this is if");
-          history.push('/device');
-        } else {
-          alert("this is else");
-          throw errors;
-        }
+        throw errors;
       });
   };
 }

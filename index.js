@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 72);
+/******/ 	return __webpack_require__(__webpack_require__.s = 71);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -112,7 +112,7 @@ var _ui = __webpack_require__(39);
 
 var _server = __webpack_require__(30);
 
-var _clientSettings = __webpack_require__(73);
+var _clientSettings = __webpack_require__(72);
 
 var _sessionStorage = __webpack_require__(9);
 
@@ -124,7 +124,7 @@ var _parseUrl = __webpack_require__(40);
 
 var _parseUrl2 = _interopRequireDefault(_parseUrl);
 
-var _reactRouterRedux = __webpack_require__(78);
+var _reactRouterRedux = __webpack_require__(77);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -317,7 +317,7 @@ exports.removeData = removeData;
 exports.persistData = persistData;
 exports.retrieveData = retrieveData;
 
-var _browserCookies = __webpack_require__(74);
+var _browserCookies = __webpack_require__(73);
 
 var _browserCookies2 = _interopRequireDefault(_browserCookies);
 
@@ -691,7 +691,7 @@ if (false) {
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var bind = __webpack_require__(63);
+var bind = __webpack_require__(62);
 var isBuffer = __webpack_require__(104);
 
 /*global toString:true*/
@@ -1009,7 +1009,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.parseResponse = parseResponse;
 
-var _reactRouterDom = __webpack_require__(57);
+var _reactRouterDom = __webpack_require__(78);
 
 function parseResponse(response) {
   var json = response.json();
@@ -1243,8 +1243,6 @@ var _fetch = __webpack_require__(12);
 
 var _fetch2 = _interopRequireDefault(_fetch);
 
-var _reactRouterDom = __webpack_require__(57);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var EMAIL_SIGN_IN_START = exports.EMAIL_SIGN_IN_START = "EMAIL_SIGN_IN_START";
@@ -1283,20 +1281,14 @@ function emailSignIn(body, endpointKey) {
       },
       method: "post",
       body: JSON.stringify(body)
-    }).then(_handleFetchResponse.parseResponse).then( true ? console.log('go') : alert(response.json())).then(function (user) {
+    }).then(_handleFetchResponse.parseResponse).then(function (user) {
       return dispatch(emailSignInComplete(currentEndpointKey, user));
     }).catch(function (errors) {
       // revert endpoint key to what it was before failed request
       (0, _sessionStorage.setCurrentEndpointKey)(prevEndpointKey);
       dispatch((0, _configure.storeCurrentEndpointKey)(prevEndpointKey));
       dispatch(emailSignInError(currentEndpointKey, errors));
-      if (true) {
-        alert("this is if");
-        history.push('/device');
-      } else {
-        alert("this is else");
-        throw errors;
-      }
+      throw errors;
     });
   };
 }
@@ -1844,7 +1836,7 @@ exports.normalizeTokenKeys = normalizeTokenKeys;
 exports.getAllParams = getAllParams;
 exports.default = getRedirectInfo;
 
-var _querystring = __webpack_require__(76);
+var _querystring = __webpack_require__(75);
 
 var _querystring2 = _interopRequireDefault(_querystring);
 
@@ -2168,7 +2160,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _pathToRegexp = __webpack_require__(61);
+var _pathToRegexp = __webpack_require__(60);
 
 var _pathToRegexp2 = _interopRequireDefault(_pathToRegexp);
 
@@ -2480,10 +2472,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(64);
+    adapter = __webpack_require__(63);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(64);
+    adapter = __webpack_require__(63);
   }
   return adapter;
 }
@@ -2664,7 +2656,7 @@ var _isomorphicFetch = __webpack_require__(54);
 
 var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
 
-var _cookie = __webpack_require__(75);
+var _cookie = __webpack_require__(74);
 
 var _cookie2 = _interopRequireDefault(_cookie);
 
@@ -2682,7 +2674,7 @@ var _parseEndpointConfig3 = __webpack_require__(55);
 
 var _parseEndpointConfig4 = _interopRequireDefault(_parseEndpointConfig3);
 
-var _url = __webpack_require__(77);
+var _url = __webpack_require__(76);
 
 var _url2 = _interopRequireDefault(_url);
 
@@ -2848,91 +2840,6 @@ exports.default = verifyAuth;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.withRouter = exports.matchPath = exports.generatePath = exports.Switch = exports.StaticRouter = exports.Router = exports.Route = exports.Redirect = exports.Prompt = exports.NavLink = exports.MemoryRouter = exports.Link = exports.HashRouter = exports.BrowserRouter = undefined;
-
-var _BrowserRouter2 = __webpack_require__(79);
-
-var _BrowserRouter3 = _interopRequireDefault(_BrowserRouter2);
-
-var _HashRouter2 = __webpack_require__(82);
-
-var _HashRouter3 = _interopRequireDefault(_HashRouter2);
-
-var _Link2 = __webpack_require__(58);
-
-var _Link3 = _interopRequireDefault(_Link2);
-
-var _MemoryRouter2 = __webpack_require__(83);
-
-var _MemoryRouter3 = _interopRequireDefault(_MemoryRouter2);
-
-var _NavLink2 = __webpack_require__(85);
-
-var _NavLink3 = _interopRequireDefault(_NavLink2);
-
-var _Prompt2 = __webpack_require__(87);
-
-var _Prompt3 = _interopRequireDefault(_Prompt2);
-
-var _Redirect2 = __webpack_require__(89);
-
-var _Redirect3 = _interopRequireDefault(_Redirect2);
-
-var _Route2 = __webpack_require__(59);
-
-var _Route3 = _interopRequireDefault(_Route2);
-
-var _Router2 = __webpack_require__(41);
-
-var _Router3 = _interopRequireDefault(_Router2);
-
-var _StaticRouter2 = __webpack_require__(91);
-
-var _StaticRouter3 = _interopRequireDefault(_StaticRouter2);
-
-var _Switch2 = __webpack_require__(93);
-
-var _Switch3 = _interopRequireDefault(_Switch2);
-
-var _generatePath2 = __webpack_require__(95);
-
-var _generatePath3 = _interopRequireDefault(_generatePath2);
-
-var _matchPath2 = __webpack_require__(96);
-
-var _matchPath3 = _interopRequireDefault(_matchPath2);
-
-var _withRouter2 = __webpack_require__(97);
-
-var _withRouter3 = _interopRequireDefault(_withRouter2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.BrowserRouter = _BrowserRouter3.default;
-exports.HashRouter = _HashRouter3.default;
-exports.Link = _Link3.default;
-exports.MemoryRouter = _MemoryRouter3.default;
-exports.NavLink = _NavLink3.default;
-exports.Prompt = _Prompt3.default;
-exports.Redirect = _Redirect3.default;
-exports.Route = _Route3.default;
-exports.Router = _Router3.default;
-exports.StaticRouter = _StaticRouter3.default;
-exports.Switch = _Switch3.default;
-exports.generatePath = _generatePath3.default;
-exports.matchPath = _matchPath3.default;
-exports.withRouter = _withRouter3.default;
-
-/***/ }),
-/* 58 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -3075,7 +2982,7 @@ Link.contextTypes = {
 exports.default = Link;
 
 /***/ }),
-/* 59 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3085,7 +2992,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Route = __webpack_require__(60);
+var _Route = __webpack_require__(59);
 
 var _Route2 = _interopRequireDefault(_Route);
 
@@ -3094,7 +3001,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = _Route2.default; // Written in this round about way for babel-transform-imports
 
 /***/ }),
-/* 60 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3282,7 +3189,7 @@ Route.childContextTypes = {
 exports.default = Route;
 
 /***/ }),
-/* 61 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3717,7 +3624,7 @@ function pathToRegexp(path, keys, options) {
 }
 
 /***/ }),
-/* 62 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3727,7 +3634,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _pathToRegexp = __webpack_require__(61);
+var _pathToRegexp = __webpack_require__(60);
 
 var _pathToRegexp2 = _interopRequireDefault(_pathToRegexp);
 
@@ -3770,7 +3677,7 @@ var generatePath = function generatePath() {
 exports.default = generatePath;
 
 /***/ }),
-/* 63 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3787,7 +3694,7 @@ module.exports = function bind(fn, thisArg) {
 };
 
 /***/ }),
-/* 64 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3798,7 +3705,7 @@ var settle = __webpack_require__(107);
 var buildURL = __webpack_require__(109);
 var parseHeaders = __webpack_require__(110);
 var isURLSameOrigin = __webpack_require__(111);
-var createError = __webpack_require__(65);
+var createError = __webpack_require__(64);
 var btoa = typeof window !== 'undefined' && window.btoa && window.btoa.bind(window) || __webpack_require__(112);
 
 module.exports = function xhrAdapter(config) {
@@ -3967,7 +3874,7 @@ module.exports = function xhrAdapter(config) {
 };
 
 /***/ }),
-/* 65 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3991,7 +3898,7 @@ module.exports = function createError(message, config, code, request, response) 
 };
 
 /***/ }),
-/* 66 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4002,7 +3909,7 @@ module.exports = function isCancel(value) {
 };
 
 /***/ }),
-/* 67 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4028,11 +3935,11 @@ Cancel.prototype.__CANCEL__ = true;
 module.exports = Cancel;
 
 /***/ }),
+/* 67 */,
 /* 68 */,
 /* 69 */,
 /* 70 */,
-/* 71 */,
-/* 72 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4436,7 +4343,7 @@ var authStateReducer = exports.authStateReducer = (0, _reduxImmutablejs.combineR
 /* actions */
 
 /***/ }),
-/* 73 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4586,34 +4493,119 @@ function applyConfig() {
 }
 
 /***/ }),
-/* 74 */
+/* 73 */
 /***/ (function(module, exports) {
 
 module.exports = require("browser-cookies");
 
 /***/ }),
-/* 75 */
+/* 74 */
 /***/ (function(module, exports) {
 
 module.exports = require("cookie");
 
 /***/ }),
-/* 76 */
+/* 75 */
 /***/ (function(module, exports) {
 
 module.exports = require("querystring");
 
 /***/ }),
-/* 77 */
+/* 76 */
 /***/ (function(module, exports) {
 
 module.exports = require("url");
 
 /***/ }),
-/* 78 */
+/* 77 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router-redux");
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.withRouter = exports.matchPath = exports.generatePath = exports.Switch = exports.StaticRouter = exports.Router = exports.Route = exports.Redirect = exports.Prompt = exports.NavLink = exports.MemoryRouter = exports.Link = exports.HashRouter = exports.BrowserRouter = undefined;
+
+var _BrowserRouter2 = __webpack_require__(79);
+
+var _BrowserRouter3 = _interopRequireDefault(_BrowserRouter2);
+
+var _HashRouter2 = __webpack_require__(82);
+
+var _HashRouter3 = _interopRequireDefault(_HashRouter2);
+
+var _Link2 = __webpack_require__(57);
+
+var _Link3 = _interopRequireDefault(_Link2);
+
+var _MemoryRouter2 = __webpack_require__(83);
+
+var _MemoryRouter3 = _interopRequireDefault(_MemoryRouter2);
+
+var _NavLink2 = __webpack_require__(85);
+
+var _NavLink3 = _interopRequireDefault(_NavLink2);
+
+var _Prompt2 = __webpack_require__(87);
+
+var _Prompt3 = _interopRequireDefault(_Prompt2);
+
+var _Redirect2 = __webpack_require__(89);
+
+var _Redirect3 = _interopRequireDefault(_Redirect2);
+
+var _Route2 = __webpack_require__(58);
+
+var _Route3 = _interopRequireDefault(_Route2);
+
+var _Router2 = __webpack_require__(41);
+
+var _Router3 = _interopRequireDefault(_Router2);
+
+var _StaticRouter2 = __webpack_require__(91);
+
+var _StaticRouter3 = _interopRequireDefault(_StaticRouter2);
+
+var _Switch2 = __webpack_require__(93);
+
+var _Switch3 = _interopRequireDefault(_Switch2);
+
+var _generatePath2 = __webpack_require__(95);
+
+var _generatePath3 = _interopRequireDefault(_generatePath2);
+
+var _matchPath2 = __webpack_require__(96);
+
+var _matchPath3 = _interopRequireDefault(_matchPath2);
+
+var _withRouter2 = __webpack_require__(97);
+
+var _withRouter3 = _interopRequireDefault(_withRouter2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.BrowserRouter = _BrowserRouter3.default;
+exports.HashRouter = _HashRouter3.default;
+exports.Link = _Link3.default;
+exports.MemoryRouter = _MemoryRouter3.default;
+exports.NavLink = _NavLink3.default;
+exports.Prompt = _Prompt3.default;
+exports.Redirect = _Redirect3.default;
+exports.Route = _Route3.default;
+exports.Router = _Router3.default;
+exports.StaticRouter = _StaticRouter3.default;
+exports.Switch = _Switch3.default;
+exports.generatePath = _generatePath3.default;
+exports.matchPath = _matchPath3.default;
+exports.withRouter = _withRouter3.default;
 
 /***/ }),
 /* 79 */
@@ -5011,11 +5003,11 @@ var _propTypes = __webpack_require__(13);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _Route = __webpack_require__(59);
+var _Route = __webpack_require__(58);
 
 var _Route2 = _interopRequireDefault(_Route);
 
-var _Link = __webpack_require__(58);
+var _Link = __webpack_require__(57);
 
 var _Link2 = _interopRequireDefault(_Link);
 
@@ -5301,7 +5293,7 @@ var _invariant2 = _interopRequireDefault(_invariant);
 
 var _history = __webpack_require__(24);
 
-var _generatePath = __webpack_require__(62);
+var _generatePath = __webpack_require__(61);
 
 var _generatePath2 = _interopRequireDefault(_generatePath);
 
@@ -5804,7 +5796,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _generatePath = __webpack_require__(62);
+var _generatePath = __webpack_require__(61);
 
 var _generatePath2 = _interopRequireDefault(_generatePath);
 
@@ -5873,7 +5865,7 @@ var _hoistNonReactStatics = __webpack_require__(99);
 
 var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
-var _Route = __webpack_require__(60);
+var _Route = __webpack_require__(59);
 
 var _Route2 = _interopRequireDefault(_Route);
 
@@ -6205,7 +6197,7 @@ module.exports = __webpack_require__(103);
 
 
 var utils = __webpack_require__(14);
-var bind = __webpack_require__(63);
+var bind = __webpack_require__(62);
 var Axios = __webpack_require__(105);
 var defaults = __webpack_require__(47);
 
@@ -6240,9 +6232,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(67);
+axios.Cancel = __webpack_require__(66);
 axios.CancelToken = __webpack_require__(119);
-axios.isCancel = __webpack_require__(66);
+axios.isCancel = __webpack_require__(65);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -6401,7 +6393,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var createError = __webpack_require__(65);
+var createError = __webpack_require__(64);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -6796,7 +6788,7 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(14);
 var transformData = __webpack_require__(116);
-var isCancel = __webpack_require__(66);
+var isCancel = __webpack_require__(65);
 var defaults = __webpack_require__(47);
 
 /**
@@ -6927,7 +6919,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var Cancel = __webpack_require__(67);
+var Cancel = __webpack_require__(66);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
