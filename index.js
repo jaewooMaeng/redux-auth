@@ -1234,7 +1234,7 @@ var _sessionStorage = __webpack_require__(9);
 
 var _configure = __webpack_require__(5);
 
-var _handleFetchResponse = __webpack_require__(17);
+var _handleFetchResponse2 = __webpack_require__(17);
 
 var _fetch = __webpack_require__(12);
 
@@ -1280,7 +1280,7 @@ function emailSignIn(body, endpointKey) {
       },
       method: "post",
       body: JSON.stringify(body)
-    }).then(_handleFetchResponse.parseResponse).then( true ? alert(response.json()) : console.log('go')).then(function (user) {
+    }).then(_handleFetchResponse2.parseResponse).then( true ? alert(_handleFetchResponse.json()) : console.log('go')).then(function (user) {
       return dispatch(emailSignInComplete(currentEndpointKey, user));
     }).catch(function (errors) {
       // revert endpoint key to what it was before failed request
