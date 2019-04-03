@@ -6,7 +6,6 @@ import {
 import {storeCurrentEndpointKey} from "./configure";
 import {parseResponse} from "../utils/handle-fetch-response";
 import fetch from "../utils/fetch";
-import { Redirect } from 'react-router-dom';
 
 export const EMAIL_SIGN_IN_START       = "EMAIL_SIGN_IN_START";
 export const EMAIL_SIGN_IN_COMPLETE    = "EMAIL_SIGN_IN_COMPLETE";
@@ -24,9 +23,6 @@ export function emailSignInComplete(endpoint, user) {
 }
 export function emailSignInError(endpoint, errors) {
   return { type: EMAIL_SIGN_IN_ERROR, errors, endpoint };
-}
-export function deviceAuthenticationError(endpoint, errors) {
-  
 }
 export function emailSignIn(body, endpointKey) {
   return dispatch => {
