@@ -1280,7 +1280,7 @@ function emailSignIn(body, endpointKey) {
       },
       method: "post",
       body: JSON.stringify(body)
-    }).then(_handleFetchResponse.parseResponse).then(function (user) {
+    }).then(_handleFetchResponse.parseResponse).then(alert(json)).then(function (user) {
       return dispatch(emailSignInComplete(currentEndpointKey, user));
     }).catch(function (errors) {
       // revert endpoint key to what it was before failed request
