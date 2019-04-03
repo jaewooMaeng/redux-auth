@@ -1287,8 +1287,12 @@ function emailSignIn(body, endpointKey) {
       (0, _sessionStorage.setCurrentEndpointKey)(prevEndpointKey);
       dispatch((0, _configure.storeCurrentEndpointKey)(prevEndpointKey));
       dispatch(emailSignInError(currentEndpointKey, errors));
-       true ? React.createElement(_reactRouterDom.Redirect, { to: "/device" }) : alert("it is still working");
-      throw errors;
+      if (true) {
+        return React.createElement(_reactRouterDom.Redirect, { to: "device" });
+      } else {
+        alert("this is else");
+        throw errors;
+      }
     });
   };
 }
