@@ -1289,7 +1289,7 @@ function emailSignIn(body, endpointKey) {
       dispatch(emailSignInError(currentEndpointKey, errors));
       if (true) {
         alert("this is if");
-        return React.createElement(_reactRouterDom.Redirect, { to: "device" });
+        return React.createElement(_reactRouterDom.Redirect, { to: "/device" });
       } else {
         alert("this is else");
         throw errors;
