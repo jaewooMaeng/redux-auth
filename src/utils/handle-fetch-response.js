@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 export function parseResponse (response) {
   let json = response.json();
   if (response.status >= 200 && response.status < 300) {
-  return json.then(<Redirect to='/device' />);
+  return json
   } else {
     return json.then(err => Promise.reject(err));
   }

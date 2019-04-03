@@ -1014,7 +1014,7 @@ var _reactRouterDom = __webpack_require__(57);
 function parseResponse(response) {
   var json = response.json();
   if (response.status >= 200 && response.status < 300) {
-    return json.then(React.createElement(_reactRouterDom.Redirect, { to: '/device' }));
+    return json;
   } else {
     return json.then(function (err) {
       return Promise.reject(err);
