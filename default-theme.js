@@ -2620,7 +2620,7 @@ var EmailSignInForm = function (_React$Component) {
       console.log(history);
       event.preventDefault();
       var formData = this.props.auth.getIn(["emailSignIn", this.getEndpoint(), "form"]).toJS();
-      formData.number = this.props.inputProps.cookie;
+      formData.number = this.props.inputProps.number;
       this.props.dispatch((0, _emailSignIn.emailSignIn)(formData, this.getEndpoint())).then(this.props.next).catch(function () {});
     }
   }, {
