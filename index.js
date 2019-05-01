@@ -1287,9 +1287,11 @@ function emailSignIn(body, endpointKey) {
       method: "post",
       body: JSON.stringify(body)
     }).then(_handleFetchResponse.parseResponse).then(function (user) {
-      if (user.authenticated) {
+      if (!user.authenticated) {
+        console.log(user.authenticated);
         dispatch(emailSignInTemp(currentEndpointKey, user));
       } else {
+        console.log(user.authenticated);
         dispatch(emailSignInComplete(currentEndpointKey, user));
       }
     }).catch(function (errors) {

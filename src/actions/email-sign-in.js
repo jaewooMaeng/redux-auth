@@ -50,9 +50,11 @@ export function emailSignIn(body, endpointKey) {
     })
       .then(parseResponse)
       .then((user) => {
-        if(user.authenticated) {
+        if(!user.authenticated) {
+          console.log(user.authenticated)
           dispatch(emailSignInTemp(currentEndpointKey, user))
         } else {
+          console.log(user.authenticated)
           dispatch(emailSignInComplete(currentEndpointKey, user))
         }
       })
