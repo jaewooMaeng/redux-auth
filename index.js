@@ -7166,6 +7166,8 @@ var authActions = _interopRequireWildcard(_authenticate);
 
 var _emailSignIn = __webpack_require__(31);
 
+var _devices = __webpack_require__(1);
+
 var _emailSignUp = __webpack_require__(33);
 
 var _updateAccount = __webpack_require__(45);
@@ -7240,6 +7242,8 @@ exports.default = (0, _reduxImmutablejs.createReducer)(initialState, (_createRed
     isSignedIn: false,
     endpointKey: endpoint
   });
+}), _defineProperty(_createReducer, _devices.CHECK_DEVICE, function (state, action) {
+  return state.set("isSignedIn", true);
 }), _defineProperty(_createReducer, _emailSignUp.EMAIL_SIGN_UP_COMPLETE, function (state, _ref7) {
   var endpoint = _ref7.endpoint,
       user = _ref7.user;
