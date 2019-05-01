@@ -1226,10 +1226,11 @@ function ssAuthTokenUpdate(_ref) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.EMAIL_SIGN_IN_FORM_UPDATE = exports.EMAIL_SIGN_IN_ERROR = exports.EMAIL_SIGN_IN_COMPLETE = exports.EMAIL_SIGN_IN_START = undefined;
+exports.EMAIL_SIGN_IN_FORM_UPDATE = exports.EMAIL_SIGN_IN_ERROR = exports.EMAIL_SIGN_IN_TEMP = exports.EMAIL_SIGN_IN_COMPLETE = exports.EMAIL_SIGN_IN_START = undefined;
 exports.emailSignInFormUpdate = emailSignInFormUpdate;
 exports.emailSignInStart = emailSignInStart;
 exports.emailSignInComplete = emailSignInComplete;
+exports.emailSignInTemp = emailSignInTemp;
 exports.emailSignInError = emailSignInError;
 exports.emailSignIn = emailSignIn;
 
@@ -1247,6 +1248,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var EMAIL_SIGN_IN_START = exports.EMAIL_SIGN_IN_START = "EMAIL_SIGN_IN_START";
 var EMAIL_SIGN_IN_COMPLETE = exports.EMAIL_SIGN_IN_COMPLETE = "EMAIL_SIGN_IN_COMPLETE";
+var EMAIL_SIGN_IN_TEMP = exports.EMAIL_SIGN_IN_TEMP = "EMAIL_SIGN_IN_TEMP";
 var EMAIL_SIGN_IN_ERROR = exports.EMAIL_SIGN_IN_ERROR = "EMAIL_SIGN_IN_ERROR";
 var EMAIL_SIGN_IN_FORM_UPDATE = exports.EMAIL_SIGN_IN_FORM_UPDATE = "EMAIL_SIGN_IN_FORM_UPDATE";
 
@@ -1258,6 +1260,9 @@ function emailSignInStart(endpoint) {
 }
 function emailSignInComplete(endpoint, user) {
   return { type: EMAIL_SIGN_IN_COMPLETE, user: user, endpoint: endpoint };
+}
+function emailSignInTemp(endpoint, user) {
+  return { type: EMAIL_SIGN_IN_TEMP, user: user, endpoint: endpoint };
 }
 function emailSignInError(endpoint, errors) {
   return { type: EMAIL_SIGN_IN_ERROR, errors: errors, endpoint: endpoint };
@@ -1282,7 +1287,9 @@ function emailSignIn(body, endpointKey) {
       method: "post",
       body: JSON.stringify(body)
     }).then(_handleFetchResponse.parseResponse).then(function (user) {
-      if (user.authenticated) {
+      if (!user.authenticated) {
+        dispatch(emailSignInTemp(currentEndpointKey, user));
+      } else {
         dispatch(emailSignInComplete(currentEndpointKey, user));
       }
     }).catch(function (errors) {
@@ -7220,9 +7227,17 @@ exports.default = (0, _reduxImmutablejs.createReducer)(initialState, (_createRed
     isSignedIn: true,
     endpointKey: endpoint
   });
-}), _defineProperty(_createReducer, _emailSignUp.EMAIL_SIGN_UP_COMPLETE, function (state, _ref6) {
+}), _defineProperty(_createReducer, _emailSignIn.EMAIL_SIGN_IN_TEMP, function (state, _ref6) {
   var endpoint = _ref6.endpoint,
       user = _ref6.user;
+  return state.merge({
+    attributes: user.data,
+    isSignedIn: false,
+    endpointKey: endpoint
+  });
+}), _defineProperty(_createReducer, _emailSignUp.EMAIL_SIGN_UP_COMPLETE, function (state, _ref7) {
+  var endpoint = _ref7.endpoint,
+      user = _ref7.user;
 
   // if registration does not require confirmation, user will be signed in at
   // this point.
@@ -7231,15 +7246,7 @@ exports.default = (0, _reduxImmutablejs.createReducer)(initialState, (_createRed
     isSignedIn: true,
     endpointKey: endpoint
   }) : state;
-}), _defineProperty(_createReducer, _updateAccount.UPDATE_ACCOUNT_COMPLETE, function (state, _ref7) {
-  var endpoint = _ref7.endpoint,
-      user = _ref7.user;
-  return state.merge({
-    attributes: user,
-    isSignedIn: true,
-    endpointKey: endpoint
-  });
-}), _defineProperty(_createReducer, _oauthSignIn.OAUTH_SIGN_IN_COMPLETE, function (state, _ref8) {
+}), _defineProperty(_createReducer, _updateAccount.UPDATE_ACCOUNT_COMPLETE, function (state, _ref8) {
   var endpoint = _ref8.endpoint,
       user = _ref8.user;
   return state.merge({
@@ -7247,10 +7254,18 @@ exports.default = (0, _reduxImmutablejs.createReducer)(initialState, (_createRed
     isSignedIn: true,
     endpointKey: endpoint
   });
-}), _defineProperty(_createReducer, ssActions.SS_AUTH_TOKEN_UPDATE, function (state, _ref9) {
-  var user = _ref9.user,
-      mustResetPassword = _ref9.mustResetPassword,
-      firstTimeLogin = _ref9.firstTimeLogin;
+}), _defineProperty(_createReducer, _oauthSignIn.OAUTH_SIGN_IN_COMPLETE, function (state, _ref9) {
+  var endpoint = _ref9.endpoint,
+      user = _ref9.user;
+  return state.merge({
+    attributes: user,
+    isSignedIn: true,
+    endpointKey: endpoint
+  });
+}), _defineProperty(_createReducer, ssActions.SS_AUTH_TOKEN_UPDATE, function (state, _ref10) {
+  var user = _ref10.user,
+      mustResetPassword = _ref10.mustResetPassword,
+      firstTimeLogin = _ref10.firstTimeLogin;
 
   return state.merge({
     mustResetPassword: mustResetPassword,
@@ -7258,9 +7273,9 @@ exports.default = (0, _reduxImmutablejs.createReducer)(initialState, (_createRed
     isSignedIn: !!user,
     attributes: user
   });
-}), _defineProperty(_createReducer, passwordModalActions.UPDATE_ACCOUNT_COMPLETE, function (state, _ref10) {
-  var endpoint = _ref10.endpoint,
-      user = _ref10.user;
+}), _defineProperty(_createReducer, passwordModalActions.UPDATE_ACCOUNT_COMPLETE, function (state, _ref11) {
+  var endpoint = _ref11.endpoint,
+      user = _ref11.user;
   return state.merge({
     attributes: user,
     isSignedIn: true,
@@ -7539,17 +7554,20 @@ exports.default = (0, _reduxImmutablejs.createReducer)(_immutable2.default.fromJ
 }), _defineProperty(_createReducer, A.EMAIL_SIGN_IN_COMPLETE, function (state, _ref3) {
   var endpoint = _ref3.endpoint;
   return state.merge(_defineProperty({}, endpoint, initialState));
-}), _defineProperty(_createReducer, A.EMAIL_SIGN_IN_ERROR, function (state, _ref4) {
-  var endpoint = _ref4.endpoint,
-      errors = _ref4.errors;
+}), _defineProperty(_createReducer, A.EMAIL_SIGN_IN_TEMP, function (state, _ref4) {
+  var endpoint = _ref4.endpoint;
+  return state.merge(_defineProperty({}, endpoint, initialState));
+}), _defineProperty(_createReducer, A.EMAIL_SIGN_IN_ERROR, function (state, _ref5) {
+  var endpoint = _ref5.endpoint,
+      errors = _ref5.errors;
   return state.mergeDeep(_defineProperty({}, endpoint, {
     loading: false,
     errors: errors
   }));
-}), _defineProperty(_createReducer, A.EMAIL_SIGN_IN_FORM_UPDATE, function (state, _ref5) {
-  var endpoint = _ref5.endpoint,
-      key = _ref5.key,
-      value = _ref5.value;
+}), _defineProperty(_createReducer, A.EMAIL_SIGN_IN_FORM_UPDATE, function (state, _ref6) {
+  var endpoint = _ref6.endpoint,
+      key = _ref6.key,
+      value = _ref6.value;
 
   return state.mergeDeep(_defineProperty({}, endpoint, {
     form: _defineProperty({}, key, value)

@@ -9,6 +9,7 @@ import fetch from "../utils/fetch";
 
 export const EMAIL_SIGN_IN_START       = "EMAIL_SIGN_IN_START";
 export const EMAIL_SIGN_IN_COMPLETE    = "EMAIL_SIGN_IN_COMPLETE";
+export const EMAIL_SIGN_IN_TEMP        = "EMAIL_SIGN_IN_TEMP";
 export const EMAIL_SIGN_IN_ERROR       = "EMAIL_SIGN_IN_ERROR";
 export const EMAIL_SIGN_IN_FORM_UPDATE = "EMAIL_SIGN_IN_FORM_UPDATE";
 
@@ -20,6 +21,9 @@ export function emailSignInStart(endpoint) {
 }
 export function emailSignInComplete(endpoint, user) {
   return { type: EMAIL_SIGN_IN_COMPLETE, user, endpoint };
+}
+export function emailSignInTemp(endpoint, user) {
+  return { type: EMAIL_SIGN_IN_TEMP, user, endpoint };
 }
 export function emailSignInError(endpoint, errors) {
   return { type: EMAIL_SIGN_IN_ERROR, errors, endpoint };
@@ -46,7 +50,9 @@ export function emailSignIn(body, endpointKey) {
     })
       .then(parseResponse)
       .then((user) => {
-        if(user.authenticated) {
+        if(!user.authenticated) {
+          dispatch(emailSignInTemp(currentEndpointKey, user))
+        } else {
           dispatch(emailSignInComplete(currentEndpointKey, user))
         }
       })
