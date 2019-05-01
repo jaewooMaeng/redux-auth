@@ -1287,12 +1287,15 @@ function emailSignIn(body, endpointKey) {
       method: "post",
       body: JSON.stringify(body)
     }).then(_handleFetchResponse.parseResponse).then(function (user) {
+      console.log(user);
       if (!user.authenticated) {
         console.log(user.authenticated);
         dispatch(emailSignInTemp(currentEndpointKey, user));
+        return user;
       } else {
         console.log(user.authenticated);
         dispatch(emailSignInComplete(currentEndpointKey, user));
+        return user;
       }
     }).catch(function (errors) {
       // revert endpoint key to what it was before failed request
