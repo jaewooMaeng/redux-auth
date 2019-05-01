@@ -10,6 +10,7 @@ import fetch from "../utils/fetch";
 export const EMAIL_SIGN_IN_START       = "EMAIL_SIGN_IN_START";
 export const EMAIL_SIGN_IN_COMPLETE    = "EMAIL_SIGN_IN_COMPLETE";
 export const EMAIL_SIGN_IN_TEMP        = "EMAIL_SIGN_IN_TEMP";
+export const TFA_EMAIL_SIGN_IN_COMPLETE= "TFA_EMAIL_SIGN_IN_COMPLETE";
 export const EMAIL_SIGN_IN_ERROR       = "EMAIL_SIGN_IN_ERROR";
 export const EMAIL_SIGN_IN_FORM_UPDATE = "EMAIL_SIGN_IN_FORM_UPDATE";
 
@@ -24,6 +25,9 @@ export function emailSignInComplete(endpoint, user) {
 }
 export function emailSignInTemp(endpoint, user) {
   return { type: EMAIL_SIGN_IN_TEMP, user, endpoint };
+}
+export function tfaEmailSignInComplete() {
+  return { type: TFA_EMAIL_SIGN_IN_COMPLETE }
 }
 export function emailSignInError(endpoint, errors) {
   return { type: EMAIL_SIGN_IN_ERROR, errors, endpoint };

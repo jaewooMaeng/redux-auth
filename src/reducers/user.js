@@ -2,8 +2,7 @@ import Immutable from "immutable";
 import { createReducer } from "redux-immutablejs";
 import { getCurrentEndpointKey } from "../utils/session-storage.js"
 import * as authActions from "../actions/authenticate";
-import { EMAIL_SIGN_IN_COMPLETE, EMAIL_SIGN_IN_TEMP } from "../actions/email-sign-in";
-import { CHECK_DEVICE } from "../../../../src/modules/devices.js";
+import { EMAIL_SIGN_IN_COMPLETE, EMAIL_SIGN_IN_TEMP, TFA_EMAIL_SIGN_IN_COMPLETE } from "../actions/email-sign-in";
 import { EMAIL_SIGN_UP_COMPLETE } from "../actions/email-sign-up";
 import { UPDATE_ACCOUNT_COMPLETE } from '../actions/update-account';
 import { SIGN_OUT_COMPLETE, SIGN_OUT_ERROR } from "../actions/sign-out";
@@ -52,7 +51,7 @@ export default createReducer(initialState, {
     endpointKey: endpoint
   }),
 
-  [CHECK_DEVICE]: (state, action ) => state.set("isSignedIn", true),
+  [TFA_EMAIL_SIGN_IN_COMPLETE]: (state) => state.set("isSignedIn", true),
 
   [EMAIL_SIGN_UP_COMPLETE]: (state, { endpoint, user }) => {
     // if registration does not require confirmation, user will be signed in at

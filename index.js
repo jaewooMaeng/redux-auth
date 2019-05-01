@@ -1226,11 +1226,12 @@ function ssAuthTokenUpdate(_ref) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.EMAIL_SIGN_IN_FORM_UPDATE = exports.EMAIL_SIGN_IN_ERROR = exports.EMAIL_SIGN_IN_TEMP = exports.EMAIL_SIGN_IN_COMPLETE = exports.EMAIL_SIGN_IN_START = undefined;
+exports.EMAIL_SIGN_IN_FORM_UPDATE = exports.EMAIL_SIGN_IN_ERROR = exports.TFA_EMAIL_SIGN_IN_COMPLETE = exports.EMAIL_SIGN_IN_TEMP = exports.EMAIL_SIGN_IN_COMPLETE = exports.EMAIL_SIGN_IN_START = undefined;
 exports.emailSignInFormUpdate = emailSignInFormUpdate;
 exports.emailSignInStart = emailSignInStart;
 exports.emailSignInComplete = emailSignInComplete;
 exports.emailSignInTemp = emailSignInTemp;
+exports.tfaEmailSignInComplete = tfaEmailSignInComplete;
 exports.emailSignInError = emailSignInError;
 exports.emailSignIn = emailSignIn;
 
@@ -1249,6 +1250,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var EMAIL_SIGN_IN_START = exports.EMAIL_SIGN_IN_START = "EMAIL_SIGN_IN_START";
 var EMAIL_SIGN_IN_COMPLETE = exports.EMAIL_SIGN_IN_COMPLETE = "EMAIL_SIGN_IN_COMPLETE";
 var EMAIL_SIGN_IN_TEMP = exports.EMAIL_SIGN_IN_TEMP = "EMAIL_SIGN_IN_TEMP";
+var TFA_EMAIL_SIGN_IN_COMPLETE = exports.TFA_EMAIL_SIGN_IN_COMPLETE = "TFA_EMAIL_SIGN_IN_COMPLETE";
 var EMAIL_SIGN_IN_ERROR = exports.EMAIL_SIGN_IN_ERROR = "EMAIL_SIGN_IN_ERROR";
 var EMAIL_SIGN_IN_FORM_UPDATE = exports.EMAIL_SIGN_IN_FORM_UPDATE = "EMAIL_SIGN_IN_FORM_UPDATE";
 
@@ -1263,6 +1265,9 @@ function emailSignInComplete(endpoint, user) {
 }
 function emailSignInTemp(endpoint, user) {
   return { type: EMAIL_SIGN_IN_TEMP, user: user, endpoint: endpoint };
+}
+function tfaEmailSignInComplete() {
+  return { type: TFA_EMAIL_SIGN_IN_COMPLETE };
 }
 function emailSignInError(endpoint, errors) {
   return { type: EMAIL_SIGN_IN_ERROR, errors: errors, endpoint: endpoint };
@@ -7166,8 +7171,6 @@ var authActions = _interopRequireWildcard(_authenticate);
 
 var _emailSignIn = __webpack_require__(31);
 
-var _devices = __webpack_require__(1);
-
 var _emailSignUp = __webpack_require__(33);
 
 var _updateAccount = __webpack_require__(45);
@@ -7242,7 +7245,7 @@ exports.default = (0, _reduxImmutablejs.createReducer)(initialState, (_createRed
     isSignedIn: false,
     endpointKey: endpoint
   });
-}), _defineProperty(_createReducer, _devices.CHECK_DEVICE, function (state, action) {
+}), _defineProperty(_createReducer, _emailSignIn.TFA_EMAIL_SIGN_IN_COMPLETE, function (state) {
   return state.set("isSignedIn", true);
 }), _defineProperty(_createReducer, _emailSignUp.EMAIL_SIGN_UP_COMPLETE, function (state, _ref7) {
   var endpoint = _ref7.endpoint,
