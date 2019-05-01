@@ -40,6 +40,10 @@ export default createReducer(initialState, {
     "emailSignInSuccessModalVisible", true
   ),
 
+  [emailSignInActions.EMAIL_SIGN_IN_TEMP]: state => state.set(
+    "emailSignInSuccessModalVisible", true
+  ),
+
   [emailSignInActions.EMAIL_SIGN_IN_ERROR]: state => state.set(
     "emailSignInErrorModalVisible", true
   ),

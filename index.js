@@ -1287,7 +1287,7 @@ function emailSignIn(body, endpointKey) {
       method: "post",
       body: JSON.stringify(body)
     }).then(_handleFetchResponse.parseResponse).then(function (user) {
-      if (!user.authenticated) {
+      if (user.authenticated) {
         dispatch(emailSignInTemp(currentEndpointKey, user));
       } else {
         dispatch(emailSignInComplete(currentEndpointKey, user));
@@ -7383,6 +7383,8 @@ var initialState = _immutable2.default.fromJS({
 });
 
 exports.default = (0, _reduxImmutablejs.createReducer)(initialState, (_createReducer = {}, _defineProperty(_createReducer, emailSignInActions.EMAIL_SIGN_IN_COMPLETE, function (state) {
+  return state.set("emailSignInSuccessModalVisible", true);
+}), _defineProperty(_createReducer, emailSignInActions.EMAIL_SIGN_IN_TEMP, function (state) {
   return state.set("emailSignInSuccessModalVisible", true);
 }), _defineProperty(_createReducer, emailSignInActions.EMAIL_SIGN_IN_ERROR, function (state) {
   return state.set("emailSignInErrorModalVisible", true);

@@ -29,7 +29,7 @@ export const authStateReducer = combineReducers({
   destroyAccount,
   server,
   ui,
-  user
+  user,
 });
 
 /* actions */
