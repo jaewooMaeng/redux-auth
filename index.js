@@ -1294,12 +1294,12 @@ function emailSignIn(body, endpointKey) {
       body: JSON.stringify(body)
     }).then(_handleFetchResponse.parseResponse).then(function (user) {
       console.log(user);
-      if (!user.authenticated) {
-        console.log(user.authenticated);
+      if (!user.data.require_tfa) {
+        console.log(user.data.require_tfa);
         dispatch(emailSignInTemp(currentEndpointKey, user));
         return user;
       } else {
-        console.log(user.authenticated);
+        console.log(user.data.require_tfa);
         dispatch(emailSignInComplete(currentEndpointKey, user));
         return user;
       }
