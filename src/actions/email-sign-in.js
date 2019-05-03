@@ -27,6 +27,7 @@ export function emailSignInTemp(endpoint, user) {
   return { type: EMAIL_SIGN_IN_TEMP, user, endpoint };
 }
 export function tfaEmailSignInComplete() {
+  console.log("kjsfkhjsahdlaksjdad")
   return { type: TFA_EMAIL_SIGN_IN_COMPLETE }
 }
 export function emailSignInError(endpoint, errors) {
