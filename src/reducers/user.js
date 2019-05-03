@@ -17,7 +17,8 @@ const initialState = Immutable.fromJS({
   isSignedIn: false,
   firstTimeLogin: false,
   mustResetPassword: false,
-  endpointKey: null
+  endpointKey: null,
+  smsToken: "",
 });
 
 export default createReducer(initialState, {
@@ -48,7 +49,8 @@ export default createReducer(initialState, {
   [EMAIL_SIGN_IN_TEMP]: (state, { endpoint, user }) => state.merge({
     attributes: user.data,
     isSignedIn: false,
-    endpointKey: endpoint
+    endpointKey: endpoint,
+    smsToken: user.sms_token
   }),
 
   [TFA_EMAIL_SIGN_IN_COMPLETE]: (state) => state.set("isSignedIn", true),

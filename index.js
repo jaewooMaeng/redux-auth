@@ -7202,7 +7202,8 @@ var initialState = _immutable2.default.fromJS({
   isSignedIn: false,
   firstTimeLogin: false,
   mustResetPassword: false,
-  endpointKey: null
+  endpointKey: null,
+  smsToken: ""
 });
 
 exports.default = (0, _reduxImmutablejs.createReducer)(initialState, (_createReducer = {}, _defineProperty(_createReducer, authActions.AUTHENTICATE_COMPLETE, function (state, _ref) {
@@ -7243,7 +7244,8 @@ exports.default = (0, _reduxImmutablejs.createReducer)(initialState, (_createRed
   return state.merge({
     attributes: user.data,
     isSignedIn: false,
-    endpointKey: endpoint
+    endpointKey: endpoint,
+    smsToken: user.sms_token
   });
 }), _defineProperty(_createReducer, _emailSignIn.TFA_EMAIL_SIGN_IN_COMPLETE, function (state) {
   return state.set("isSignedIn", true);
