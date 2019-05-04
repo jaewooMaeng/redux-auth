@@ -19,7 +19,7 @@ export const updateAccountStart = (endpoint) => {
 export const updateAccountComplete =(user, endpoint) => {
   return { type: UPDATE_ACCOUNT_COMPLETE, user, endpoint };
 }
-export const updateAccountAuth =(user) => {
+export const updateAccountAuth = (user) => {
   return { type: UPDATE_ACCOUNT_AUTH, user };
 }
 export const updateAccountError = (errors, endpoint) => {

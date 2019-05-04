@@ -72,9 +72,7 @@ export default createReducer(initialState, {
     endpointKey: endpoint,
   }),
 
-  [UPDATE_ACCOUNT_AUTH]: (state, {user}) => state.merge({
-    attributes: user
-  }),
+  [UPDATE_ACCOUNT_AUTH]: (state, {user}) => state.set('attributes', user),
 
   [OAUTH_SIGN_IN_COMPLETE]: (state, { endpoint, user }) => state.merge({
     attributes: user,

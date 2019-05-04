@@ -7274,9 +7274,7 @@ exports.default = (0, _reduxImmutablejs.createReducer)(initialState, (_createRed
   });
 }), _defineProperty(_createReducer, _updateAccount.UPDATE_ACCOUNT_AUTH, function (state, _ref9) {
   var user = _ref9.user;
-  return state.merge({
-    attributes: user
-  });
+  return state.set('attributes', user);
 }), _defineProperty(_createReducer, _oauthSignIn.OAUTH_SIGN_IN_COMPLETE, function (state, _ref10) {
   var endpoint = _ref10.endpoint,
       user = _ref10.user;
