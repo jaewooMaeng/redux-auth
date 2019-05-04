@@ -1267,7 +1267,6 @@ function emailSignInTemp(endpoint, user) {
   return { type: EMAIL_SIGN_IN_TEMP, user: user, endpoint: endpoint };
 }
 function tfaEmailSignInComplete() {
-  console.log("kjsfkhjsahdlaksjdad");
   return { type: TFA_EMAIL_SIGN_IN_COMPLETE };
 }
 function emailSignInError(endpoint, errors) {
@@ -2337,7 +2336,7 @@ function requestPasswordReset(body, endpoint) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateAccount = exports.updateAccountError = exports.updateAccountComplete = exports.updateAccountStart = exports.updateAccountFormUpdate = exports.UPDATE_ACCOUNT_FORM_UPDATE = exports.UPDATE_ACCOUNT_ERROR = exports.UPDATE_ACCOUNT_COMPLETE = exports.UPDATE_ACCOUNT_START = undefined;
+exports.updateAccount = exports.updateAccountError = exports.updateAccountAuth = exports.updateAccountComplete = exports.updateAccountStart = exports.updateAccountFormUpdate = exports.UPDATE_ACCOUNT_AUTH = exports.UPDATE_ACCOUNT_FORM_UPDATE = exports.UPDATE_ACCOUNT_ERROR = exports.UPDATE_ACCOUNT_COMPLETE = exports.UPDATE_ACCOUNT_START = undefined;
 
 var _sessionStorage = __webpack_require__(9);
 
@@ -2357,6 +2356,7 @@ var UPDATE_ACCOUNT_START = exports.UPDATE_ACCOUNT_START = "UPDATE_ACCOUNT_START"
 var UPDATE_ACCOUNT_COMPLETE = exports.UPDATE_ACCOUNT_COMPLETE = "UPDATE_ACCOUNT_COMPLETE";
 var UPDATE_ACCOUNT_ERROR = exports.UPDATE_ACCOUNT_ERROR = "UPDATE_ACCOUNT_ERROR";
 var UPDATE_ACCOUNT_FORM_UPDATE = exports.UPDATE_ACCOUNT_FORM_UPDATE = "UPDATE_ACCOUNT_FORM_UPDATE";
+var UPDATE_ACCOUNT_AUTH = exports.UPDATE_ACCOUNT_AUTH = "UPDATE_ACCOUNT_AUTH";
 
 var updateAccountFormUpdate = exports.updateAccountFormUpdate = function updateAccountFormUpdate(endpoint, key, value) {
   return { type: UPDATE_ACCOUNT_FORM_UPDATE, endpoint: endpoint, key: key, value: value };
@@ -2366,6 +2366,9 @@ var updateAccountStart = exports.updateAccountStart = function updateAccountStar
 };
 var updateAccountComplete = exports.updateAccountComplete = function updateAccountComplete(user, endpoint) {
   return { type: UPDATE_ACCOUNT_COMPLETE, user: user, endpoint: endpoint };
+};
+var updateAccountAuth = exports.updateAccountAuth = function updateAccountAuth(user) {
+  return { type: UPDATE_ACCOUNT_AUTH, user: user };
 };
 var updateAccountError = exports.updateAccountError = function updateAccountError(errors, endpoint) {
   return { type: UPDATE_ACCOUNT_ERROR, errors: errors, endpoint: endpoint };
@@ -7269,18 +7272,23 @@ exports.default = (0, _reduxImmutablejs.createReducer)(initialState, (_createRed
     isSignedIn: true,
     endpointKey: endpoint
   });
-}), _defineProperty(_createReducer, _oauthSignIn.OAUTH_SIGN_IN_COMPLETE, function (state, _ref9) {
-  var endpoint = _ref9.endpoint,
-      user = _ref9.user;
+}), _defineProperty(_createReducer, _updateAccount.UPDATE_ACCOUNT_AUTH, function (state, _ref9) {
+  var user = _ref9.user;
+  return state.merge({
+    attributes: user
+  });
+}), _defineProperty(_createReducer, _oauthSignIn.OAUTH_SIGN_IN_COMPLETE, function (state, _ref10) {
+  var endpoint = _ref10.endpoint,
+      user = _ref10.user;
   return state.merge({
     attributes: user,
     isSignedIn: true,
     endpointKey: endpoint
   });
-}), _defineProperty(_createReducer, ssActions.SS_AUTH_TOKEN_UPDATE, function (state, _ref10) {
-  var user = _ref10.user,
-      mustResetPassword = _ref10.mustResetPassword,
-      firstTimeLogin = _ref10.firstTimeLogin;
+}), _defineProperty(_createReducer, ssActions.SS_AUTH_TOKEN_UPDATE, function (state, _ref11) {
+  var user = _ref11.user,
+      mustResetPassword = _ref11.mustResetPassword,
+      firstTimeLogin = _ref11.firstTimeLogin;
 
   return state.merge({
     mustResetPassword: mustResetPassword,
@@ -7288,9 +7296,9 @@ exports.default = (0, _reduxImmutablejs.createReducer)(initialState, (_createRed
     isSignedIn: !!user,
     attributes: user
   });
-}), _defineProperty(_createReducer, passwordModalActions.UPDATE_ACCOUNT_COMPLETE, function (state, _ref11) {
-  var endpoint = _ref11.endpoint,
-      user = _ref11.user;
+}), _defineProperty(_createReducer, passwordModalActions.UPDATE_ACCOUNT_COMPLETE, function (state, _ref12) {
+  var endpoint = _ref12.endpoint,
+      user = _ref12.user;
   return state.merge({
     attributes: user,
     isSignedIn: true,
