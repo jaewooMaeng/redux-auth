@@ -39,7 +39,7 @@ export function emailSignIn(body, endpointKey) {
 
     // necessary for fetch to recognize the response as an api request
     setCurrentEndpointKey(endpointKey);
-    var currentEndpointKey = getCurrentEndpointKey();
+    var currentEndpointKey = getCurrentEndpointKey(); 
 
     dispatch(storeCurrentEndpointKey(currentEndpointKey));
     dispatch(emailSignInStart(currentEndpointKey));

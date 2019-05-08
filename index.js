@@ -7207,7 +7207,8 @@ var initialState = _immutable2.default.fromJS({
   firstTimeLogin: false,
   mustResetPassword: false,
   endpointKey: null,
-  smsToken: ""
+  smsToken: "",
+  phoneEditAuth: false
 });
 
 exports.default = (0, _reduxImmutablejs.createReducer)(initialState, (_createReducer = {}, _defineProperty(_createReducer, authActions.AUTHENTICATE_COMPLETE, function (state, _ref) {
