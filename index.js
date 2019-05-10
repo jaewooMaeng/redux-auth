@@ -2381,8 +2381,11 @@ var updateAccount = exports.updateAccount = function updateAccount(body, endpoin
     dispatch(updateAccountStart(endpointKey));
 
     var data = new FormData();
+    console.log(body);
     for (var key in body) {
-      if (body[key]) {
+      if (key === 'auth' && !body[key]) {
+        data.append(key, false);
+      } else if (body[key]) {
         data.append(key, body[key]);
       }
     }

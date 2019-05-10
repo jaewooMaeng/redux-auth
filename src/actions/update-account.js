@@ -33,8 +33,11 @@ export const updateAccount = (body, endpointKey) => {
     dispatch(updateAccountStart(endpointKey));
 
     let data = new FormData();
+    console.log(body)
     for (let key in body) {
-      if (body[key]) {
+      if (key === 'auth' && !body[key]) {
+        data.append(key, false);
+      } else if (body[key]) {
         data.append(key, body[key]);
       }
     }
