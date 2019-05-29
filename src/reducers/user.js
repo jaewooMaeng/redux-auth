@@ -4,7 +4,7 @@ import { getCurrentEndpointKey } from "../utils/session-storage.js"
 import * as authActions from "../actions/authenticate";
 import { EMAIL_SIGN_IN_COMPLETE, EMAIL_SIGN_IN_TEMP, TFA_EMAIL_SIGN_IN_COMPLETE } from "../actions/email-sign-in";
 import { EMAIL_SIGN_UP_COMPLETE } from "../actions/email-sign-up";
-import { UPDATE_ACCOUNT_COMPLETE, UPDATE_ACCOUNT_AUTH } from '../actions/update-account';
+import { UPDATE_ACCOUNT_COMPLETE, UPDATE_ACCOUNT_AUTH, UPDATE_AUTH_POSSIBLE } from '../actions/update-account';
 import { SIGN_OUT_COMPLETE, SIGN_OUT_ERROR } from "../actions/sign-out";
 import { OAUTH_SIGN_IN_COMPLETE } from "../actions/oauth-sign-in";
 import { DESTROY_ACCOUNT_COMPLETE } from "../actions/destroy-account";
@@ -19,7 +19,7 @@ const initialState = Immutable.fromJS({
   mustResetPassword: false,
   endpointKey: null,
   smsToken: "",
-  phoneEditAuth: false,
+  editAuthPossible: false,
 });
 
 export default createReducer(initialState, {
@@ -74,6 +74,8 @@ export default createReducer(initialState, {
   }),
 
   [UPDATE_ACCOUNT_AUTH]: (state, {user}) => state.set('attributes', user),
+
+  [UPDATE_AUTH_POSSIBLE]: (state) => state.set("editAuthPossible", true),
 
   [OAUTH_SIGN_IN_COMPLETE]: (state, { endpoint, user }) => state.merge({
     attributes: user,

@@ -2336,7 +2336,7 @@ function requestPasswordReset(body, endpoint) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateAccount = exports.updateAccountError = exports.updateAccountAuth = exports.updateAccountComplete = exports.updateAccountStart = exports.updateAccountFormUpdate = exports.UPDATE_ACCOUNT_AUTH = exports.UPDATE_ACCOUNT_FORM_UPDATE = exports.UPDATE_ACCOUNT_ERROR = exports.UPDATE_ACCOUNT_COMPLETE = exports.UPDATE_ACCOUNT_START = undefined;
+exports.updateAccount = exports.updateAccountError = exports.updateAuthPossible = exports.updateAccountAuth = exports.updateAccountComplete = exports.updateAccountStart = exports.updateAccountFormUpdate = exports.UPDATE_AUTH_POSSIBLE = exports.UPDATE_ACCOUNT_AUTH = exports.UPDATE_ACCOUNT_FORM_UPDATE = exports.UPDATE_ACCOUNT_ERROR = exports.UPDATE_ACCOUNT_COMPLETE = exports.UPDATE_ACCOUNT_START = undefined;
 
 var _sessionStorage = __webpack_require__(9);
 
@@ -2357,6 +2357,7 @@ var UPDATE_ACCOUNT_COMPLETE = exports.UPDATE_ACCOUNT_COMPLETE = "UPDATE_ACCOUNT_
 var UPDATE_ACCOUNT_ERROR = exports.UPDATE_ACCOUNT_ERROR = "UPDATE_ACCOUNT_ERROR";
 var UPDATE_ACCOUNT_FORM_UPDATE = exports.UPDATE_ACCOUNT_FORM_UPDATE = "UPDATE_ACCOUNT_FORM_UPDATE";
 var UPDATE_ACCOUNT_AUTH = exports.UPDATE_ACCOUNT_AUTH = "UPDATE_ACCOUNT_AUTH";
+var UPDATE_AUTH_POSSIBLE = exports.UPDATE_AUTH_POSSIBLE = "UPDATE_AUTH_POSSIBLE";
 
 var updateAccountFormUpdate = exports.updateAccountFormUpdate = function updateAccountFormUpdate(endpoint, key, value) {
   return { type: UPDATE_ACCOUNT_FORM_UPDATE, endpoint: endpoint, key: key, value: value };
@@ -2369,6 +2370,9 @@ var updateAccountComplete = exports.updateAccountComplete = function updateAccou
 };
 var updateAccountAuth = exports.updateAccountAuth = function updateAccountAuth(user) {
   return { type: UPDATE_ACCOUNT_AUTH, user: user };
+};
+var updateAuthPossible = exports.updateAuthPossible = function updateAuthPossible() {
+  return { type: UPDATE_AUTH_POSSIBLE };
 };
 var updateAccountError = exports.updateAccountError = function updateAccountError(errors, endpoint) {
   return { type: UPDATE_ACCOUNT_ERROR, errors: errors, endpoint: endpoint };
@@ -7211,7 +7215,7 @@ var initialState = _immutable2.default.fromJS({
   mustResetPassword: false,
   endpointKey: null,
   smsToken: "",
-  phoneEditAuth: false
+  editAuthPossible: false
 });
 
 exports.default = (0, _reduxImmutablejs.createReducer)(initialState, (_createReducer = {}, _defineProperty(_createReducer, authActions.AUTHENTICATE_COMPLETE, function (state, _ref) {
@@ -7279,6 +7283,8 @@ exports.default = (0, _reduxImmutablejs.createReducer)(initialState, (_createRed
 }), _defineProperty(_createReducer, _updateAccount.UPDATE_ACCOUNT_AUTH, function (state, _ref9) {
   var user = _ref9.user;
   return state.set('attributes', user);
+}), _defineProperty(_createReducer, _updateAccount.UPDATE_AUTH_POSSIBLE, function (state) {
+  return state.set("editAuthPossible", true);
 }), _defineProperty(_createReducer, _oauthSignIn.OAUTH_SIGN_IN_COMPLETE, function (state, _ref10) {
   var endpoint = _ref10.endpoint,
       user = _ref10.user;
