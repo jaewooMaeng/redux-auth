@@ -41,7 +41,6 @@ export const updateAccount = (body, endpointKey) => {
     dispatch(updateAccountStart(endpointKey));
 
     let data = new FormData();
-    console.log(body)
     for (let key in body) {
       if (key === 'auth' && !body[key]) {
         data.append(key, false);
@@ -51,10 +50,6 @@ export const updateAccount = (body, endpointKey) => {
     }
 
     return fetch(getAccountUpdateUrl(endpointKey), {
-      //headers: {
-        //"Accept": "application/json",
-        //'Content-Type': 'multipart/form-data',
-      //},
       method: "put",
       body: data,
     })

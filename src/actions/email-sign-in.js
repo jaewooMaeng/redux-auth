@@ -54,13 +54,10 @@ export function emailSignIn(body, endpointKey) {
     })
       .then(parseResponse)
       .then((user) => {
-        console.log(user)
         if(user.data.require_tfa) {
-          console.log(user.data.require_tfa)
           dispatch(emailSignInTemp(currentEndpointKey, user))
           return user
         } else {
-          console.log(user.data.require_tfa)
           dispatch(emailSignInComplete(currentEndpointKey, user))
           return user
         }
