@@ -1292,13 +1292,10 @@ function emailSignIn(body, endpointKey) {
       method: "post",
       body: JSON.stringify(body)
     }).then(_handleFetchResponse.parseResponse).then(function (user) {
-      console.log(user);
       if (user.data.require_tfa) {
-        console.log(user.data.require_tfa);
         dispatch(emailSignInTemp(currentEndpointKey, user));
         return user;
       } else {
-        console.log(user.data.require_tfa);
         dispatch(emailSignInComplete(currentEndpointKey, user));
         return user;
       }
@@ -2389,9 +2386,8 @@ var updateAccount = exports.updateAccount = function updateAccount(body, endpoin
     dispatch(updateAccountStart(endpointKey));
 
     var data = new FormData();
-    console.log(body);
     for (var key in body) {
-      if (key === 'auth' && !body[key]) {
+      if (key === 'enable_tfa' && !body[key]) {
         data.append(key, false);
       } else if (body[key]) {
         data.append(key, body[key]);
@@ -2399,10 +2395,6 @@ var updateAccount = exports.updateAccount = function updateAccount(body, endpoin
     }
 
     return (0, _fetch2.default)((0, _sessionStorage.getAccountUpdateUrl)(endpointKey), {
-      //headers: {
-      //"Accept": "application/json",
-      //'Content-Type': 'multipart/form-data',
-      //},
       method: "put",
       body: data
     }).then(_handleFetchResponse.parseResponse).then(function (_ref) {

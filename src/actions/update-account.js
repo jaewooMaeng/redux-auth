@@ -42,7 +42,7 @@ export const updateAccount = (body, endpointKey) => {
 
     let data = new FormData();
     for (let key in body) {
-      if (key === 'auth' && !body[key]) {
+      if (key === 'enable_tfa' && !body[key]) {
         data.append(key, false);
       } else if (body[key]) {
         data.append(key, body[key]);
