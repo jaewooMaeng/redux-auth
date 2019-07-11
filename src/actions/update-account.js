@@ -8,8 +8,8 @@ export const UPDATE_ACCOUNT_COMPLETE    = "UPDATE_ACCOUNT_COMPLETE";
 export const UPDATE_ACCOUNT_ERROR       = "UPDATE_ACCOUNT_ERROR";
 export const UPDATE_ACCOUNT_FORM_UPDATE = "UPDATE_ACCOUNT_FORM_UPDATE";
 export const UPDATE_ACCOUNT_AUTH        = "UPDATE_ACCOUNT_AUTH";
-export const UPDATE_AUTH_POSSIBLE       = "UPDATE_AUTH_POSSIBLE";
-export const UPDATE_AUTH_NOT_POSSIBLE   = "UPDATE_AUTH_NOT_POSSIBLE";
+export const UPDATE_TFA_POSSIBLE       = "UPDATE_TFA_POSSIBLE";
+export const UPDATE_TFA_NOT_POSSIBLE   = "UPDATE_TFA_NOT_POSSIBLE";
 
 
 export const updateAccountFormUpdate = (endpoint, key, value) => {
@@ -25,10 +25,10 @@ export const updateAccountAuth = (user) => {
   return { type: UPDATE_ACCOUNT_AUTH, user };
 }
 export const updateAuthPossible = () => {
-  return { type: UPDATE_AUTH_POSSIBLE };
+  return { type: UPDATE_TFA_POSSIBLE };
 }
 export const updateAuthNotPossible = () => {
-  return { type: UPDATE_AUTH_NOT_POSSIBLE };
+  return { type: UPDATE_TFA_NOT_POSSIBLE };
 }
 export const updateAccountError = (errors, endpoint) => {
   return { type: UPDATE_ACCOUNT_ERROR, errors, endpoint };
